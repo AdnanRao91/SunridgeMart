@@ -9,7 +9,7 @@ const tabsData = [
     content: <div>This is the content of Tab 1</div>,
   },
   {
-    label: { name: 'Ration Box' , image: '/assets/home/sugar.png'},
+    label: { name: 'Ration Box' , image: '/assets/home/supplies.png'},
     content: <div>This is the content of Tab 1</div>,
   },
   {

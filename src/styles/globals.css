@@ -108,7 +108,11 @@ header .banner-header{
 .active{
   color: red;
 }
-
+img.tab-image {
+  border: 1px solid;
+  border-radius: 50px;
+  padding: 10px;
+}
 /* .background-exculsive{
   background-image: url('/assets/home/image-leave.png');
   background-position: center center;

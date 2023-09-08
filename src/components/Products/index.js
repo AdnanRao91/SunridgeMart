@@ -22,14 +22,14 @@ export default function Products({tabs}){
         <div>
         </div>
         <div className="tabs">
-      <ul className="tab-list flex gap-4">
+      <ul className="tab-list text-center flex justify-between gap-4">
         {tabs.map((tab, index) => (
           <li
             key={index}
             className={`tab-item ${activeTab === index ? "active" : ""}`}
             onClick={() => setActiveTab(index)}
           >
-            <img src={tab.label.image} alt={tab.label.name} />
+            <img src={tab.label.image} alt={tab.label.name}  className="tab-image"/>
             {tab.label.name}
           </li>
         ))}
