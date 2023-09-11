@@ -103,16 +103,24 @@ header .banner-header{
   border-radius: 7px;
 }
 .tab-item{
-  color: green;
+  color: #F36F28;
 }
-.active{
-  color: red;
+.active img.tab-image{
+  background-color: #F36F28;
 }
-
+img.tab-image {
+  border: 2px solid #F36F28;
+  border-radius: 50px;
+  padding: 10px;
+}
 /* .background-exculsive{
   background-image: url('/assets/home/image-leave.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 } */
+.product-main-image{
+  width: 218px;
+  height: 218px;
+}
 

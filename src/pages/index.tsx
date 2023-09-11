@@ -3,45 +3,93 @@ import { Inter } from 'next/font/google'
 import Exculsive from '../components/exculsive'
 import Products from '../components/Products'
 const inter = Inter({ subsets: ['latin'] })
-const tabsData = [
+
+const categories = [
   {
-    label: { name: 'sugar' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
+    name: "Sugar",
+    image: '/assets/home/sugar.png'
   },
   {
-    label: { name: 'Ration Box' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
+    name: "Ration box",
+    image: '/assets/home/sugar.png'
   },
   {
-    label: { name: 'Rice' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
+    name: "Rice",
+    image: '/assets/home/sugar.png'
   },
   {
-    label: { name: 'Value Bundle' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
+    name: 'Value Bandle',
+    image: '/assets/home/sugar.png'
   },
   {
-    label: { name: 'Besan' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
+    name: 'Baisan',
+    image: '/assets/home/sugar.png'
   },
   {
-    label: { name: 'Suji' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
+   name: 'Suji',
+   image: '/assets/home/sugar.png'
   },
   {
-    label: { name: 'Maida' , image: '/assets/home/sugar.png'},
-    content: <div>This is the content of Tab 1</div>,
-  },
+    name: 'Maida',
+    image: '/assets/home/sugar.png'
+   },
 
 ];
+
+const subcategories = [
+  [
+    {
+      name: "Sugar",
+      category: "Sugar"
+    },
+    {
+      name: "Flour",
+      category: "Special Aata"
+    },
+    {
+      name: "Flour",
+      category: "Fortified Aata"
+    },
+    {
+      name: "Rice",
+      category: "Sela"
+    }
+  ]
+]
+
+const products =[
+  {
+    name:"Sweet sugar",
+    category:"Sugar",
+    subCategory:"Sugar",
+    brand:"Sunridge",
+    price: 230,
+    quantity: 120,
+    discountPercent: 10,
+    imageUrl:"/assets/home/red-rice.png",
+    rating:4.5    
+  },
+  {
+    name:"Basmati Rice",
+    category:"Rice",
+    subCategory:"Rice",
+    brand:"Sunridge",
+    price: 340,
+    quantity: 40,
+    discountPercent: 8,
+    imageUrl:"/assets/home/red-rice.png",
+    rating:5   
+  }
+]
+
 export default function Home() {
- 
+
   return (
- <>
- <div>
-  <Exculsive />
-  <Products tabs={tabsData} />
-  </div>
- </>
+    <>
+      <div>
+        <Exculsive />
+        <Products tabs={categories} product={products} />
+      </div>
+    </>
   )
 }
