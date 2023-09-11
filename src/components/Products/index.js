@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Products({tabs}){
+export default function Products({tabs, product}){
     const [activeTab, setActiveTab] = useState(0);
     return(
         <div className="product-img-background px-20">
@@ -22,21 +22,31 @@ export default function Products({tabs}){
         <div>
         </div>
         <div className="tabs">
-      <ul className="tab-list text-center flex justify-between gap-4">
+      <ul className="tab-list flex text-center justify-between gap-4">
         {tabs.map((tab, index) => (
           <li
             key={index}
             className={`tab-item ${activeTab === index ? "active" : ""}`}
             onClick={() => setActiveTab(index)}
           >
-            <img src={tab.label.image} alt={tab.label.name}  className="tab-image"/>
-            {tab.label.name}
+            <img src={tab.image}  className="tab-image"/>
+           <div className="f-14 black-text my-4">{tab.name}</div> 
           </li>
         ))}
       </ul>
-      <div className="tab-content">
-        {tabs[activeTab].content}
-      </div>
+      <div className="tab-content flex">
+          {product.map((data, index) => (
+            <div key={index}>
+              <div className="product-image-box">
+                <img src={data.imageUrl} className="product-main-image" />
+              </div>
+              <div>{data.price}</div>
+            </div>
+          ))}
+        </div>
+      {/* <div className="tab-content">
+        {tabs[activeTab].content.image}
+      </div> */}
     </div>
     </div>
     )
