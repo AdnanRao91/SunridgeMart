@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Exculsive from '../components/exculsive'
 import Products from '../components/Products'
+import Banner from "@/components/HomeComponents/Banner"
 const inter = Inter({ subsets: ['latin'] })
 
 const categories = [
@@ -85,11 +86,10 @@ const products =[
 export default function Home() {
 
   return (
-    <>
-      <div>
-        <Exculsive />
-        <Products tabs={categories} product={products} />
-      </div>
-    </>
+    <div>
+      <Banner />
+      <Exculsive />
+      <Products tabs={categories} product={products} />
+    </div>
   )
 }
