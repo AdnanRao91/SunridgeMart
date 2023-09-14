@@ -102,12 +102,6 @@
 .bg-grey {
   background-color: #f1f4f7;
 }
-header{
-  z-index: 1000;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
 .text-light-black {
   color: #666666;
 }

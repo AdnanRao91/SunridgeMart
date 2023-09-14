@@ -16,7 +16,7 @@ export default function Products() {
     };
 
     return (
-        <div className="relative top-32">
+        <div>
             <Image alt="Products Banner" src="/assets/products/products-banner.png" width={0}
                 height={0}
                 sizes="100vw"
