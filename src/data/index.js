@@ -144,3 +144,32 @@ export const featuredProducts = [
         image: '/assets/home/royale-super-basmati-1kg.png'
     },
 ]
+
+
+
+export const productDetailData = {
+    id: 1,
+    images: [
+        {
+            id: 1,
+            url: '/assets/products/slider-p-1.png'
+        },
+        {
+            id: 2,
+            url: '/assets/products/slider-p-2.png'
+        },
+        {
+            id: 3,
+            url: '/assets/products/slider-p-3.png'
+        }
+    ],
+    title: "Premium Basmati Rice 1 Kg",
+    description: "Sunridge Premium Basmati’s perfectly aged grain is processed by state-of-the-art technology and packed to provide the finest quality, consistently Extra Long Grain rice holding true to the key characteristics of authentic basmati rice. When cooked, it grows 3 times its size while remaining whole (unbroken), separate, light and fluffy making it ideal for Biryani, Mandi etc.",
+    category: {
+        id: 1,
+        title: 'RICE'
+    },
+    rating: 4.5,
+    price: 515,
+    discount: 20,
+}

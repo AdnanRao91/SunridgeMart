@@ -6,7 +6,7 @@ export default function Header(){
       <header>
       <nav class="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-              <a href="#" class="flex items-center">
+              <a href="/" class="flex items-center">
                   <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
               </a>
               <div class="flex items-center lg:order-2">
@@ -37,7 +37,7 @@ export default function Header(){
                           <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">about</Link>
                       </li>
                       <li>
-                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">shop now</Link>
+                          <Link href="/products" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">shop now</Link>
                       </li>
                       <li>
                           <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">contact us</Link>

@@ -12,9 +12,9 @@ function AccordionItem({ title, content, isOpen, onClick, selectedData, onItemSe
                 className="w-full py-2 px-4 flex items-center justify-between bg-white"
                 onClick={onClick}
             >
-                <span>{title}</span>
+                <span className="f-16 nova-bold">{title}</span>
                 <svg
-                    className={`w-4 h-4 transition-transform transform ${isOpen ? 'rotate-0' : '-rotate-180'
+                    className={`w-6 h-6 stroke-black transition-transform transform ${isOpen ? 'rotate-0' : '-rotate-180'
                         }`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

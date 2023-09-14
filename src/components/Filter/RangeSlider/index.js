@@ -9,7 +9,7 @@ function valuetext(value) {
 export default function RangeSlider({ priceRange, handleChange }) {
 
     return (
-        <Box sx={{ width: 300, margin: "0 auto" }}>
+        <Box sx={{ width: "100%", margin: "0 auto" }}>
             <h3 className='text-center'>{priceRange[0]}-{priceRange[1]}</h3>
             <Slider
                 value={priceRange}

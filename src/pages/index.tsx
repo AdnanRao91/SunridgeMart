@@ -9,6 +9,7 @@ import MegaOffer from '../components/MegaOffer'
 import FeaturedProductComponent from "../components/FeaturedProductComponent"
 import DownloadApplication from '../components/DownloadApplication'
 import CustomerReview from '../components/CustomerReview'
+import ContactFooter from '@/components/ContactFooter'
 
 const categories = [
   {

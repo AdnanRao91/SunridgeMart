@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer utilities {
+    @variants responsive {
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+    }
+  }
+
 @font-face {
   font-family: "proxima-nova-regular";
   src: url("/assets/fonts/Proxima-Nova-Font/proxima_ssv/ProximaNova-Regular.otf");
@@ -209,6 +225,7 @@ img.tab-image {
   box-shadow: 0px 0px 30px #0000001a;
   border-radius: 15px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .product-card-container .product-image {
@@ -217,11 +234,11 @@ img.tab-image {
   box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.75);
-  width: 218px;
+  width: 190px;
   margin: -80px auto 0 auto;
   /* padding: 30px; */
   position: relative;
-  height: 218px;
+  height: 190px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -234,8 +251,8 @@ img.tab-image {
   border-radius: 50%;
   right: 0;
   bottom: 0;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -467,4 +484,50 @@ ul.list-footer li {
   width: 150px;
   height: 150px;
 }
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 4px 8px; /* Decrease padding for smaller buttons */
+  background-color: #ccc; /* Gray background color */
+  color: #333; /* Text color */
+  border: 1px solid #ccc; /* Gray border */
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.page-link:hover {
+  background-color: #999; /* Darker gray on hover */
+}
+
+.active .page-link {
+  background-color: #333 !important; /* Active page button color */
+  color: #fff !important; /* Text color for active page */
+}
+
+#notistack-snackbar{
+  font-family: 'Poppins';
+}
+
+.tools{
+  background-color: rgb(194, 194, 194);
+  padding: 5px 10px;
+  border-radius: 10px;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
