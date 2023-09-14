@@ -12,7 +12,7 @@ export default function ContactFooter() {
       };
     return (
         <>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 pt-20">
             <div className="col-span-1 contact-us-form">
                 <div className="contact-us bg-grey  p-4 my-20">
                     <div className="contact-heading uppercase black-text f-50 nova-bold">

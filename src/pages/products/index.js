@@ -16,7 +16,10 @@ export default function Products() {
     };
 
     return (
-        <div>
+        <div style={{
+            display: 'inline-block',
+            marginTop: '8rem'
+        }}>
             <Image alt="Products Banner" src="/assets/products/products-banner.png" width={0}
                 height={0}
                 sizes="100vw"

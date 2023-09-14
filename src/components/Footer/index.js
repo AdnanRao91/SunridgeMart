@@ -9,7 +9,7 @@ export default function Footer() {
         <>
             <div style={{
                 backgroundImage: pathname !== "/" ? "none" : "url(/assets/home//Untitled-1.png)"
-            }} className="pt-20 footer-sunridge">
+            }} className="footer-sunridge">
                 {
                     pathname == "/" && <div className='px-20'>
                         <ContactFooter />
