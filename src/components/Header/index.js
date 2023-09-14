@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Header(){
     return(
       <header>
-      <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+      <nav class="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
               <a href="#" class="flex items-center">
                   <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
@@ -28,22 +28,22 @@ export default function Header(){
               <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                   <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-4 lg:mt-0">
                       <li>
-                          <Link href="/" class="block py-2 pr-4 pl-3 black-text uppercase rounded f-18 proxima-regular" aria-current="page">Home</Link>
+                          <Link href="/" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer rounded f-18 proxima-regular" aria-current="page">Home</Link>
                       </li>
                       {/* <li>
                           <a href="#" class="block py-2 pr-4 pl-3 black-text uppercase border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">home</a>
                       </li> */}
                       <li>
-                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase f-18 proxima-regular">about</Link>
+                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">about</Link>
                       </li>
                       <li>
-                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase f-18 proxima-regular">shop now</Link>
+                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">shop now</Link>
                       </li>
                       <li>
-                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase f-18 proxima-regular">contact us</Link>
+                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">contact us</Link>
                       </li>
                       <li>
-                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase f-18 proxima-regular">donate a ration box</Link>
+                          <Link href="#" class="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">donate a ration box</Link>
                       </li>
                   </ul>
               </div>

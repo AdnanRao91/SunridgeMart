@@ -94,3 +94,53 @@ export const productsData = [
         image: '/assets/home/royale-super-basmati-1kg.png'
     },
 ]
+export const featuredProducts = [
+    {
+        id: 1,
+        title: 'SUNRIDGE FIBERFIT DIGESTIVE ATTA 2 KG',
+        category: {
+            id: 1,
+            title: 'Atta'
+        },
+        rating: 4.8,
+        price: 515,
+        discount: 20,
+        image: '/assets/home/royale-super-basmati-1kg.png'
+    },
+    {
+        id: 2,
+        title: 'PREMIUM BASMATI RICE 1 KG',
+        category: {
+            id: 1,
+            title: 'RICE'
+        },
+        rating: 4.8,
+        price: 515,
+        discount: 30,
+        image: '/assets/home/premium-basmati-rice-1kg.png'
+    },
+    {
+        id: 3,
+        title: 'SUNRIDGE WHITE CHAKKI ATTA 5 KG',
+        category: {
+            id: 1,
+            title: 'ATTA'
+        },
+        rating: 4.8,
+        price: 515,
+        discount: 10,
+        image: '/assets/home/umdah-basmati-rice-1kg.png'
+    },
+    {
+        id: 4,
+        title: 'SUNRIDGE IODIZED SALT 800 GM',
+        category: {
+            id: 1,
+            title: 'SALT'
+        },
+        rating: 4.8,
+        price: 515,
+        discount: 20,
+        image: '/assets/home/royale-super-basmati-1kg.png'
+    },
+]

@@ -3,49 +3,49 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'proxima-nova-regular';
-  src: url('/assets/fonts/Proxima-Nova-Font/proxima_ssv/ProximaNova-Regular.otf');
+  font-family: "proxima-nova-regular";
+  src: url("/assets/fonts/Proxima-Nova-Font/proxima_ssv/ProximaNova-Regular.otf");
 }
 
 @font-face {
-  font-family: 'proxima-nova-black';
-  src: url('/assets/fonts/Proxima-Nova-Font/proxima_ssv/Proxima\ Nova\ Black.otf');
+  font-family: "proxima-nova-black";
+  src: url("/assets/fonts/Proxima-Nova-Font/proxima_ssv/Proxima\ Nova\ Black.otf");
 }
 
 @font-face {
-  font-family: 'proxima-nova-extrbold';
-  src: url('/assets/fonts/Proxima-Nova-Font/proxima_ssv/Proxima\ Nova\ Extrabold.otf');
+  font-family: "proxima-nova-extrbold";
+  src: url("/assets/fonts/Proxima-Nova-Font/proxima_ssv/Proxima\ Nova\ Extrabold.otf");
 }
 
 @font-face {
-  font-family: 'nova-bold';
-  src: url('/assets/fonts/Proxima-Nova-Font/proxima_ssv/Proxima\ Nova\ Bold.otf');
+  font-family: "nova-bold";
+  src: url("/assets/fonts/Proxima-Nova-Font/proxima_ssv/Proxima\ Nova\ Bold.otf");
 }
 
 @font-face {
-  font-family: 'josefin-sans-regular';
-  src: url('/assets/fonts/Josefin_Sans/static/JosefinSans-Regular.ttf');
+  font-family: "josefin-sans-regular";
+  src: url("/assets/fonts/Josefin_Sans/static/JosefinSans-Regular.ttf");
 }
 
 @font-face {
-  font-family: 'josefin-sans-bold';
-  src: url('/assets/fonts/Josefin_Sans/static/JosefinSans-Bold.ttf');
+  font-family: "josefin-sans-bold";
+  src: url("/assets/fonts/Josefin_Sans/static/JosefinSans-Bold.ttf");
 }
 
 .josefin-sans-regular {
-  font-family: 'josefin-sans-regular';
+  font-family: "josefin-sans-regular";
 }
 
 .josefin-sans-bold {
-  font-family: 'josefin-sans-bold';
+  font-family: "josefin-sans-bold";
 }
 
 .nova-bold {
-  font-family: 'nova-bold';
+  font-family: "nova-bold";
 }
 
 .proxima-regular {
-  font-family: 'proxima-nova-regular';
+  font-family: "proxima-nova-regular";
 }
 
 .f-16 {
@@ -71,47 +71,79 @@
 .f-14 {
   font-size: 14px;
 }
-
+.f-65 {
+  font-size: 65px;
+}
+.f-60 {
+  font-size: 60px;
+}
+.f-50 {
+  font-size: 50px;
+}
 .black-text {
   color: #333333;
 }
-
+.bg-grey {
+  background-color: #f1f4f7;
+}
+header{
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
 .text-light-black {
   color: #666666;
 }
-
-.text-color-orange {
-  color: #F36F28;
+.br-light-grey {
+  background-color: #f1f1f1;
 }
 
+.text-color-orange {
+  color: #f36f28;
+}
+.bg-light-orange {
+  background-color: #f5905a;
+}
 .txt-font-extraBold {
-  font-family: 'proxima-nova-extrbold';
+  font-family: "proxima-nova-extrbold";
 }
 
 .lh-0 {
   line-height: 0;
 }
-
+.lh-1 {
+  line-height: 1;
+}
 .banner-header {
-  background: url('/assets/home/banner-background.png') transparent padding-box;
+  background: url("/assets/home/banner-background.png") transparent padding-box;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  position: relative;
+  z-index: 2; /* Ensure the banner is on top */
 }
 
 .main-heading-banner {
   font-size: 90px;
-  font-family: 'proxima-nova-black';
+  font-family: "proxima-nova-black";
   text-align: center;
   color: #333333;
 }
-
-.banner-header-postion {
-  position: relative;
-  bottom: 124px;
+nav li:after {
+  content: '';
+  display: block;
+  margin: auto;
+  height: 3px;
+  width: 0px;
+  background: transparent;
+  transition: width .5s ease, background-color .5s ease;
 }
-
+nav li:hover:after {
+  width: 100%;
+  background: #F36F28;
+}
 .content-banner {
   top: 115px;
 }
@@ -131,7 +163,8 @@
 }
 
 .exculsive-img-background {
-  background: url(/assets/home/right-side.png) no-repeat -36px, url(/assets/home/left-side.png) no-repeat right -11px;
+  background: url(/assets/home/right-side.png) no-repeat -36px,
+    url(/assets/home/left-side.png) no-repeat right -11px;
 }
 
 .product-img-background {
@@ -141,7 +174,7 @@
 .ineer-page-heading {
   font-size: 40px;
   color: #333333;
-  font-family: 'proxima-nova-extrbold';
+  font-family: "proxima-nova-extrbold";
   text-transform: uppercase;
 }
 
@@ -149,14 +182,14 @@
   border: 1px solid #20ac4c;
   border-radius: 7px;
 }
-.tab-item{
-  color: #F36F28;
+.tab-item {
+  color: #f36f28;
 }
-.active img.tab-image{
-  background-color: #F36F28;
+.active img.tab-image {
+  background-color: #f36f28;
 }
 img.tab-image {
-  border: 2px solid #F36F28;
+  border: 2px solid #f36f28;
   border-radius: 50px;
   padding: 10px;
 }
@@ -166,15 +199,14 @@ img.tab-image {
   background-repeat: no-repeat;
   background-size: cover;
 } */
-.product-main-image{
+.product-main-image {
   width: 218px;
   height: 218px;
 }
 
-
 .product-card-container {
-  background: #FEFBF2 0% 0% no-repeat padding-box;
-  box-shadow: 0px 0px 30px #0000001A;
+  background: #fefbf2 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #0000001a;
   border-radius: 15px;
   padding: 10px;
 }
@@ -197,8 +229,8 @@ img.tab-image {
 
 .product-card-container .discount-container {
   position: absolute;
-  background-color: #F36F28;
-  border: 2px solid #FDFAF1;
+  background-color: #f36f28;
+  border: 2px solid #fdfaf1;
   border-radius: 50%;
   right: 0;
   bottom: 0;
@@ -209,19 +241,230 @@ img.tab-image {
   align-items: center;
 }
 
-.product-card-container .content-container{
+.product-card-container .content-container {
   width: 70%;
   margin: 20px auto;
   text-align: center;
 }
 
-.product-card-container .icon-container{
+.product-card-container .icon-container {
   width: 40px;
   height: 40px;
-  border: 1px solid #F36F28;
+  border: 1px solid #f36f28;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   cursor: pointer;
+}
+.megaOffer-img-background {
+  background-color: #f1f4f7;
+  background-image: url(/assets/home/right-side.png);
+  background-repeat: no-repeat;
+  background-position-y: 194px;
+  background-size: 230px;
+  background-position-x: -60px;
+}
+.order-now-btn button {
+  border: 1px solid #f36f28;
+  padding: 5px 36px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  color: #f36f28;
+}
+.order-now-btn button:hover {
+  background-color: #f36f28;
+  color: white;
+}
+
+.owl-carousel img {
+  width: auto !important;
+}
+.slider-style .owl-theme .owl-nav {
+  display: block !important;
+
+  cursor: default;
+}
+.feature-product-owl button.owl-prev {
+  left: 42%;
+}
+
+.slider-style .owl-theme .owl-nav .owl-prev div {
+  text-align: left;
+
+  width: 20px;
+
+  padding: 15px;
+}
+
+.slider-style .owl-theme .owl-nav .owl-next div {
+  text-align: right;
+
+  width: 20px;
+
+  padding: 15px;
+}
+
+.slider-style .owl-theme .owl-nav .owl-prev {
+  position: absolute;
+  background-image: url(/assets/home/slider-arrow-left.png);
+  width: 60px;
+  height: 40px;
+  background-repeat: no-repeat;
+}
+
+.slider-style .owl-theme .owl-nav .owl-next {
+  position: absolute;
+  background-image: url(/assets/home/slider-arrow-right.png);
+  width: 60px;
+  height: 40px;
+  background-repeat: no-repeat;
+  right: 42%;
+}
+.slider-style .owl-theme .owl-nav .owl-prev:hover {
+  background: transparent !important;
+}
+
+.slider-style .owl-theme .owl-nav .owl-next:hover {
+  background: transparent !important;
+}
+
+
+.customer-review .owl-theme .owl-nav .owl-next:hover {
+  background: transparent !important;
+}
+
+.customer-review .owl-theme .owl-nav .owl-prev:hover {
+  background: transparent !important;
+}
+
+.customer-review .owl-theme .owl-nav .owl-prev div {
+  text-align: left;
+
+  width: 20px;
+
+  padding: 15px;
+}
+
+.customer-review .owl-theme .owl-nav .owl-next div {
+  text-align: right;
+
+  width: 20px;
+
+  padding: 15px;
+}
+
+.customer-review .owl-theme .owl-nav .owl-prev {
+  position: absolute;
+  background-image: url(/assets/home/slider-arrow-left.png);
+  width: 60px;
+  height: 40px;
+  background-repeat: no-repeat;
+  top: -18%;
+  right: 20% !important;
+}
+
+.customer-review .owl-theme .owl-nav .owl-next {
+  position: absolute;
+  background-image: url(/assets/home/slider-arrow-right.png);
+  width: 60px;
+  height: 40px;
+  background-repeat: no-repeat;
+  right: 12%;
+  top: -18%;
+}
+
+
+.product-category-bg-img {
+  background: url(/assets/home/productcategory.png) no-repeat;
+}
+.download-application {
+  background: url(/assets/home/bg-download-app.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.overlay {
+  background-color: #f1f4f7;
+  height: 100%;
+  width: 100%;
+}
+.bg-application {
+  position: absolute;
+  top: -95px;
+  left: -87px;
+}
+.icon-bg {
+  background-color: #f1f4f7;
+  padding: 15px;
+  border-radius: 30px;
+}
+.icon-apple {
+  background: white;
+  padding: 15px 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.customer-review-bg-img {
+  background: url(/assets/home/customer-review-bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.box-review {
+  padding: 3rem 2rem;
+  border-radius: 10px;
+  background-color: #fefbf2;
+}
+.wheat-img {
+  position: absolute;
+  bottom: -78px;
+  left: -9%;
+}
+.inputField {
+  line-height: 1.75rem;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.btn-sign-up {
+  padding: 0rem 0.75rem;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.image-contact {
+  border: 1px solid #1fac4c;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+.contact-us-form {
+  position: relative;
+  left: 68px;
+  z-index: 1;
+}
+ul.list-footer li {
+  font-size: 18px;
+  color: #666666;
+  font-family: "proxima-nova-regular";
+  cursor: pointer;
+}
+.footer-sunridge {
+  background: url(/assets/home//Untitled-1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+@media screen and (max-width: 767px){
+  .exculsive-deals {
+    position: absolute;
+    top: -26px;
+    left: 1%;
+}
+.exculsive-img-background{
+  background-image: none;
+}
+.box-exculsive{
+  margin-right: 0.5rem;
+}
+.product-card-container .product-image{
+  width: 150px;
+  height: 150px;
+}
 }

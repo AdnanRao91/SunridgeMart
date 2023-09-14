@@ -1,11 +1,11 @@
 import React from "react"
 import Image from "next/image"
-import TimeCount from "../timeCount"
+import TimeCount from "../TimeCount"
 export default function Exculsive() {
     return (
         <div className="exculsive-img-background px-20">
             <div className="exculsive-section my-12">
-                <div className="grid">
+                <div className="lg:grid">
                     <div className="col-span-6 background-exculsive">
                         <div className="text-center relative">
                             <div className="flex justify-center items-center">
@@ -19,7 +19,7 @@ export default function Exculsive() {
                 </div>
 
             </div>
-            <div className="flex grid grid-cols-6 gap-2">
+            <div className="lg:flex lg:grid lg:grid-cols-6 md:grid-cols-1  gap-2">
                 <div className="col-span-2">
                     <div className="flex justify-between">
                         <div className="nova-bold f-16 w-10/12">
