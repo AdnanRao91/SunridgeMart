@@ -16,10 +16,7 @@ export default function Products() {
     };
 
     return (
-        <div style={{
-            display: 'inline-block',
-            marginTop: '8rem'
-        }}>
+    <div className="top-spacing">
             <Image alt="Products Banner" src="/assets/products/products-banner.png" width={0}
                 height={0}
                 sizes="100vw"

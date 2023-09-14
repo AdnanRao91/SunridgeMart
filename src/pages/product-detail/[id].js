@@ -36,10 +36,7 @@ const ProductDetail = () => {
     ];
 
     return (
-        <div className="container mx-auto" style={{
-            display: 'inline-block',
-            marginTop: '8rem'
-        }}>
+        <div className="container mx-auto top-spacing">
             <div className="grid grid-cols-12 justify-center mx-10 p-3 mt-3">
                 <div className="col-span-4 flex justify-center">
                     <div
