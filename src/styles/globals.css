@@ -174,7 +174,7 @@ nav li:hover:after {
 
 .exculsive-img-background {
   background: url(/assets/home/right-side.png) no-repeat -36px,
-    url(/assets/home/left-side.png) no-repeat right -11px;
+    url(/assets/home/left-side.png) no-repeat right 25px;
 }
 
 .product-img-background {
@@ -462,23 +462,7 @@ ul.list-footer li {
   background-size: cover;
   background-position: bottom;
 }
-@media screen and (max-width: 767px){
-  .exculsive-deals {
-    position: absolute;
-    top: -26px;
-    left: 1%;
-}
-.exculsive-img-background{
-  background-image: none;
-}
-.box-exculsive{
-  margin-right: 0.5rem;
-}
-.product-card-container .product-image{
-  width: 150px;
-  height: 150px;
-}
-}
+
 
 .pagination {
   display: flex;
@@ -524,4 +508,91 @@ ul.list-footer li {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+@media screen and (max-width: 991px) {
+  .contact-us-form{
+    left: 0;
+  }
+  .exculsive-deals {
+    position: absolute;
+    top: 48px;
+    left: 18%;
+}
+}
+@media screen and (max-width: 767px){
+  .exculsive-deals {
+    position: absolute;
+    top: 10px;
+    left: 1%;
+}
+.slick-list{
+  text-align: center;
+}
+.exculsive-img-background{
+  background-image: none;
+}
+.box-exculsive{
+  margin-right: 0.5rem;
+}
+.product-card-container .product-image{
+  width: 150px;
+  height: 150px;
+}
+.contact-us-form{
+  left: 0;
+}
+.f-60 {
+  font-size: 40px;
+}
+.f-65 {
+  font-size: 50px;
+}
+.slider-style .owl-theme .owl-nav .owl-prev {
+ display: none;
+}
+
+.slider-style .owl-theme .owl-nav .owl-next {
+display: none;
+}
+.customer-review .owl-theme .owl-nav .owl-prev {
+display: none;
+}
+
+.customer-review .owl-theme .owl-nav .owl-next {
+display: none;
+}
+}
+@media screen and (max-width: 600px) {
+  .f-65{
+    font-size: 28px;
+  }
+  .resp-mega{
+    padding: 1rem 0.5rem;
+  }
+  .bg-application img{
+    display: none;
+  }
+  .f-60{
+    font-size: 28px;
+  }
+  .contact-us-form {
+    position: relative;
+    left: 0px;
+    z-index: 1;
+  }
+  .content-banner {
+    top: 190px;
+}
+.main-heading-banner{
+  font-size: 70px;
+}
+.f-24 {
+  font-size: 18px;
+}
+.f-50{
+  font-size: 35px;
+}
+.exculsive-deals{
+  font-size: 30px;
+}
 }

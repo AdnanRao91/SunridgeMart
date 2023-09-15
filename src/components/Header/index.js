@@ -29,7 +29,7 @@ export default function Header() {
             <nav class="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <a href="/" class="flex items-center">
-                        <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
+                        <Image src="/assets/home/logo.png" width={120} height={139} alt="Sunridge Logo" />
                     </a>
                     <div class="flex items-center lg:order-2">
                         <a href="#" class="">

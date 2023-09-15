@@ -1,7 +1,7 @@
 // ResourceService.js
 import axios from 'axios';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Define your API URL in your environment variables.
+const apiUrl = "http://172.16.20.91/api/"; // Define your API URL in your environment variables.
 
 export async function post(url, payload) {
   try {

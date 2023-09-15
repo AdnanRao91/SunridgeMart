@@ -9,15 +9,51 @@ const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
 });
 export default function TabSlider({ tabs }) {
     const [activeTab, setActiveTab] = useState(0);
+    const NextArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={{ ...style, display: 'block' }} onClick={onClick}>
+                <button className="px-4 py-2 border bg-gray-200 hover:bg-gray-300">Next</button>
+            </div>
+        );
+    };
+
+    const PrevArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={{ ...style, display: 'block' }} onClick={onClick}>
+                <button className="px-4 py-2 border bg-gray-200 hover.bg-gray-300">Prev</button>
+            </div>
+        );
+    };
     const settings = {
-        dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: tabs.length,
+        slidesToShow: 8,
         slidesToScroll: 1,
-        initialSlide: activeTab,
-        beforeChange: (curent, next) => setActiveTab(next),
-      };
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+              },
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2,
+              },
+            },
+            {
+              breakpoint: 640,
+              settings: {
+                slidesToShow: 2,
+              },
+            },
+          ],
+    };
     return (
         <>
             <div className="exculsive-section my-12">
@@ -36,7 +72,7 @@ export default function TabSlider({ tabs }) {
 
             </div>
             <div className="tab">
-                <ul className="tab-list flex text-center justify-between gap-4">
+                {/* <ul className="tab-list flex text-center justify-between gap-4">
                     {tabs.map((tab, index) => (
                         <li
                             key={index}
@@ -48,7 +84,20 @@ export default function TabSlider({ tabs }) {
                         </li>
                     ))}
      
-                </ul>
+                </ul> */}
+                <Slider {...settings}>
+                    {tabs.map((tab, index) => (
+                        <div key={index} className="p-4">
+                            <button
+                                className={`tab-item ${activeTab === index ? "active" : "inactive"}`}
+                                onClick={() => setActiveTab(index)}
+                            >
+                                <img src={tab.image} className="tab-image" />
+                            <div className="f-14 black-text my-4">{tab.name}</div>
+                            </button>
+                        </div>
+                    ))}
+                </Slider>
             </div>
         </>
     )
