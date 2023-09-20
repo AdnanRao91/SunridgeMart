@@ -88,7 +88,7 @@ export default function Products() {
                 <div className="grid grid-cols-12 mt-5 gap-5 p-5">
                     <div className="col-span-2">
                         <CustomBreadcrumbs />
-                        <SideFilter categoryList={category} changeCategory={changeCategorys}/>
+                        <SideFilter categoryList={category} changeCategory={changeCategorys} />
                     </div>
                     <div className="col-span-10">
                         <GlobalPagination

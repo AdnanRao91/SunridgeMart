@@ -48,7 +48,7 @@ function SideFilter({ categoryList, changeCategory }) {
             content: (
                 <Categories
                     categories={categoryList}
-                    selecteds={changeCategory} // Pass the function here, not the array
+                    selectedCategories={selectedCategories} // Pass the function here, not the array
                     onCategoryChange={handleCategoriesChange}
                 />
             ),
