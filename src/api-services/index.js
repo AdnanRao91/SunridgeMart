@@ -1,7 +1,7 @@
 // ResourceService.js
 import axios from 'axios';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Define your API URL in your environment variables.
+const apiUrl = "http://172.16.20.181/api/"; // Define your API URL in your environment variables.
 
 export async function post(url, payload) {
   try {
@@ -13,13 +13,13 @@ export async function post(url, payload) {
   }
 }
 
-export async function get(url, params) {
+export async function get(url) {
   try {
-    const response = await axios.get(`${apiUrl}${url}`, { params });
+    const response = await axios.get(`${apiUrl}${url}`, {});
     return response.data;
   } catch (error) {
     console.error('Error:', error);
-    throw error;
+    // throw error;
   }
 }
 

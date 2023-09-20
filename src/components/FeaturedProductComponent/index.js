@@ -15,7 +15,7 @@ const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
     ssr: false, // Disable server-side rendering
 });
 
-export default function FeaturedProductcomponent() {
+export default function FeaturedProductcomponent({featuredProducts}) {
     const options = {
         items: 3,
         nav: true,
@@ -45,12 +45,12 @@ export default function FeaturedProductcomponent() {
             <div className="exculsive-section product-category-bg-img  mt-12 px-20">
                 <div className="grid">
                     <div className="col-span-6 background-exculsive">
-                        <div className="text-center relative">
+                        <div className="text-center relative lg:mb-0  md:mb-0 sm:mb-8 xs:mb-8">
                             <div className="flex justify-center items-center">
                                 <img src="/assets/home/image-leave.png" />
                             </div>
                             <div className="ineer-page-heading exculsive-deals">
-                                Featured Project
+                                Featured Projects
                             </div>
                         </div>
                     </div>

@@ -3,21 +3,65 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import dynamic from 'next/dynamic';
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { get } from "@/api-services/index";
+import { Category } from '@mui/icons-material';
 const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
     ssr: false, // Disable server-side rendering
 });
-export default function TabSlider({ tabs }) {
+export default function TabSlider({ tabCategory, CategoryData }) {
     const [activeTab, setActiveTab] = useState(0);
+
+    const NextArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={{ ...style, display: 'block' }} onClick={onClick}>
+                <button className="">
+                    <img src='/assets/home/front.png' />
+                </button>
+            </div>
+        );
+    };
+
+    const PrevArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={{ ...style, display: 'block' }} onClick={onClick}>
+                <button className="">
+                    <img src='/assets/home/back.png' />
+
+                </button>
+            </div>
+        );
+    };
     const settings = {
-        dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: tabs.length,
+        slidesToShow: 8,
         slidesToScroll: 1,
-        initialSlide: activeTab,
-        beforeChange: (curent, next) => setActiveTab(next),
-      };
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 6,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+        ],
+    };
     return (
         <>
             <div className="exculsive-section my-12">
@@ -35,20 +79,22 @@ export default function TabSlider({ tabs }) {
                 </div>
 
             </div>
-            <div className="tab">
-                <ul className="tab-list flex text-center justify-between gap-4">
-                    {tabs.map((tab, index) => (
-                        <li
-                            key={index}
-                            className={`tab-item ${activeTab === index ? "active" : "inactive"}`}
-                            onClick={() => setActiveTab(index)}
-                        >
-                            <img src={tab.image} className="tab-image" />
-                            <div className="f-14 black-text my-4">{tab.name}</div>
-                        </li>
+            <div className="tab grid gap-4">
+                <Slider {...settings}>
+                    {tabCategory.map((tab, index) => (
+                        <div key={tab.id} className="p-4">
+                            <button
+                                className={`tab-item ${activeTab === tab.name ? "active" : "inactive"}`}
+                                onClick={() => { CategoryData(tab.id); setActiveTab(tab.name); }}
+                                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                            >
+                                <img src={tab.imageURL} className="tab-image" />
+                                <div className="f-14 black-text my-4">{tab.name}</div>
+                            </button>
+
+                        </div>
                     ))}
-     
-                </ul>
+                </Slider>
             </div>
         </>
     )

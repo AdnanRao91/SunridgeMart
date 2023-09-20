@@ -5,12 +5,12 @@ export default function DownloadApplication(){
         <>
         <div className="download-application relative mb-12">
           <div className="bg-application">
-            <img src="/assets/home/bread_1.png" className="w-11/12" />
+            <img src="/assets/home/bread_1.png" className="lg:w-11/12 sm:w-2/4" />
           </div>
-            <div className="container mx-auto">
-              <div className="grid grid-cols-12" style={{alignItems: "end"}}>
+            <div className="lg:container lg:mx-auto">
+              <div className="grid lg:grid-cols-12 sm:grid-cols-1 sm:flex xs:flex" style={{alignItems: "end"}}>
                 <div className="col-span-8">
-                    <div className="f-60 nova-bold text-light-black lh-1 ms-80 uppercase">
+                    <div className="f-60 nova-bold text-light-black lh-1 lg:ms-80 sm:mx-8 xs:mx-8 sm:pt-20 xs:py-4 uppercase">
                         Dowload Our
                         <div className="text-color-orange txt-font-extraBold">
                         Application 

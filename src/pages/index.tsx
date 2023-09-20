@@ -10,59 +10,66 @@ import FeaturedProductComponent from "../components/FeaturedProductComponent"
 import DownloadApplication from '../components/DownloadApplication'
 import CustomerReview from '../components/CustomerReview'
 import ContactFooter from '@/components/ContactFooter'
+import React, { useEffect, useState } from 'react';
+import { get } from "@/api-services/index";
 
 const categories = [
   {
-    name: "Sugar",
+    id: 1,
+    name: "FORTIFIED ATTA",
     image: '/assets/home/sugar.png'
   },
   {
-    name: "Ration box",
-    image: '/assets/home/sugar.png'
+    id: 2,
+    name: "PREMIUM QUALITY MAIDA",
+    image: '/assets/home/supplies.png'
   },
   {
-    name: "Rice",
-    image: '/assets/home/sugar.png'
+    id: 3,
+    name: "PREMIUM QUALITY RICE",
+    image: '/assets/home/icon-box.png'
   },
   {
-    name: 'Value Bandle',
-    image: '/assets/home/sugar.png'
+    id: 4,
+    name: 'IODIZED & PINK SALT',
+    image: '/assets/home/flour.png'
   },
   {
-    name: 'Baisan',
-    image: '/assets/home/sugar.png'
+    id: 5,
+    name: 'COOKING OIL',
+    image: '/assets/home/Beasan-Icon.png'
+  },
+
+];
+const products = [
+  {
+    id: 1,
+    name: "FORTIFIED ATTA",
+    image: '/assets/products/atta.png'
   },
   {
-    name: 'Suji',
-    image: '/assets/home/sugar.png'
+    id: 2,
+    name: "PREMIUM QUALITY MAIDA",
+    image: '/assets/home/maida.png'
   },
   {
-    name: 'Maida',
-    image: '/assets/home/sugar.png'
+    id: 3,
+    name: "PREMIUM QUALITY RICE",
+    image: '/assets/home/rice-1.png'
+  },
+  {
+    id: 4,
+    name: 'IODIZED & PINK SALT',
+    image: '/assets/home/salt.png'
+  },
+  {
+    id: 5,
+    name: 'COOKING OIL',
+    image: '/assets/home/Beasan-Icon.png'
   },
 
 ];
 
-const subcategories = [
-  [
-    {
-      name: "Sugar",
-      category: "Sugar"
-    },
-    {
-      name: "Flour",
-      category: "Special Aata"
-    },
-    {
-      name: "Flour",
-      category: "Fortified Aata"
-    },
-    {
-      name: "Rice",
-      category: "Sela"
-    }
-  ]
-]
 
 const reviews = [
   {
@@ -93,21 +100,90 @@ const reviews = [
 ]
 
 export default function Home() {
+  const [category, setcategory] = useState([]);
+  const [productCategory, setProductCategory] = useState([]);
+  const [productFeatures, setProductFeatures] = useState([])
 
+
+  useEffect(() => {
+    getAllProducts()
+    getAllCategories()
+  }, []);
+
+  const getAllProducts = async () => {
+    try {
+      const apiUrl = 'Product/get-all';
+      let response = await get(apiUrl)
+      const updatedProductCat = response.data.map((apiProduct: any) => {
+        const localProduct = products.find((localProd: any) => localProd.id === apiProduct.category.id);
+
+        if (localProduct) {
+          return { ...apiProduct, imageURL: localProduct.image };
+        }
+      });
+      setProductFeatures(updatedProductCat);
+    } catch (error) {
+      console.log(error, "errorerrorerrorerror")
+    }
+  }
+
+  const getAllCategories = async () => {
+    try {
+      const apiUrl = 'Category/get-all';
+      let response = await get(apiUrl)
+      const updatedProducts = categories.map(localProduct => {
+        const apiProduct = response.data.find((apiProduct: any) => apiProduct.name == localProduct.name);
+
+        if (apiProduct) {
+          return { ...apiProduct, imageURL: localProduct.image };
+        }
+      });
+      setcategory(updatedProducts);
+      getProductByCategrory(updatedProducts[0].id)
+    } catch (error) {
+      console.log(error, "errorerrorerrorerror")
+    }
+  }
+
+  //tab category
+
+
+
+  //Product category
+  const getProductByCategrory = (id: any) => {
+    const getURL = `Product/get-by-category-id/${id}`;
+    get(getURL).then((response) => {
+      const updatedProductss = response.data.map((apiProduct: any) => {
+        const localProduct = products.find((localProd: any) => localProd.id === apiProduct.category.id);
+
+        if (localProduct) {
+          return { ...apiProduct, imageURL: localProduct.image };
+        }
+      });
+      setProductCategory(updatedProductss);
+    });
+  };
+
+  //  useEffect(() => {
+  //   CategoryDataa(1)
+  //  })
+  const CategoryDataa = (id: any) => {
+    getProductByCategrory(id)
+  }
   return (
     <div>
       <Banner />
       <Exculsive />
       <div className="px-20 product-img-background">
         <div className="">
-          <TabSlider tabs={categories} />
+          <TabSlider tabCategory={category} CategoryData={CategoryDataa} />
         </div>
         <div className="py-12">
-          <ViewProducts />
+          <ViewProducts products={productCategory} />
         </div>
       </div>
       <MegaOffer />
-      <FeaturedProductComponent />
+      <FeaturedProductComponent featuredProducts={productFeatures} />
       <DownloadApplication />
       <CustomerReview review={reviews} />
       {/* <div className="grid gap-4 grid-cols-3">
@@ -119,6 +195,8 @@ export default function Home() {
                 )
             })}
         </div> */}
+
+
     </div>
   )
 }

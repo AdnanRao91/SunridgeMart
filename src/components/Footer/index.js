@@ -11,13 +11,13 @@ export default function Footer() {
                 backgroundImage: pathname !== "/" ? "none" : "url(/assets/home//Untitled-1.png)"
             }} className="footer-sunridge">
                 {
-                    pathname == "/" && <div className='px-20'>
+                    pathname == "/" && <div className='lg:px-20'>
                         <ContactFooter />
                     </div>
                 }
 
                 <footer className='br-light-grey pt-12 mt-10' style={{ opacity: '0.8' }}>
-                    <div className='grid grid-cols-4 gap-4 px-20 pb-8'>
+                    <div className='grid lg:grid-cols-4 sm:grid-cols-1 xs:grid-cols-1 md:grid-cols-2 gap-4 px-20 sm:px-8 xs:px-8 pb-8'>
                         <div className='col-span-1'>
                             <div className='f-24 nova-bold black-text'>QUICK LINKS</div>
                             <ul className='list-footer'>
@@ -53,7 +53,7 @@ export default function Footer() {
                                 <li>
                                     <div className="flex items-center">
                                         <img src="/assets/home/fb.png" className="image-contact me-4" />
-                                        <div className="f-14 text-light-black proxima-regular">
+                                        <div className="f-18 text-light-black proxima-regular">
                                             Facebook
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@ export default function Footer() {
                                 <li className='my-3'>
                                     <div className="flex items-center">
                                         <img src="/assets/home/linkedin.png" className="image-contact me-4" />
-                                        <div className="f-14 text-light-black proxima-regular">
+                                        <div className="f-18 text-light-black proxima-regular">
                                             LinkedIn
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@ export default function Footer() {
                                 <li>
                                     <div className="flex items-center">
                                         <img src="/assets/home/twitter.png" className="image-contact me-4" />
-                                        <div className="f-14 text-light-black proxima-regular">
+                                        <div className="f-18 text-light-black proxima-regular">
                                             Twitter
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@ export default function Footer() {
                                 <li className='my-3'>
                                     <div className="flex items-center">
                                         <img src="/assets/home/instagram.png" className="image-contact me-4" />
-                                        <div className="f-14 text-light-black proxima-regular">
+                                        <div className="f-18 text-light-black proxima-regular">
                                             Instagram
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@ export default function Footer() {
                             </ul>
                         </div>
                     </div>
-                    <div className='px-20'>
+                    <div className='px-20 sm:px-8 xs:px-8'>
                         <Divider />
                         <div className='text-center f-18 text-light-black proxima-regular py-4'>
                             © Copyright 2023 Sunridge Foods Pvt Ltd.

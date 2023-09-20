@@ -1,9 +1,29 @@
 import React from "react"
+import { useEffect, useState } from 'react';
 import Image from "next/image"
-import TimeCount from "../TimeCount"
+import TimeCount from "../timeCount"
+import { get } from "@/api-services/index"
+
+
 export default function Exculsive() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      // Define the URL you want to fetch data from
+      const apiUrl = 'Brand/get-all'; // Replace with your API endpoint
+
+      // Call the get function to fetch data
+      get(apiUrl)
+        .then((response) => {
+            console.log(response,"responseresponse")
+          setData(response);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    }, []);
     return (
-        <div className="exculsive-img-background px-20">
+        <div className="exculsive-img-background px-20 lg:mt-44 xs:mt-16 sm:mt-16 md:mt-16">
             <div className="exculsive-section my-12">
                 <div className="lg:grid">
                     <div className="col-span-6 background-exculsive">
@@ -19,7 +39,7 @@ export default function Exculsive() {
                 </div>
 
             </div>
-            <div className="lg:flex lg:grid lg:grid-cols-6 md:grid-cols-1  gap-2">
+            <div className="flex grid lg:grid-cols-6 md:grid-cols-6  gap-2">
                 <div className="col-span-2">
                     <div className="flex justify-between">
                         <div className="nova-bold f-16 w-10/12">
@@ -35,9 +55,9 @@ export default function Exculsive() {
                     </div>
                     <div className="flex justify-between my-8">
                         <div className="nova-bold f-16 w-10/12">
-                        VERSATILE INGREDIENT
+                            VERSATILE INGREDIENT
                             <p className="proxima-regular f-16">
-                            Premium Basmati Rice can be used to make a variety of dishes, from traditional biryani and pulao to international delights like fried rice, making it a culinary staple for diverse cuisines.
+                                Premium Basmati Rice can be used to make a variety of dishes, from traditional biryani and pulao to international delights like fried rice, making it a culinary staple for diverse cuisines.
                             </p>
                         </div>
                         <div>
@@ -58,27 +78,30 @@ export default function Exculsive() {
                             </div>
                         </div>
                         <div className="nova-bold f-16 w-10/12">
-                        GLUTEN-FREE OPTION
+                            GLUTEN-FREE OPTION
                             <p className="proxima-regular f-16">
-                            Our Premium Basmati Rice offers a safe and tasty alternative for diverse diets especially for those with gluten intolerance.
+                                Our Premium Basmati Rice offers a safe and tasty alternative for diverse diets especially for those with gluten intolerance.
                             </p>
                         </div>
                     </div>
                     <div className="flex justify-between my-8">
-                    <div>
+                        <div>
                             <div className="box-exculsive p-2">
                                 <img src="/assets/home/wallet-1.png" alt="heart" />
                             </div>
                         </div>
                         <div className="nova-bold f-16 w-10/12">
-                        BUDGET-FRIENDLY SUSTENANCE
+                            BUDGET-FRIENDLY SUSTENANCE
                             <p className="proxima-regular f-16">
-                            Our Premium Basmati Rice is an economical staple that fills you up, making it a cost-effective choice for satisfying meals.
+                                Our Premium Basmati Rice is an economical staple that fills you up, making it a cost-effective choice for satisfying meals.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+            {/* <div>
+                <button onClick={handleButtonClick}>Hello</button>
+            </div> */}
             <div>
                 <TimeCount />
             </div>

@@ -36,7 +36,7 @@ export default function CustomerReview({ review }) {
     return (
         <>
             <div className="relative">
-                <div className="exculsive-section my-12">
+                <div className="exculsive-section my-12 px-20">
                     <div className="grid">
                         <div className="col-span-6 background-exculsive">
                             <div className="text-center relative">

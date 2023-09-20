@@ -11,7 +11,7 @@ export default function Banner() {
                     </div>
                     <div className="relative">
                         <div className="mt-12">
-                            <img src='/assets/home/slide-img.png' className="w-auto" alt="atta fortified" />
+                            <img src='/assets/home/slide-img.png' className="w-full" alt="atta fortified" />
                         </div>
                     </div>
                 </div>
