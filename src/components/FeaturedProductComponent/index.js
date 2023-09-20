@@ -15,7 +15,7 @@ const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
     ssr: false, // Disable server-side rendering
 });
 
-export default function FeaturedProductcomponent() {
+export default function FeaturedProductcomponent({featuredProducts}) {
     const options = {
         items: 3,
         nav: true,

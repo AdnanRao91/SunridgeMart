@@ -4,11 +4,12 @@ import RangeSlider from '../../Filter/RangeSlider';
 import Categories from '../../Filter/Categories';
 import { brandsData, categoriesData } from '../../../data';
 
-function SideFilter() {
+function SideFilter({ categoryList, changeCategory }) {
     const [openIndex, setOpenIndex] = useState(null);
     const [priceRange, setPriceRange] = useState([0, 1000]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBrands, setSelectedBrands] = useState([]);
+
 
     const toggleAccordion = (index) => {
         if (openIndex === index) {
@@ -46,24 +47,24 @@ function SideFilter() {
             id: 2,
             content: (
                 <Categories
-                    categories={categoriesData}
-                    selectedCategories={selectedCategories}
+                    categories={categoryList}
+                    selecteds={changeCategory} // Pass the function here, not the array
                     onCategoryChange={handleCategoriesChange}
                 />
             ),
             title: 'Categories'
         },
-        {
-            id: 3,
-            content: (
-                <Categories
-                    categories={brandsData}
-                    selectedCategories={selectedBrands}
-                    onCategoryChange={handleBrandsChange}
-                />
-            ),
-            title: 'Brands'
-        },
+        // {
+        //     id: 3,
+        //     content: (
+        //         <Categories
+        //             categories={categoryList}
+        //             selectedCategories={selectedBrands}
+        //             onCategoryChange={handleBrandsChange}
+        //         />
+        //     ),
+        //     title: 'Brands'
+        // },
     ];
 
 

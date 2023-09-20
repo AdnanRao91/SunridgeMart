@@ -1,22 +1,40 @@
+'user client'
 import { Add, Remove } from "@mui/icons-material"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import ImageMagnifier from "../../components/ImageMagnifier"
 import { productDetailData } from "../../data"
 import { Avatar, Divider, Rating } from "@mui/material"
+import { get } from "@/api-services/index"
+import { useRouter } from 'next/router';
 
-
-const ProductDetail = () => {
+const ProductDetail = ({ params }) => {
 
     const [count, setCount] = useState(0)
     const [selectedImage, setSelectedImage] = useState(productDetailData.images[0].url)
-
-
-
+    const [productDetails, setProductDetails] = useState([])
+    const router = useRouter();
+    const { id } = router.query;
+    console.log(router, "hello world")
     const handleSelectImage = (val) => {
         setSelectedImage(val)
     }
-
+    useEffect(() => {
+        if (id) {
+          // Call your API function to fetch product details based on 'id'
+        //   getProductData(id)
+        //     .then((data) => {
+        //       setProductDetails(data); // Update the state with fetched product details
+        //     })
+        //     .catch((error) => {
+        //       console.error("Error fetching product details:", error);
+        //     });
+        const abc = 'Product/get-by-id/';
+        get(abc + id).then((response) => {
+            setProductDetails(response.data)
+        })
+        }
+      }, [id]);
     // Sample reviews data
     const reviews = [
         {
@@ -34,7 +52,7 @@ const ProductDetail = () => {
             date: "9/12/2023"
         },
     ];
-
+ const { query } = useRouter()
     return (
         <div className="container mx-auto" style={{
             display: 'inline-block',
@@ -63,15 +81,16 @@ const ProductDetail = () => {
                     <ImageMagnifier width={"200px"} src={selectedImage} />
                 </div>
                 <div className="col-span-5">
-                    <h1 className="nova-bold f-30 text-light-black">{productDetailData.title}</h1>
-                    <h2 className="f-14 text-light-black ">{productDetailData.description}</h2>
+
+                    <h1 className="nova-bold f-30 text-light-black">{productDetails?.category?.name}</h1>
+                    <h2 className="f-14 text-light-black ">{productDetails?.description}</h2>
                     <div className='flex gap-2 items-center mt-1'>
                         <Image src="/assets/home/star.png" width={20} height={18} />
                         <h3 className='josefin-sans-regular f-16'>{productDetailData.rating}</h3>
                         <Divider className="h-5 border-gray-300 border" />
                         <h3 className='josefin-sans-regular f-16'>Reviews <span className="bg-orange-400 text-white text-sm mr-2 px-2.5 py-0.5 rounded ">200</span> </h3>
                     </div>
-                    <h2 className="nova-bold f-24 f-16 text-color-orange mt-1">PKR {productDetailData.price}</h2>
+                    <h2 className="nova-bold f-24 f-16 text-color-orange mt-1">PKR {productDetails.price}</h2>
                     <div className="flex gap-2 border-2 border-orange-500 rounded-xl w-24 items-center justify-center mt-1">
                         <button onClick={() => setCount(count - 1)}><Remove /></button>
                         <h3 className="josefin-sans-regular f-16">{count}</h3>
@@ -80,7 +99,7 @@ const ProductDetail = () => {
                     <button className="bg-orange-500 nova-regular text-white p-2 rounded-md mt-3 uppercase">Add to cart</button>
                 </div>
             </div>
-            <div className="border-b-gray-400 border-b">
+            <div className="border-b-gray-400 border-b py-8">
                 <div className="flex justify-center">
                     <button className="bg-orange-500 hover:bg-orange-600 transition nova-regular text-white px-4 py-2 rounded-sm mt-3">Reviews</button>
                 </div>
