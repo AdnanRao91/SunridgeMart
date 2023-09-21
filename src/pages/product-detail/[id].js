@@ -8,33 +8,39 @@ import { Avatar, Divider, Rating } from "@mui/material"
 import { get } from "@/api-services/index"
 import { useRouter } from 'next/router';
 
-const ProductDetail = ({ params }) => {
-
+const ProductDetail = () => {
+    const [discountedPrice, setDiscountedPrice] = useState(0);
     const [count, setCount] = useState(0)
     const [selectedImage, setSelectedImage] = useState(productDetailData.images[0].url)
-    const [productDetails, setProductDetails] = useState([])
+    const [productDetails, setProductDetails] = useState(null)
     const router = useRouter();
     const { id } = router.query;
-    console.log(router, "hello world")
+
     const handleSelectImage = (val) => {
         setSelectedImage(val)
     }
+    const calculateDiscountedPrice = (data) => {
+        const discountAmount = (data?.price * data?.discount) / 100;
+        const calculatedDiscountedPrice = data?.price - discountAmount;
+        setDiscountedPrice(calculatedDiscountedPrice);
+    };
+
+
     useEffect(() => {
-        if (id) {
-          // Call your API function to fetch product details based on 'id'
-        //   getProductData(id)
-        //     .then((data) => {
-        //       setProductDetails(data); // Update the state with fetched product details
-        //     })
-        //     .catch((error) => {
-        //       console.error("Error fetching product details:", error);
-        //     });
-        const abc = 'Product/get-by-id/';
-        get(abc + id).then((response) => {
+        getProductDetail()
+    }, [router]);
+
+    const getProductDetail = async () => {
+        try {
+            const url = `Product/get-by-id/${id}`;
+            let response = await get(url)
             setProductDetails(response.data)
-        })
+            calculateDiscountedPrice(response.data)
+        } catch (error) {
+            console.log(error, "errorerrorerror")
         }
-      }, [id]);
+    }
+
     // Sample reviews data
     const reviews = [
         {
@@ -52,7 +58,7 @@ const ProductDetail = ({ params }) => {
             date: "9/12/2023"
         },
     ];
- const { query } = useRouter()
+    const { query } = useRouter()
     return (
         <div className="container mx-auto top-spacing">
             <div className="grid grid-cols-12 justify-center mx-10 p-3 mt-3">
@@ -79,7 +85,8 @@ const ProductDetail = ({ params }) => {
                 </div>
                 <div className="col-span-5">
 
-                    <h1 className="nova-bold f-30 text-light-black">{productDetails?.category?.name}</h1>
+                    <h1 className="f-24 nova-bold text-light-black mt-1">{productDetails?.name}</h1>
+                    <h1 className="f-18 proxima-regular text-light-black">{productDetails?.category}</h1>
                     <h2 className="f-14 text-light-black ">{productDetails?.description}</h2>
                     <div className='flex gap-2 items-center mt-1'>
                         <Image src="/assets/home/star.png" width={20} height={18} />
@@ -87,11 +94,27 @@ const ProductDetail = ({ params }) => {
                         <Divider className="h-5 border-gray-300 border" />
                         <h3 className='josefin-sans-regular f-16'>Reviews <span className="bg-orange-400 text-white text-sm mr-2 px-2.5 py-0.5 rounded ">200</span> </h3>
                     </div>
-                    <h2 className="nova-bold f-24 f-16 text-color-orange mt-1">PKR {productDetails.price}</h2>
+                    {/* <h2 className="nova-bold f-24 f-16 text-color-orange mt-1">PKR {productDetails.price}</h2> */}
+                    <div className='flex gap-2 mt-2'>
+                        {productDetailData?.discount ? (
+                            <h3 className='text-color-orange josefin-sans-bold f-16'>PKR {discountedPrice}</h3>
+                        ) : (
+                            <h3 className='text-color-orange josefin-sans-bold f-16'>PKR {productDetails?.price}</h3>
+                        )}
+                        {productDetailData?.discount ? (
+                            <h3 className='text-light-black josefin-sans-regular f-16 line-through'>PKR{productDetails?.price}</h3>
+                        ) : (
+                            <h3 className='text-color-orange josefin-sans-bold f-16'></h3>
+                        )}
+                        {/* <h3 className='text-light-black josefin-sans-regular f-18 line-through'>{originalPrice} </h3> */}
+                    </div>
                     <div className="flex gap-2 border-2 border-orange-500 rounded-xl w-24 items-center justify-center mt-1">
                         <button onClick={() => setCount(count - 1)}><Remove /></button>
                         <h3 className="josefin-sans-regular f-16">{count}</h3>
                         <button onClick={() => setCount(count + 1)}><Add /></button>
+                        {
+
+                        }
                     </div>
                     <button className="bg-orange-500 nova-regular text-white p-2 rounded-md mt-3 uppercase">Add to cart</button>
                 </div>

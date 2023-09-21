@@ -10,7 +10,7 @@ const ProductCard = ({ data }) => {
     const router = useRouter()
     const { enqueueSnackbar } = useSnackbar();
     const calculateDiscountedPrice = () => {
-        setDiscountPercentage(data?.discount?.discountPercent);
+        setDiscountPercentage(data?.discount);
         setOriginalPrice(data?.price);
         const discountAmount = (originalPrice * discountPercentage) / 100;
         const calculatedDiscountedPrice = originalPrice - discountAmount;
@@ -21,9 +21,9 @@ const ProductCard = ({ data }) => {
     }, [originalPrice, discountPercentage]);
     useEffect(() => {
         // Whenever new data is received, update the state variables.
-        setDiscountPercentage(data?.discount?.discountPercent || 0);
+        setDiscountPercentage(data?.discount || 0);
         setOriginalPrice(data?.price || 0);
-      }, [data]);
+    }, [data]);
     const handleAddtoWishlist = (e) => {
         e.stopPropagation();
         enqueueSnackbar('Product added to wishlist successfully', {
@@ -50,23 +50,23 @@ const ProductCard = ({ data }) => {
 
     return (
         <div className="product-card-container height-product-card relative" onClick={() => router.push(`/product-detail/${data.id}`)}>
-            <div className="product-image">
-                <img src={data?.imageURL} style={{ margin: "0 auto", objectFit: "cover" }} alt='product image'/>
-                
-                    {
-                        discountPercentage ? (
-                            <div className='discount-container'>
-                            <h2 className='f-16 proxima-regular text-white'>{discountPercentage}%</h2>
-                            </div>
+            <div className="product-image" style={{ }}>
+                <Image src={data?.imageURL} width={65} height={146} style={{ margin: "0 auto" }} alt='product image' />
 
-                        ) : 
+                {
+                    discountPercentage ? (
+                        <div className='discount-container'>
+                            <h2 className='f-16 proxima-regular text-white'>{discountPercentage}%</h2>
+                        </div>
+
+                    ) :
                         (
                             ''
                         )
-                    }
+                }
             </div>
             <div className='content-container'>
-                <h3 className='f-14 proxima-regular text-light-black'>{data?.category?.name}</h3>
+                <h3 className='f-14 proxima-regular text-light-black'>{data?.category}</h3>
                 <h3 className='f-18 nova-bold text-light-black mt-1'>{data?.name}</h3>
                 <div className='flex justify-center gap-2 items-center mt-1'>
                     <Image src="/assets/home/star.png" width={20} height={18} />
@@ -78,7 +78,7 @@ const ProductCard = ({ data }) => {
                     ) : (
                         <h3 className='text-color-orange josefin-sans-bold f-16'>PKR {originalPrice}</h3>
                     )}
-                      {discountPercentage ? (
+                    {discountPercentage ? (
                         <h3 className='text-light-black josefin-sans-regular f-16 line-through'>PKR {originalPrice}</h3>
                     ) : (
                         <h3 className='text-color-orange josefin-sans-bold f-16'></h3>

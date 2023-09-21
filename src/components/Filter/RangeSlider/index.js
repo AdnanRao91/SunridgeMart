@@ -6,7 +6,7 @@ function valuetext(value) {
     return `${value}°C`;
 }
 
-export default function RangeSlider({ priceRange, handleChange }) {
+export default function RangeSlider({ priceRange, handleChange, handlePriceRangeCommited }) {
 
     return (
         <Box sx={{ width: "100%", margin: "0 auto" }}>
@@ -17,7 +17,8 @@ export default function RangeSlider({ priceRange, handleChange }) {
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
                 min={0}
-                max={1000}
+                max={2000}
+                onChangeCommitted={handlePriceRangeCommited}
             />
         </Box>
     );

@@ -21,21 +21,16 @@ const categories = [
   },
   {
     id: 2,
-    name: "PREMIUM QUALITY MAIDA",
-    image: '/assets/home/supplies.png'
-  },
-  {
-    id: 3,
     name: "PREMIUM QUALITY RICE",
     image: '/assets/home/icon-box.png'
   },
   {
-    id: 4,
+    id: 3,
     name: 'IODIZED & PINK SALT',
     image: '/assets/home/flour.png'
   },
   {
-    id: 5,
+    id: 4,
     name: 'COOKING OIL',
     image: '/assets/home/Beasan-Icon.png'
   },
@@ -49,7 +44,7 @@ const products = [
   },
   {
     id: 2,
-    name: "PREMIUM QUALITY MAIDA",
+name: "PREMIUM QUALITY MAIDA",
     image: '/assets/home/maida.png'
   },
   {
@@ -65,7 +60,7 @@ const products = [
   {
     id: 5,
     name: 'COOKING OIL',
-    image: '/assets/home/Beasan-Icon.png'
+    image: '/assets/home/cooking-oil.png'
   },
 
 ];
@@ -106,34 +101,33 @@ export default function Home() {
 
 
   useEffect(() => {
-    getAllProducts()
+    // getAllProducts()
     getAllCategories()
   }, []);
 
-  const getAllProducts = async () => {
-    try {
-      const apiUrl = 'Product/get-all';
-      let response = await get(apiUrl)
-      const updatedProductCat = response.data.map((apiProduct: any) => {
-        const localProduct = products.find((localProd: any) => localProd.id === apiProduct.category.id);
+  // const getAllProducts = async () => {
+  //   try {
+  //     const apiUrl = 'Product/get-all';
+  //     let response = await get(apiUrl)
+  //     const updatedProductCat = response.data.map((apiProduct: any) => {
+  //       const localProduct = products.find((localProd: any) => localProd.name === apiProduct.category.name);
 
-        if (localProduct) {
-          return { ...apiProduct, imageURL: localProduct.image };
-        }
-      });
-      setProductFeatures(updatedProductCat);
-    } catch (error) {
-      console.log(error, "errorerrorerrorerror")
-    }
-  }
+  //       if (localProduct) {
+  //         return { ...apiProduct, imageURL: localProduct.image };
+  //       }
+  //     });
+  //     setProductFeatures(updatedProductCat);
+  //   } catch (error) {
+  //     console.log(error, "errorerrorerrorerror")
+  //   }
+  // }
 
   const getAllCategories = async () => {
     try {
       const apiUrl = 'Category/get-all';
       let response = await get(apiUrl)
-      const updatedProducts = categories.map(localProduct => {
+      const updatedProducts: any = categories.map(localProduct => {
         const apiProduct = response.data.find((apiProduct: any) => apiProduct.name == localProduct.name);
-
         if (apiProduct) {
           return { ...apiProduct, imageURL: localProduct.image };
         }
@@ -145,16 +139,13 @@ export default function Home() {
     }
   }
 
-  //tab category
-
-
 
   //Product category
   const getProductByCategrory = (id: any) => {
     const getURL = `Product/get-by-category-id/${id}`;
     get(getURL).then((response) => {
-      const updatedProductss = response.data.map((apiProduct: any) => {
-        const localProduct = products.find((localProd: any) => localProd.id === apiProduct.category.id);
+      const updatedProductss = response.data.products.map((apiProduct: any) => {
+        const localProduct = products.find((localProd: any) => localProd.name === apiProduct.category);
 
         if (localProduct) {
           return { ...apiProduct, imageURL: localProduct.image };

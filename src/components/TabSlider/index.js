@@ -81,15 +81,15 @@ export default function TabSlider({ tabCategory, CategoryData }) {
             </div>
             <div className="tab grid gap-4">
                 <Slider {...settings}>
-                    {tabCategory.map((tab, index) => (
-                        <div key={tab.id} className="p-4">
+                    {tabCategory?.map((tab, index) => (
+                        <div key={tab?.id} className="p-4">
                             <button
-                                className={`tab-item ${activeTab === tab.name ? "active" : "inactive"}`}
-                                onClick={() => { CategoryData(tab.id); setActiveTab(tab.name); }}
+                                className={`tab-item ${activeTab === tab?.name ? "active" : "inactive"}`}
+                                onClick={() => { CategoryData(tab?.id); setActiveTab(tab?.name); }}
                                 style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
                             >
-                                <img src={tab.imageURL} className="tab-image" />
-                                <div className="f-14 black-text my-4">{tab.name}</div>
+                                <img src={tab?.imageURL} className="tab-image" />
+                                <div className="f-14 black-text my-4">{tab?.name}</div>
                             </button>
 
                         </div>

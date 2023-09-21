@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 
-function Categories({ categories, selectedCategories, onCategoryChange }) {
+function Categories({ categories, selectedCategories, onCategoryChange, label }) {
     const handleCategoryChange = (category) => {
         const updatedCategories = [...selectedCategories];
-        if (updatedCategories.includes(category.id)) {
-            updatedCategories.splice(updatedCategories.indexOf(category.id), 1);
+        const categoryIndex = updatedCategories.findIndex((item) => item.value == category.id);
+
+        if (categoryIndex !== -1) {
+            // Category already selected, so remove it
+            updatedCategories.splice(categoryIndex, 1);
         } else {
-            updatedCategories.push(category.id);
+            // Category not selected, so add it
+            updatedCategories.push({
+                key: label,
+                value: category.id.toString()
+            });
         }
+
         onCategoryChange(updatedCategories);
     };
 
@@ -19,7 +27,7 @@ function Categories({ categories, selectedCategories, onCategoryChange }) {
                         <input
                             type="checkbox"
                             value={category.id}
-                            checked={selectedCategories.includes(category.id)}
+                            checked={selectedCategories.find((item) => item.value == category.id)}
                             onChange={() => handleCategoryChange(category)}
                             className="mr-2"
                         />

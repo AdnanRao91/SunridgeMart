@@ -4,11 +4,12 @@ import RangeSlider from '../../Filter/RangeSlider';
 import Categories from '../../Filter/Categories';
 import { brandsData, categoriesData } from '../../../data';
 
-function SideFilter({ categoryList, changeCategory }) {
+function SideFilter({ categoryList, brands, getProducts }) {
     const [openIndex, setOpenIndex] = useState(null);
-    const [priceRange, setPriceRange] = useState([0, 1000]);
+    const [priceRange, setPriceRange] = useState([0, 2000]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBrands, setSelectedBrands] = useState([]);
+    const [apiData, setApiData] = useState([])
 
 
     const toggleAccordion = (index) => {
@@ -23,13 +24,45 @@ function SideFilter({ categoryList, changeCategory }) {
         setPriceRange(value);
     };
 
+    const handlePriceRangeCommited = (event, value) => {
+        let payload = {
+            "filterBrandArray": selectedBrands,
+            "filterCategoryArray": selectedCategories,
+            "priceRange": {
+                "priceFrom": value[0],
+                "priceTo": value[1]
+            }
+        }
+        getProducts(payload)
+    };
+
     const handleCategoriesChange = (categories) => {
+        let payload = {
+            "filterBrandArray": selectedBrands,
+            "filterCategoryArray": categories,
+            "priceRange": {
+                "priceFrom": priceRange[0],
+                "priceTo": priceRange[1]
+            }
+        }
+        getProducts(payload)
         setSelectedCategories(categories);
     };
 
     const handleBrandsChange = (categories) => {
+        let payload = {
+            "filterCategoryArray": selectedCategories,
+            "filterBrandArray": categories,
+            "priceRange": {
+                "priceFrom": priceRange[0],
+                "priceTo": priceRange[1]
+            }
+        }
+        getProducts(payload)
         setSelectedBrands(categories);
     };
+
+    console.log(priceRange, "priceRangepriceRange")
 
 
     const accordionData = [
@@ -39,6 +72,7 @@ function SideFilter({ categoryList, changeCategory }) {
                 <RangeSlider
                     priceRange={priceRange}
                     handleChange={handlePriceRangeChange}
+                    handlePriceRangeCommited={handlePriceRangeCommited}
                 />
             ),
             title: 'Price'
@@ -50,21 +84,23 @@ function SideFilter({ categoryList, changeCategory }) {
                     categories={categoryList}
                     selectedCategories={selectedCategories} // Pass the function here, not the array
                     onCategoryChange={handleCategoriesChange}
+                    label="category"
                 />
             ),
             title: 'Categories'
         },
-        // {
-        //     id: 3,
-        //     content: (
-        //         <Categories
-        //             categories={categoryList}
-        //             selectedCategories={selectedBrands}
-        //             onCategoryChange={handleBrandsChange}
-        //         />
-        //     ),
-        //     title: 'Brands'
-        // },
+        {
+            id: 3,
+            content: (
+                <Categories
+                    categories={brands}
+                    selectedCategories={selectedBrands} // Pass the function here, not the array
+                    onCategoryChange={handleBrandsChange}
+                    label="brand"
+                />
+            ),
+            title: 'Brands'
+        },
     ];
 
 
