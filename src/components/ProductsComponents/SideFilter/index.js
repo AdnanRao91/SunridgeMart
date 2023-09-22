@@ -4,7 +4,7 @@ import RangeSlider from '../../Filter/RangeSlider';
 import Categories from '../../Filter/Categories';
 import { brandsData, categoriesData } from '../../../data';
 
-function SideFilter({ categoryList, brands, getProducts }) {
+function SideFilter({ categoryList, brands, getProducts, payload, setPayload, setCurrentPage, setLimit }) {
     const [openIndex, setOpenIndex] = useState(null);
     const [priceRange, setPriceRange] = useState([0, 2000]);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -25,44 +25,60 @@ function SideFilter({ categoryList, brands, getProducts }) {
     };
 
     const handlePriceRangeCommited = (event, value) => {
-        let payload = {
-            "filterBrandArray": selectedBrands,
-            "filterCategoryArray": selectedCategories,
-            "priceRange": {
-                "priceFrom": value[0],
-                "priceTo": value[1]
-            }
+        // let payload = {
+        //     "filterBrandArray": selectedBrands,
+        //     "filterCategoryArray": selectedCategories,
+        //     "priceRange": {
+        //         "priceFrom": value[0],
+        //         "priceTo": value[1]
+        //     }
+        // }
+        setCurrentPage(0)
+        setLimit(10)
+        let temp = { ...payload }
+        temp.priceRange = {
+            "priceFrom": value[0],
+            "priceTo": value[1]
         }
-        getProducts(payload)
+        setPayload(temp)
+        getProducts(temp)
     };
 
     const handleCategoriesChange = (categories) => {
-        let payload = {
-            "filterBrandArray": selectedBrands,
-            "filterCategoryArray": categories,
-            "priceRange": {
-                "priceFrom": priceRange[0],
-                "priceTo": priceRange[1]
-            }
-        }
-        getProducts(payload)
+        // let payload = {
+        //     "filterBrandArray": selectedBrands,
+        //     "filterCategoryArray": categories,
+        //     "priceRange": {
+        //         "priceFrom": priceRange[0],
+        //         "priceTo": priceRange[1]
+        //     }
+        // }
+        setCurrentPage(0)
+        setLimit(10)
+        let temp = { ...payload }
+        temp.filterCategoryArray = categories,
+            setPayload(temp)
+        getProducts(temp)
         setSelectedCategories(categories);
     };
 
     const handleBrandsChange = (categories) => {
-        let payload = {
-            "filterCategoryArray": selectedCategories,
-            "filterBrandArray": categories,
-            "priceRange": {
-                "priceFrom": priceRange[0],
-                "priceTo": priceRange[1]
-            }
-        }
-        getProducts(payload)
+        // let payload = {
+        //     "filterCategoryArray": selectedCategories,
+        //     "filterBrandArray": categories,
+        //     "priceRange": {
+        //         "priceFrom": priceRange[0],
+        //         "priceTo": priceRange[1]
+        //     }
+        // }
+        setCurrentPage(0)
+        setLimit(10)
+        let temp = { ...payload }
+        temp.filterBrandArray = categories,
+            setPayload(temp)
+        getProducts(temp)
         setSelectedBrands(categories);
     };
-
-    console.log(priceRange, "priceRangepriceRange")
 
 
     const accordionData = [

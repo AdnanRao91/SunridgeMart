@@ -7,20 +7,30 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.');
 }
 
-export default function CustomBreadcrumbs() {
+export default function CustomBreadcrumbs({ breadcrumbs }) {
   return (
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
           Home
         </Link>
-        <Link
+        {
+          breadcrumbs.map((item) => {
+            return (
+              <Link underline="hover" color="inherit" sx={{textTransform:"capitalize"}} href={item.path}>
+                {item.label}
+              </Link>
+            )
+          })
+        }
+
+        {/* <Link
           underline="hover"
           color="inherit"
           href="/products"
         >
           Products
-        </Link>
+        </Link> */}
       </Breadcrumbs>
     </div>
   );

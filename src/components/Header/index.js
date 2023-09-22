@@ -37,7 +37,7 @@ export default function Header() {
                             <Link href="#" class="">
                                 <Image src="/assets/home/heart.png" width={30} height={30} alt="heart" />
                             </Link>
-                            <Link href="/UserLogin" class="mx-8">
+                            <Link href="/login" class="mx-8">
                                 <Image src="/assets/home/user.png" width={30} height={30} alt="heart" />
                             </Link>
                             <Link href="#" class="">
