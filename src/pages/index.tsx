@@ -11,7 +11,7 @@ import DownloadApplication from '../components/DownloadApplication'
 import CustomerReview from '../components/CustomerReview'
 import ContactFooter from '@/components/ContactFooter'
 import React, { useEffect, useState } from 'react';
-import { get } from "@/api-services/index";
+import { get, post } from "@/api-services/index";
 
 const categories = [
   {
@@ -44,7 +44,7 @@ const products = [
   },
   {
     id: 2,
-name: "PREMIUM QUALITY MAIDA",
+    name: "PREMIUM QUALITY MAIDA",
     image: '/assets/home/maida.png'
   },
   {
@@ -139,7 +139,19 @@ export default function Home() {
     }
   }
 
+  //  const getAllProducts = () => {
+  //   const getURL = `Product/get-all`;
+  //   get(getURL).then((response) => {
+  //     const updatedProductss = response.data.products.map((apiProduct: any) => {
+  //       const localProduct = products.find((localProd: any) => localProd.name === apiProduct.category);
 
+  //       if (localProduct) {
+  //         return { ...apiProduct, imageURL: localProduct.image };
+  //       }
+  //     });
+  //     setProductCategory(updatedProductss);
+  //   });
+  //  }
   //Product category
   const getProductByCategrory = (id: any) => {
     const getURL = `Product/get-by-category-id/${id}`;
@@ -161,7 +173,42 @@ export default function Home() {
   const CategoryDataa = (id: any) => {
     getProductByCategrory(id)
   }
+
+  function uuidToBigInt(uuid: string) {
+    const hexString = uuid.replace(/-/g, '');
+    const bigintValue = BigInt(`0x${hexString}`);
+    return bigintValue;
+  }
+
+
+  const handleAddtoCart = (e: Event, data: object) => {
+    e.stopPropagation();
+    let userId = "d07792cb-44d9-42a9-9578-165f122cf8e9"
+    let payload = [{
+      customerId: userId,
+      productId: data?.id,
+      quantity: 1
+    }]
+    console.log(payload, "payloadpayload")
+    const apiUrl = 'CartItem/create';
+    post(apiUrl, payload).then((response) => {
+      console.log(response.data, "datadatadata")
+    })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    // enqueueSnackbar('Product added to cart successfully', {
+    //     variant: 'success',
+    //     anchorOrigin: {
+    //         vertical: 'top',
+    //         horizontal: 'center',
+    //     },
+    //     autoHideDuration: 2000
+    // });
+  }
+
   return (
+
     <div>
       <Banner />
       <Exculsive />
@@ -170,11 +217,11 @@ export default function Home() {
           <TabSlider tabCategory={category} CategoryData={CategoryDataa} />
         </div>
         <div className="py-12">
-          <ViewProducts products={productCategory} />
+          <ViewProducts handleAddtoCart={handleAddtoCart} products={productCategory} />
         </div>
       </div>
       <MegaOffer />
-      <FeaturedProductComponent featuredProducts={productFeatures} />
+      <FeaturedProductComponent featuredProducts={productCategory} />
       <DownloadApplication />
       <CustomerReview review={reviews} />
       {/* <div className="grid gap-4 grid-cols-3">

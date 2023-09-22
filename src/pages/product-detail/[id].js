@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 
 const ProductDetail = () => {
     const [discountedPrice, setDiscountedPrice] = useState(0);
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(1);
+    const [totalAmount, setTotal] = useState()
     const [selectedImage, setSelectedImage] = useState(productDetailData.images[0].url)
     const [productDetails, setProductDetails] = useState(null)
     const router = useRouter();
@@ -23,6 +24,12 @@ const ProductDetail = () => {
         const discountAmount = (data?.price * data?.discount) / 100;
         const calculatedDiscountedPrice = data?.price - discountAmount;
         setDiscountedPrice(calculatedDiscountedPrice);
+    };
+
+    const calculateDiscountedPriceQty = (data, count) => {
+        const discountAmount = (data?.price * data?.discount) / 100;
+        const calculatedDiscountedPrice = count * (data?.price - discountAmount);
+        return calculatedDiscountedPrice;
     };
 
 
@@ -40,7 +47,20 @@ const ProductDetail = () => {
             console.log(error, "errorerrorerror")
         }
     }
-
+    const decrementCount = () => {
+        if (count > 1) {
+            setCount(count - 1);
+            const newDiscountedPrice = calculateDiscountedPriceQty(productDetails, count - 1);
+            setDiscountedPrice(newDiscountedPrice);
+        }
+    };
+    const incrementCount = () => {
+        if (count < 10) {
+            setCount(count + 1);
+            const newDiscountedPrice = calculateDiscountedPriceQty(productDetails, count + 1);
+            setDiscountedPrice(newDiscountedPrice);
+        }
+    };
     // Sample reviews data
     const reviews = [
         {
@@ -95,7 +115,7 @@ const ProductDetail = () => {
                         <h3 className='josefin-sans-regular f-16'>Reviews <span className="bg-orange-400 text-white text-sm mr-2 px-2.5 py-0.5 rounded ">200</span> </h3>
                     </div>
                     {/* <h2 className="nova-bold f-24 f-16 text-color-orange mt-1">PKR {productDetails.price}</h2> */}
-                    <div className='flex gap-2 mt-2'>
+                    <div className='flex gap-4 mt-2'>
                         {productDetailData?.discount ? (
                             <h3 className='text-color-orange josefin-sans-bold f-16'>PKR {discountedPrice}</h3>
                         ) : (
@@ -109,9 +129,9 @@ const ProductDetail = () => {
                         {/* <h3 className='text-light-black josefin-sans-regular f-18 line-through'>{originalPrice} </h3> */}
                     </div>
                     <div className="flex gap-2 border-2 border-orange-500 rounded-xl w-24 items-center justify-center mt-1">
-                        <button onClick={() => setCount(count - 1)}><Remove /></button>
+                        <button onClick={() => decrementCount(count - 1, productDetails?.price)}><Remove /></button>
                         <h3 className="josefin-sans-regular f-16">{count}</h3>
-                        <button onClick={() => setCount(count + 1)}><Add /></button>
+                        <button onClick={() => incrementCount(count + 1, productDetails?.price)}><Add /></button>
                         {
 
                         }

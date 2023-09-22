@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 export default function Header() {
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleScroll = () => {
@@ -38,7 +37,7 @@ export default function Header() {
                             <Link href="#" class="">
                                 <Image src="/assets/home/heart.png" width={30} height={30} alt="heart" />
                             </Link>
-                            <Link href="#" class="mx-8">
+                            <Link href="/UserLogin" class="mx-8">
                                 <Image src="/assets/home/user.png" width={30} height={30} alt="heart" />
                             </Link>
                             <Link href="#" class="">

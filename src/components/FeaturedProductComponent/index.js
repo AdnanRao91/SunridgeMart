@@ -50,7 +50,7 @@ export default function FeaturedProductcomponent({featuredProducts}) {
                                 <img src="/assets/home/image-leave.png" />
                             </div>
                             <div className="ineer-page-heading exculsive-deals">
-                                Featured Projects
+                                Featured Products
                             </div>
                         </div>
                     </div>

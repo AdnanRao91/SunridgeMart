@@ -117,6 +117,14 @@
 .text-color-orange {
   color: #f36f28;
 }
+.bg-orange{
+  background-color: #f36f28;
+}
+.login-form{
+    border: 1px solid #666666;
+    padding: 3rem;
+    border-radius: 15px;
+}
 .bg-light-orange {
   background-color: #f5905a;
 }

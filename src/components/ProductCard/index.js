@@ -2,11 +2,14 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import { useState, useEffect } from 'react'
+import { post } from '../../api-services/index'
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data, handleAddtoCart }) => {
     const [originalPrice, setOriginalPrice] = useState([]);
     const [discountPercentage, setDiscountPercentage] = useState([]);
     const [discountedPrice, setDiscountedPrice] = useState([]);
+    const [cart, setCart] = useState([]);
+    const [notification, setNotification] = useState('');
     const router = useRouter()
     const { enqueueSnackbar } = useSnackbar();
     const calculateDiscountedPrice = () => {
@@ -36,21 +39,15 @@ const ProductCard = ({ data }) => {
         });
     }
 
-    const handleAddtoCart = (e) => {
-        e.stopPropagation();
-        enqueueSnackbar('Product added to cart successfully', {
-            variant: 'success',
-            anchorOrigin: {
-                vertical: 'top',
-                horizontal: 'center',
-            },
-            autoHideDuration: 2000
-        });
-    }
-
+    // const getCartById = () => {
+    //   const getUrl = 'CartItem/get-by-id/'
+    //   get(getUrl).then((response) => {
+    //     console.log(response)
+    //   })
+    // }
     return (
         <div className="product-card-container height-product-card relative" onClick={() => router.push(`/product-detail/${data.id}`)}>
-            <div className="product-image" style={{ }}>
+            <div className="product-image" style={{}}>
                 <Image src={data?.imageURL} width={65} height={146} style={{ margin: "0 auto" }} alt='product image' />
 
                 {
@@ -89,7 +86,7 @@ const ProductCard = ({ data }) => {
                     <div onClick={handleAddtoWishlist} className='icon-container'>
                         <Image src="/assets/home/heart.png" width={20} height={20} />
                     </div>
-                    <div onClick={handleAddtoCart} className='icon-container'>
+                    <div onClick={(e) => handleAddtoCart(e, data)} className='icon-container'>
                         <Image src="/assets/home/bag.png" width={20} height={20} />
                     </div>
                 </div>

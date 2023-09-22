@@ -7,10 +7,10 @@ import UserLogin from '../pages/UserLogin'
 export default function App({ Component, pageProps }: AppProps) {
 
   const providerRef = useRef();
-  const isLoginPage = Component === UserLogin;
-  if(isLoginPage){
-    return <Component {...pageProps} />;
-  }
+  // const isLoginPage = Component === UserLogin;
+  // if(isLoginPage){
+  //   return <Component {...pageProps} />;
+  // }
   
   return (
     <SnackbarProvider ref={providerRef} maxSnack={3}>
