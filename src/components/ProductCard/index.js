@@ -49,7 +49,6 @@ const ProductCard = ({ data, handleAddtoCart }) => {
         <div className="product-card-container height-product-card relative" onClick={() => router.push(`/product-detail/${data.id}`)}>
             <div className="product-image" style={{}}>
                 <Image src={data?.imageURL} width={65} height={146} style={{ margin: "0 auto" }} alt='product image' />
-
                 {
                     discountPercentage ? (
                         <div className='discount-container'>

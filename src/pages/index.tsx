@@ -98,31 +98,15 @@ export default function Home() {
   const [category, setcategory] = useState([]);
   const [productCategory, setProductCategory] = useState([]);
   const [productFeatures, setProductFeatures] = useState([])
+  const [isloading, setisLoading] = useState(false)
 
 
   useEffect(() => {
-    // getAllProducts()
     getAllCategories()
   }, []);
 
-  // const getAllProducts = async () => {
-  //   try {
-  //     const apiUrl = 'Product/get-all';
-  //     let response = await get(apiUrl)
-  //     const updatedProductCat = response.data.map((apiProduct: any) => {
-  //       const localProduct = products.find((localProd: any) => localProd.name === apiProduct.category.name);
-
-  //       if (localProduct) {
-  //         return { ...apiProduct, imageURL: localProduct.image };
-  //       }
-  //     });
-  //     setProductFeatures(updatedProductCat);
-  //   } catch (error) {
-  //     console.log(error, "errorerrorerrorerror")
-  //   }
-  // }
-
   const getAllCategories = async () => {
+    setisLoading(true)
     try {
       const apiUrl = 'Category/get-all';
       let response = await get(apiUrl)
@@ -133,27 +117,16 @@ export default function Home() {
         }
       });
       setcategory(updatedProducts);
+      setisLoading(false)
       getProductByCategrory(updatedProducts[0].id)
     } catch (error) {
+      setisLoading(false)
       console.log(error, "errorerrorerrorerror")
     }
   }
 
-  //  const getAllProducts = () => {
-  //   const getURL = `Product/get-all`;
-  //   get(getURL).then((response) => {
-  //     const updatedProductss = response.data.products.map((apiProduct: any) => {
-  //       const localProduct = products.find((localProd: any) => localProd.name === apiProduct.category);
-
-  //       if (localProduct) {
-  //         return { ...apiProduct, imageURL: localProduct.image };
-  //       }
-  //     });
-  //     setProductCategory(updatedProductss);
-  //   });
-  //  }
-  //Product category
   const getProductByCategrory = (id: any) => {
+    setisLoading(true)
     const getURL = `Product/get-by-category-id/${id}`;
     get(getURL).then((response) => {
       const updatedProductss = response.data.products.map((apiProduct: any) => {
@@ -164,20 +137,15 @@ export default function Home() {
         }
       });
       setProductCategory(updatedProductss);
-    });
+      setisLoading(false)
+    }).catch((err) => {
+      setisLoading(false)
+    })
   };
 
-  //  useEffect(() => {
-  //   CategoryDataa(1)
-  //  })
+
   const CategoryDataa = (id: any) => {
     getProductByCategrory(id)
-  }
-
-  function uuidToBigInt(uuid: string) {
-    const hexString = uuid.replace(/-/g, '');
-    const bigintValue = BigInt(`0x${hexString}`);
-    return bigintValue;
   }
 
 
@@ -214,10 +182,10 @@ export default function Home() {
       <Exculsive />
       <div className="px-20 product-img-background">
         <div className="">
-          <TabSlider tabCategory={category} CategoryData={CategoryDataa} />
+          <TabSlider isloading={isloading} tabCategory={category} CategoryData={CategoryDataa} />
         </div>
         <div className="py-12">
-          <ViewProducts handleAddtoCart={handleAddtoCart} products={productCategory} />
+          <ViewProducts isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
         </div>
       </div>
       <MegaOffer />

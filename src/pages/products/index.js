@@ -18,7 +18,8 @@ export default function Products() {
   const [currentPage, setCurrentPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const [payload, setPayload] = useState({})
-  const breadcrumbs = getBreadcrumbs(router.pathname);
+  const [isloading, setisLoading] = useState(false)
+  // const breadcrumbs = getBreadcrumbs(router.pathname);
 
   const productsData = [
     {
@@ -76,6 +77,7 @@ export default function Products() {
 
 
   const getProducts = (params) => {
+    setisLoading(true)
     const getURL = `Product/get-all`;
     post(getURL, params || {}).then((response) => {
       const updatedProducts = response.data.products.map((apiProduct) => {
@@ -85,7 +87,10 @@ export default function Products() {
         }
       });
       setProducts(updatedProducts);
-    });
+      setisLoading(false)
+    }).catch((err) => {
+      setisLoading(false)
+    })
   };
 
   const handlePageChange = (e, pageNumber) => {
@@ -100,12 +105,39 @@ export default function Products() {
 
   const handleChangeLimit = (event) => {
     setLimit(parseInt(event.target.value, 10))
+    setCurrentPage(0)
     let params = {
       ...payload,
       pageIndex: 0,
       pageSize: event.target.value
     }
     getProducts(params)
+  }
+
+  const handleAddtoCart = (e, data) => {
+    e.stopPropagation();
+    let userId = "d07792cb-44d9-42a9-9578-165f122cf8e9"
+    let payload = [{
+      customerId: userId,
+      productId: data?.id,
+      quantity: 1
+    }]
+    console.log(payload, "payloadpayload")
+    const apiUrl = 'CartItem/create';
+    post(apiUrl, payload).then((response) => {
+      console.log(response.data, "datadatadata")
+    })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    // enqueueSnackbar('Product added to cart successfully', {
+    //     variant: 'success',
+    //     anchorOrigin: {
+    //         vertical: 'top',
+    //         horizontal: 'center',
+    //     },
+    //     autoHideDuration: 2000
+    // });
   }
 
 
@@ -119,7 +151,7 @@ export default function Products() {
         <h1 className="text-4xl nova-bold text-center">Products</h1>
         <div className="grid grid-cols-12 mt-5 gap-5 p-5">
           <div className="col-span-2">
-            <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
+            {/* <CustomBreadcrumbs breadcrumbs={breadcrumbs} /> */}
             <SideFilter setCurrentPage={setCurrentPage} setLimit={setLimit} payload={payload} setPayload={setPayload} categoryList={category} brands={brands} getProducts={getProducts} />
           </div>
           <div className="col-span-10">
@@ -138,14 +170,16 @@ export default function Products() {
               onRowsPerPageChange={handleChangeLimit}
               rowsPerPageOptions={[5, 10, 15, 20]}
             />
-            <Listing products={products} />
-            {/* <GlobalPagination
-              currentPage={currentPage}
-              limit={limit}
-              setLimit={setLimit}
-              onPageChange={handlePageChange}
-              handleChangeLimit={handleChangeLimit}
-            /> */}
+
+            {
+              products?.length > 0 ?
+                <Listing handleAddtoCart={handleAddtoCart} isloading={isloading} products={products} />
+                :
+                <div>
+                  <h3 className="text-center">No Products Found</h3>
+                </div>
+            }
+
             <TablePagination
               component="div"
               onPageChange={handlePageChange}
@@ -155,6 +189,7 @@ export default function Products() {
               onRowsPerPageChange={handleChangeLimit}
               rowsPerPageOptions={[5, 10, 15, 20]}
             />
+
           </div>
         </div>
       </div>

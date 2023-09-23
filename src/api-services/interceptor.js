@@ -5,12 +5,11 @@ import axios from 'axios';
 const TOKEN_HEADER_KEY = 'Authorization';
 
 
-const apiUrl = "http://172.16.20.181/api/"; // Define your API URL in your environment variables.
 
 const token = new TokenStorage; // Implement your token retrieval logic
 // Create an Axios instance with a base URL for your API
 const apiInstance = axios.create({
-  baseURL: apiUrl,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     [TOKEN_HEADER_KEY]: token.getToken() ? `Bearer ${token.getToken()}` : '', // Add token to headers if it exists
   },

@@ -6,10 +6,11 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import { get } from "@/api-services/index";
 import { Category } from '@mui/icons-material';
+import { Skeleton } from '@mui/material';
 const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
     ssr: false, // Disable server-side rendering
 });
-export default function TabSlider({ tabCategory, CategoryData }) {
+export default function TabSlider({ tabCategory, CategoryData, isloading }) {
     const [activeTab, setActiveTab] = useState(0);
 
     const NextArrow = (props) => {
@@ -62,6 +63,38 @@ export default function TabSlider({ tabCategory, CategoryData }) {
             },
         ],
     };
+
+
+    const renderData = () => {
+        if (isloading) {
+            return tabCategory?.map((tab, index) => (
+                <div className="p-4">
+                    <button
+                        className="tab-item inactive"
+                        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                    >
+                        <Skeleton variant="circular" width={100} height={100} className="tab-image-skeleton" />
+                        <Skeleton variant="text" width={80} height={18} className="f-14 black-text my-4" />
+                    </button>
+                </div>
+            ))
+        } else {
+            return tabCategory?.map((tab, index) => (
+                <div key={tab?.id} className="p-4">
+                    <button
+                        className={`tab-item ${activeTab === tab?.name ? "active" : "inactive"}`}
+                        onClick={() => { CategoryData(tab?.id); setActiveTab(tab?.name); }}
+                        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                    >
+                        <img src={tab?.imageURL} className="tab-image" />
+                        <div className="f-14 black-text my-4">{tab?.name}</div>
+                    </button>
+
+                </div>
+            ))
+        }
+    }
+
     return (
         <>
             <div className="exculsive-section my-12">
@@ -81,19 +114,7 @@ export default function TabSlider({ tabCategory, CategoryData }) {
             </div>
             <div className="tab grid gap-4">
                 <Slider {...settings}>
-                    {tabCategory?.map((tab, index) => (
-                        <div key={tab?.id} className="p-4">
-                            <button
-                                className={`tab-item ${activeTab === tab?.name ? "active" : "inactive"}`}
-                                onClick={() => { CategoryData(tab?.id); setActiveTab(tab?.name); }}
-                                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-                            >
-                                <img src={tab?.imageURL} className="tab-image" />
-                                <div className="f-14 black-text my-4">{tab?.name}</div>
-                            </button>
-
-                        </div>
-                    ))}
+                    {renderData()}
                 </Slider>
             </div>
         </>

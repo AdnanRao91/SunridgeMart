@@ -20,7 +20,9 @@
     "axios": "^1.5.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "formik": "^2.4.5",
     "google-map-react": "^2.2.1",
+    "moment": "^2.29.4",
     "next": "13.4.19",
     "notistack": "^3.0.1",
     "postcss": "8.4.29",
@@ -31,6 +33,7 @@
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "3.3.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "yup": "^1.2.0"
   }
 }
