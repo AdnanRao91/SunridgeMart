@@ -6,9 +6,12 @@ import { LoginFormSchema } from '../../utils/Validations';
 import { post } from "../../api-services"
 import { endPoints } from '../../constants';
 import { TokenStorage } from "../../utils"
+import withAuth from "@/HOC"
+import { useRouter } from 'next/router';
+
 
 const Login = () => {
-
+    const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
     const handleToken = new TokenStorage
     const handleLogin = async (values) => {
@@ -19,6 +22,7 @@ const Login = () => {
             }
             let response = await post(endPoints.login, payload)
             handleToken.saveToken(response.data.token)
+            router.push('/')
         } catch (error) {
             console.log(error, "errorerror")
         }
@@ -29,7 +33,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen mt-36">
+        <div className="flex items-center justify-center mt-36">
             <div className="bg-white p-8 rounded shadow-md w-96">
                 <h1 className="text-3xl text-center text-red-500 font-semibold mb-6">Welcome to Sunridge Mart</h1>
                 <Formik
@@ -109,13 +113,9 @@ const Login = () => {
                         </>
                     )}
                 </Formik>
-
-
-
-
             </div>
         </div >
     );
 };
 
-export default Login;
+export default Login

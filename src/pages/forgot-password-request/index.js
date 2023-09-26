@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Layout from '../../components/Layout';
 const ForgotPasswordRequest = () => {
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
@@ -12,6 +12,7 @@ const ForgotPasswordRequest = () => {
     };
 
     return (
+        <Layout hideHeader hideFooter>
         <div className="flex items-center justify-center h-screen bg-gray-100 mt-36">
             <div className="bg-white p-8 rounded shadow-md w-96">
                 <h1 className="text-3xl text-center text-red-500 font-semibold mb-6">Forgot Password</h1>
@@ -35,6 +36,7 @@ const ForgotPasswordRequest = () => {
                 )}
             </div>
         </div>
+        </Layout>
     );
 };
 

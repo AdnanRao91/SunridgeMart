@@ -8,8 +8,6 @@ const ProductCard = ({ data, handleAddtoCart }) => {
     const [originalPrice, setOriginalPrice] = useState([]);
     const [discountPercentage, setDiscountPercentage] = useState([]);
     const [discountedPrice, setDiscountedPrice] = useState([]);
-    const [cart, setCart] = useState([]);
-    const [notification, setNotification] = useState('');
     const router = useRouter()
     const { enqueueSnackbar } = useSnackbar();
     const calculateDiscountedPrice = () => {
