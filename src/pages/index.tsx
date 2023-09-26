@@ -151,11 +151,10 @@ export default function Home() {
 
   const handleAddtoCart = (e: Event, data: object) => {
     e.stopPropagation();
-    let userId = "d07792cb-44d9-42a9-9578-165f122cf8e9"
     let payload = [{
-      customerId: userId,
-      productId: data?.id,
-      quantity: 1
+      customerId: 1,
+      productId: 1,
+      quantity: 3
     }]
     console.log(payload, "payloadpayload")
     const apiUrl = 'CartItem/create';

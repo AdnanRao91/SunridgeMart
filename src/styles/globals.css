@@ -107,6 +107,9 @@
 .br-light-grey {
   background-color: #f1f1f1;
 }
+.text-white{
+  color: white;
+}
 
 .top-spacing{
   /* position: relative;
@@ -119,6 +122,9 @@
 }
 .bg-orange{
   background-color: #f36f28;
+}
+.bg-green{
+  background-color: #20ac4c;
 }
 .login-form{
     border: 1px solid #666666;

@@ -8,7 +8,7 @@ import { endPoints } from '../../constants';
 import { SnackbarUtility, TokenStorage } from '../../utils';
 
 const Login = () => {
-
+    const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
     const handleToken = new TokenStorage
     const showSnackbar = new SnackbarUtility
@@ -31,7 +31,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen mt-36">
+        <div className="flex items-center justify-center mt-36">
             <div className="bg-white p-8 rounded shadow-md w-96">
                 <h1 className="text-3xl text-center text-red-500 font-semibold mb-6">Welcome to Sunridge Mart</h1>
                 <Formik
@@ -111,13 +111,9 @@ const Login = () => {
                         </>
                     )}
                 </Formik>
-
-
-
-
             </div>
         </div >
     );
 };
 
-export default Login;
+export default Login
