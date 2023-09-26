@@ -1,7 +1,5 @@
 import React from "react";
-
-
-// types.ts
+import { useSnackbar } from 'notistack'
 
 
 // types.js
@@ -15,8 +13,8 @@ export const LoginPayload = {
 export const MainResponse = {
   token: '',
 };
-// tokenStorage.js
-export class TokenStorage {
+
+class TokenStorage {
   clearStorage() {
     window.localStorage.removeItem('token');
   }
@@ -34,8 +32,37 @@ export class TokenStorage {
   }
 }
 
-export default new TokenStorage();
+
+class SnackbarUtility {
+  constructor() {
+    this.snackbar = useSnackbar();
+  }
+
+  successMessage(message) {
+    this.snackbar.enqueueSnackbar(message, {
+      variant: 'success',
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
+      autoHideDuration: 2000,
+    });
+  }
+
+  errorMessage(message) {
+    this.snackbar.enqueueSnackbar(message, {
+      variant: 'error',
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
+      autoHideDuration: 2000,
+    });
+  }
+}
 
 
-
-
+export {
+  SnackbarUtility,
+  TokenStorage
+}

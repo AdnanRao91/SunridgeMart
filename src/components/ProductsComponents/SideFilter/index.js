@@ -121,7 +121,7 @@ function SideFilter({ categoryList, brands, getProducts, payload, setPayload, se
 
 
     return (
-        <div className="container">
+        <div className="sm:container">
             {accordionData.map((item, index) => (
                 <AccordionItem
                     key={item.id}

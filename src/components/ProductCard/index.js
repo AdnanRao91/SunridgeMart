@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import { useState, useEffect } from 'react'
 import { post } from '../../api-services/index'
+import { SnackbarUtility } from '@/utils'
 
 const ProductCard = ({ data, handleAddtoCart }) => {
     const [originalPrice, setOriginalPrice] = useState([]);
@@ -12,6 +13,7 @@ const ProductCard = ({ data, handleAddtoCart }) => {
     const [notification, setNotification] = useState('');
     const router = useRouter()
     const { enqueueSnackbar } = useSnackbar();
+    const snackbar = new SnackbarUtility();
     const calculateDiscountedPrice = () => {
         setDiscountPercentage(data?.discount);
         setOriginalPrice(data?.price);
@@ -29,14 +31,14 @@ const ProductCard = ({ data, handleAddtoCart }) => {
     }, [data]);
     const handleAddtoWishlist = (e) => {
         e.stopPropagation();
-        enqueueSnackbar('Product added to wishlist successfully', {
-            variant: 'success',
-            anchorOrigin: {
-                vertical: 'top',
-                horizontal: 'center',
-            },
-            autoHideDuration: 2000
-        });
+        // enqueueSnackbar('Product added to wishlist successfully', {
+        //     variant: 'success',
+        //     anchorOrigin: {
+        //         vertical: 'top',
+        //         horizontal: 'center',
+        //     },
+        //     autoHideDuration: 2000
+        // });
     }
 
     // const getCartById = () => {

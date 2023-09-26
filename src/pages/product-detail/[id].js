@@ -1,4 +1,3 @@
-'user client'
 import { Add, Remove } from "@mui/icons-material"
 import Image from "next/image"
 import { useState, useEffect } from "react"
@@ -79,6 +78,9 @@ const ProductDetail = () => {
         },
     ];
     const { query } = useRouter()
+
+    console.log(`http://172.16.20.233/SunridgeEMart/${productDetails?.imageURL[0]}`,"productDetailsproductDetails")
+
     return (
         <div className="container mx-auto top-spacing">
             <div className="grid grid-cols-12 justify-center mx-10 p-3 mt-3">
@@ -86,17 +88,17 @@ const ProductDetail = () => {
                     <div
                         className="overflow-y-scroll h-60 p-2 no-scrollbar">
                         {
-                            productDetailData.images.map((item, index) => {
+                            productDetails?.imageURL?.map((item, index) => {
                                 return (
                                     <Image
-                                        onClick={() => handleSelectImage(item.url)}
-                                        key={item.id} style={{
+                                        onClick={() => handleSelectImage(item)}
+                                        key={index} style={{
                                             border: "1px solid #ccc",
                                             padding: "5px 10px",
                                             borderRadius: "5px",
                                             cursor: "pointer",
                                             marginTop: index == 0 ? "0px" : "5px"
-                                        }} src={item.url} width={50} height={50} />
+                                        }} src={`http://172.16.20.233/SunridgeEMart/${item}`} width={50} height={50} />
                                 )
                             })
                         }

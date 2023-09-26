@@ -1,6 +1,6 @@
 // middleware/jwt.js
-import { TokenStorage } from '../../src/utils/index'; // Implement token storage functions
 import axios from 'axios';
+import { TokenStorage } from "@/utils"
 
 const TOKEN_HEADER_KEY = 'Authorization';
 

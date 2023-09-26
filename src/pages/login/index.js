@@ -5,12 +5,13 @@ import React, { useState } from 'react';
 import { LoginFormSchema } from '../../utils/Validations';
 import { post } from "../../api-services"
 import { endPoints } from '../../constants';
-import { TokenStorage } from "../../utils"
+import { SnackbarUtility, TokenStorage } from '../../utils';
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const handleToken = new TokenStorage
+    const showSnackbar = new SnackbarUtility
     const handleLogin = async (values) => {
         try {
             let payload = {
@@ -19,6 +20,7 @@ const Login = () => {
             }
             let response = await post(endPoints.login, payload)
             handleToken.saveToken(response.data.token)
+            showSnackbar.successMessage(response.message)
         } catch (error) {
             console.log(error, "errorerror")
         }

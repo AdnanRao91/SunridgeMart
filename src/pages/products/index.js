@@ -150,7 +150,7 @@ export default function Products() {
       <div className="mt-5">
         <h1 className="text-4xl nova-bold text-center">Products</h1>
         <div className="grid grid-cols-12 mt-5 gap-5 p-5">
-          <div className="col-span-2">
+          <div className="xs:col-span-12 md:col-span-2">
             {/* <CustomBreadcrumbs breadcrumbs={breadcrumbs} /> */}
             <SideFilter setCurrentPage={setCurrentPage} setLimit={setLimit} payload={payload} setPayload={setPayload} categoryList={category} brands={brands} getProducts={getProducts} />
           </div>
