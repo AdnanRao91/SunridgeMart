@@ -10,8 +10,6 @@ import { useRouter } from "next/router"
 
 
 export default function Products() {
-  const router = useRouter()
-  const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);

@@ -54,12 +54,18 @@
     regenerator-runtime "^0.14.0"
 
 "@babel/types@^7.22.15":
+<<<<<<< HEAD
   version "7.22.19"
   resolved "https://registry.npmjs.org/@babel/types/-/types-7.22.19.tgz"
   integrity sha512-P7LAw/LbojPzkgp5oznjE6tQEIWbp4PkkfrZDINTro9zgBRtI324/EYsiSI7lhPbpIQ+DCeR2NNmMWANGGfZsg==
+=======
+  version "7.22.15"
+  resolved "https://registry.npmjs.org/@babel/types/-/types-7.22.15.tgz"
+  integrity sha512-X+NLXr0N8XXmN5ZsaQdm9U2SSC3UbIYq/doL++sueHOTisgZHoKaQtZxGuV2cUPQHMfjKEfg/g6oy7Hm6SKFtA==
+>>>>>>> f76cc54 (wishlist and cart ui done)
   dependencies:
     "@babel/helper-string-parser" "^7.22.5"
-    "@babel/helper-validator-identifier" "^7.22.19"
+    "@babel/helper-validator-identifier" "^7.22.15"
     to-fast-properties "^2.0.0"
 
 "@emotion/babel-plugin@^11.11.0":
