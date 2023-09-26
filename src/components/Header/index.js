@@ -34,13 +34,13 @@ export default function Header() {
                             <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
                         </Link>
                         <div className="flex items-center lg:order-2">
-                            <Link href="wish-list" className="">
+                            <Link href="/wish-list" className="">
                                 <Image src="/assets/home/heart.png" width={30} height={30} alt="heart" />
                             </Link>
                             <Link href="/login" className="mx-8">
                                 <Image src="/assets/home/user.png" width={30} height={30} alt="heart" />
                             </Link>
-                            <Link href="cart-page" className="">
+                            <Link href="/cart-page" className="">
                                 <Image src="/assets/home/bag.png" width={30} height={30} alt="heart" />
                             </Link>
                             <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
