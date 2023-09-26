@@ -19,6 +19,16 @@ class TokenStorage {
     window.localStorage.removeItem('token');
   }
 
+  saveGuid(guid) {
+    window.localStorage.setItem('guid', guid);
+  }
+
+  getGuid() {
+    if (typeof window !== "undefined") {
+      return window.localStorage.getItem('guid')
+    }
+  }
+
   saveToken(token) {
     window.localStorage.setItem('token', token);
   }

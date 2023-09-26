@@ -173,3 +173,28 @@ export const productDetailData = {
     price: 515,
     discount: 20,
 }
+
+
+ export const cartData = [
+    {
+        id: 1,
+        image: '/assets/home/Atta-Fortified.png',
+        name: 'Fotified Atta',
+        price: 450,
+        status: 0,
+    },
+    {
+        id: 2,
+        image: '/assets/home/blue-rice.png',
+        name: 'Rice',
+        price: 550,
+        status: 1,
+    },
+    {
+        id: 3,
+        image: '/assets/home/maida.png',
+        name: 'Maida',
+        price: 150,
+        status: 0,
+    }
+]
