@@ -7,8 +7,7 @@ const ForgotPasswordRequest = () => {
     const handleRequestPasswordReset = (e) => {
         e.preventDefault();
         setEmailSent(!emailSent)
-        // Implement your logic to send a password reset email here
-        // Set setEmailSent to true if the email is successfully sent
+
     };
 
     return (

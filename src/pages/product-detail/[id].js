@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 const ProductDetail = () => {
     const [discountedPrice, setDiscountedPrice] = useState(0);
     const [count, setCount] = useState(1);
-    const [totalAmount, setTotal] = useState()
     const [selectedImage, setSelectedImage] = useState(productDetailData.images[0].url)
     const [productDetails, setProductDetails] = useState(null)
     const router = useRouter();

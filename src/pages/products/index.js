@@ -153,12 +153,6 @@ export default function Products() {
             <SideFilter setCurrentPage={setCurrentPage} setLimit={setLimit} payload={payload} setPayload={setPayload} categoryList={category} brands={brands} getProducts={getProducts} />
           </div>
           <div className="col-span-10">
-            {/* <GlobalPagination
-              currentPage={currentPage}
-              limit={limit}
-              onPageChange={handlePageChange}
-              handleChangeLimit={handleChangeLimit}
-            /> */}
             <TablePagination
               component="div"
               onPageChange={handlePageChange}
@@ -169,13 +163,16 @@ export default function Products() {
               rowsPerPageOptions={[5, 10, 15, 20]}
             />
 
+
+            <Listing handleAddtoCart={handleAddtoCart} isloading={isloading} products={products} />
+            
             {
               products?.length > 0 ?
-                <Listing handleAddtoCart={handleAddtoCart} isloading={isloading} products={products} />
-                :
                 <div>
                   <h3 className="text-center">No Products Found</h3>
                 </div>
+                :
+                ""
             }
 
             <TablePagination

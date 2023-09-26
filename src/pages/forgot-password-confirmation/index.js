@@ -12,10 +12,9 @@ const PasswordResetConfirmation = () => {
         setPasswordResetSuccess(!passwordResetSuccess)
         setTimeout(() => {
             router.push('/login')
-        },3000
+        }, 3000
         );
-        // Implement your logic to confirm and update the password here
-        // Set setPasswordResetSuccess to true if the password is successfully reset
+
     };
 
     return (

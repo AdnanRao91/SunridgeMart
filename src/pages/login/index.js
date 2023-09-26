@@ -22,6 +22,7 @@ const Login = () => {
             let response = await post(endPoints.login, payload)
             handleToken.saveToken(response.data.token)
             showSnackbar.successMessage(response.message)
+            router.push('/')
         } catch (error) {
             console.log(error, "errorerror")
         }
