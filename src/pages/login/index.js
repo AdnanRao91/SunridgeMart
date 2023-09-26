@@ -7,6 +7,7 @@ import { post } from "../../api-services"
 import { endPoints } from '../../constants';
 import { SnackbarUtility, TokenStorage } from '../../utils';
 import { useRouter } from 'next/router';
+import withAuth from "@/HOC"
 
 const Login = () => {
     const router = useRouter()
@@ -118,4 +119,4 @@ const Login = () => {
     );
 };
 
-export default Login
+export default withAuth(Login) 
