@@ -21,7 +21,7 @@ const Login = () => {
                 password: values.password
             }
             let response = await post(endPoints.login, payload)
-            handleToken.saveToken(response.data.token)
+            // handleToken.saveToken(response.data.token)
             showSnackbar.successMessage(response.message)
             router.push('/')
         } catch (error) {

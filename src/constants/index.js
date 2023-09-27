@@ -6,5 +6,6 @@
 export const endPoints = {
     // Account
     login: "Account/login",
-    register: "Account/register"
+    register: "Account/register",
+    resetPassword: "Account/reset-password"
 }

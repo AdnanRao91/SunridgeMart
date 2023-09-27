@@ -198,3 +198,25 @@ export const productDetailData = {
         status: 0,
     }
 ]
+export const orderSummary = [
+    {
+        id: 1,
+        name: 'Sunrdige Chakki Atta 10 Kg',
+        tax: 0,
+        Discount: 0,
+        price: 1920,
+        totalPrice: 1920,
+        quantity: 1,
+        total: 1920
+    },
+    {
+        id: 2,
+        name: 'Sunrdige Chakki Atta 5 Kg',
+        tax: 5,
+        Discount: 10,
+        price: 820,
+        totalPrice: 1800,
+        quantity: 2,
+        total: 2500
+    },
+]

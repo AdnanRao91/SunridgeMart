@@ -12,6 +12,7 @@ const ProductDetail = () => {
     const [count, setCount] = useState(1);
     const [selectedImage, setSelectedImage] = useState(productDetailData.images[0].url)
     const [productDetails, setProductDetails] = useState(null)
+    const [abc, setAbc] = useState()
     const router = useRouter();
     const { id } = router.query;
 
@@ -29,7 +30,12 @@ const ProductDetail = () => {
         const calculatedDiscountedPrice = count * (data?.price - discountAmount);
         return calculatedDiscountedPrice;
     };
-
+//  const addToCart = (id) => {
+//     const apiUrl = `CartItem/get-by-id/${id}`;
+//     get(apiUrl).then((response) => {
+//         setAbc(response)
+//     })
+//  }
 
     useEffect(() => {
         getProductDetail()
@@ -137,7 +143,7 @@ const ProductDetail = () => {
 
                         }
                     </div>
-                    <button className="bg-orange-500 nova-regular text-white p-2 rounded-md mt-3 uppercase">Add to cart</button>
+                    <button onClick={addToCart(productDetails)} className="bg-orange-500 nova-regular text-white p-2 rounded-md mt-3 uppercase">Add to cart</button>
                 </div>
             </div>
             <div className="border-b-gray-400 border-b py-8">

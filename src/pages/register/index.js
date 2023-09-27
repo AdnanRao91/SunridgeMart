@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { SignupFormSchema } from '../../utils/Validations';
+import { SignupFormSchema, objectToFormData } from '../../utils/Validations';
 import { Formik } from 'formik';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import moment from 'moment/moment';
@@ -9,6 +9,7 @@ import { endPoints } from '../../constants';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
+
     const handleSignup = async (values) => {
         try {
             let payload = {
@@ -19,9 +20,11 @@ const Register = () => {
                 lastName: values.lastName,
                 dateOfBirth: moment(values.date).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
                 phoneNumber: values.phoneNumber,
-                gender: parseInt(values.gender)
+                gender: parseInt(values.gender),
+                ImageFile: values.ImageFile
             }
-            let response = await post(endPoints.register, payload)
+            const formData = objectToFormData(payload)
+            let response = await post(endPoints.register, formData)
             console.log(response,"responseresponse")
         } catch (error) {
             console.log(error, "errorerrorerror")
@@ -64,6 +67,15 @@ const Register = () => {
                     }) => (
                         <>
                             <div>
+                            <input
+                                    type="file"
+                                    name="username"
+                                    placeholder="Username"
+                                    value={values.ImageFile}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    className="w-full mb-2 p-2 rounded border border-gray-300 outline-none"
+                                />
                                 <input
                                     type="text"
                                     name="username"

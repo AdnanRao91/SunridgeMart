@@ -38,15 +38,16 @@ apiInstance.interceptors.response.use(
       const status = error.response.status;
       if (status === 498) {
         // Handle token expiration
-        token.clearStorage(res);
+        token.clearStorage();
         window.location.href = 'login'
         return;
-      } else if (status === 401 || status === 400) {
-        // Handle unauthorized or bad request
-        token.clearStorage(res);
-        window.location.href = 'login'
-        return;
-      }
+      } 
+      // else if (status === 401 || status === 400) {
+      //   // Handle unauthorized or bad request
+      //   token.clearStorage();
+      //   window.location.href = 'login'
+      //   return;
+      // }
     }
   }
 );

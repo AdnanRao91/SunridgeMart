@@ -12,6 +12,7 @@ import CustomerReview from '../components/CustomerReview'
 import ContactFooter from '@/components/ContactFooter'
 import React, { useEffect, useState } from 'react';
 import { get, post } from "@/api-services/index";
+import { useRouter } from 'next/router';
 
 const categories = [
   {
@@ -99,7 +100,7 @@ export default function Home() {
   const [productCategory, setProductCategory] = useState([]);
   const [productFeatures, setProductFeatures] = useState([])
   const [isloading, setisLoading] = useState(false)
-
+  const router = useRouter();
 
   useEffect(() => {
     getAllCategories()
@@ -136,7 +137,7 @@ export default function Home() {
           return { ...apiProduct, imageURL: localProduct.image };
         }
       });
-      setProductCategory(updatedProductss);
+      setProductCategory(updatedProductss?.slice(0,4));
       setisLoading(false)
     }).catch((err) => {
       setisLoading(false)
@@ -148,7 +149,9 @@ export default function Home() {
     getProductByCategrory(id)
   }
 
-
+const productPage = () => {
+  router.push('/products')
+}
   const handleAddtoCart = (e: Event, data: object) => {
     e.stopPropagation();
     let payload = [{
@@ -185,6 +188,9 @@ export default function Home() {
         </div>
         <div className="py-12">
           <ViewProducts isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
+          <div className='flex justify-center my-4'>
+          <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
+          </div>
         </div>
       </div>
       <MegaOffer />

@@ -98,6 +98,9 @@
 .black-text {
   color: #333333;
 }
+.bg-black{
+ background-color: #333333;
+}
 .bg-grey {
   background-color: #f1f4f7;
 }
@@ -535,6 +538,21 @@ ul.list-footer li {
 .sign-up-form {
   border: 1px solid #333333;
   border-radius: 8px;
+}
+.notification{
+  border: 1px solid #f36f28;
+    border-radius: 25px;
+    font-size: 12px;
+    padding: 1px 6px;
+    position: absolute;
+    top: 38px;
+    background-color: #f36f28;
+    color: white;
+    right: 18px;
+}
+span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
+  display: flex;
+  flex-direction: column;
 }
 @media screen and (max-width: 991px) {
   .contact-us-form {

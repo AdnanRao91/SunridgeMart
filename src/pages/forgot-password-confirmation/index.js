@@ -3,17 +3,31 @@ import React, { useState } from 'react';
 
 const PasswordResetConfirmation = () => {
     const router = useRouter()
+    let { email } = router.query || {}
+    console.log(email,"emailemailemail")
     const [newPassword, setNewPassword] = useState('');
-    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [otp, setOtp] = useState('');
+
     const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
 
     const handlePasswordReset = (e) => {
-        e.preventDefault();
-        setPasswordResetSuccess(!passwordResetSuccess)
-        setTimeout(() => {
-            router.push('/login')
-        }, 3000
-        );
+        const apiUrl = 'Account/reset-password'
+        const payload = {
+            email,
+            otp,
+            newPassword
+        }
+        post(apiUrl, payload).then((response) => {
+            showSnackbar.successMessage(response.message)
+            setPasswordResetSuccess(!passwordResetSuccess)
+            setTimeout(() => {
+                router.push({
+                    pathname: '/login',
+                })
+            }, 2000);
+        }).catch((err) => {
+            console.log(err, "errerrerr")
+        })
 
     };
 
@@ -22,8 +36,15 @@ const PasswordResetConfirmation = () => {
             <div className="bg-white p-8 rounded shadow-md w-96">
                 <h1 className="text-3xl text-center text-red-500 font-semibold mb-6">Reset Password</h1>
                 {!passwordResetSuccess ? (
-                    <form onSubmit={handlePasswordReset}>
+                    <div>
                         <input
+                            type="email"
+                            placeholder="Enter Email"
+                            disabled
+                            value={email}
+                            className="w-full mb-4 p-2 rounded border border-gray-300 outline-none"
+                        />
+                           <input
                             type="password"
                             placeholder="Enter new password"
                             value={newPassword}
@@ -31,16 +52,16 @@ const PasswordResetConfirmation = () => {
                             className="w-full mb-4 p-2 rounded border border-gray-300 outline-none"
                         />
                         <input
-                            type="password"
-                            placeholder="Confirm new password"
-                            value={confirmNewPassword}
-                            onChange={(e) => setConfirmNewPassword(e.target.value)}
+                            type="text"
+                            placeholder="Enter OTP"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
                             className="w-full mb-4 p-2 rounded border border-gray-300 outline-none"
                         />
-                        <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">
+                        <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600" onClick={handlePasswordReset}>
                             Reset Password
                         </button>
-                    </form>
+                    </div>
                 ) : (
                     <p className="text-center">
                         Your password has been successfully reset.
