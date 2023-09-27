@@ -74,7 +74,7 @@ const CheckOut = () => {
     };
   
     return (
-        <div className='top-spacing px-20'>
+        <div className='top-spacing px-20 pt-12'>
       <Box sx={{ width: '100%' }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
@@ -102,7 +102,7 @@ const CheckOut = () => {
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleReset}>Reset</Button>
+              <Button className='bg-green-600 text-white rounded-lg hover:bg-green-800' onClick={handleReset}>Reset</Button>
             </Box>
           </React.Fragment>
         ) : (
@@ -114,7 +114,7 @@ const CheckOut = () => {
             ))}
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button
-                color="inherit"
+                className='br-light-grey hover:br-light-grey text-black rounded-lg'
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 sx={{ mr: 1 }}
@@ -123,12 +123,12 @@ const CheckOut = () => {
               </Button>
               <Box sx={{ flex: '1 1 auto' }} />
               {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                <Button className='bg-black rounded-lg text-white hover:bg-black' onClick={handleSkip} sx={{ mr: 1 }}>
                   Skip
                 </Button>
               )}
       
-              <Button onClick={handleNext}>
+              <Button onClick={handleNext} className='bg-orange-500 hover:bg-orange-700 text-white rounded-lg'>
                 {activeStep === stepContent.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
