@@ -9,10 +9,11 @@ import MegaOffer from '../components/MegaOffer'
 import FeaturedProductComponent from "../components/FeaturedProductComponent"
 import DownloadApplication from '../components/DownloadApplication'
 import CustomerReview from '../components/CustomerReview'
-import ContactFooter from '@/components/ContactFooter'
 import React, { useEffect, useState } from 'react';
 import { get, post } from "@/api-services/index";
 import { useRouter } from 'next/router';
+import { TokenStorage } from '../utils/index';
+import { SnackbarUtility } from '../utils/index'
 
 const categories = [
   {
@@ -98,12 +99,16 @@ const reviews = [
 export default function Home() {
   const [category, setcategory] = useState([]);
   const [productCategory, setProductCategory] = useState([]);
-  const [productFeatures, setProductFeatures] = useState([])
+  const [cart, setCart] = useState([])
+  const [wishList, setWishList] = useState([])
   const [isloading, setisLoading] = useState(false)
   const router = useRouter();
-
+  const snackBar = new SnackbarUtility
+  const handlestorage = new TokenStorage
   useEffect(() => {
     getAllCategories()
+    getCart()
+    handleGetWishlistItem()
   }, []);
 
   const getAllCategories = async () => {
@@ -126,6 +131,14 @@ export default function Home() {
     }
   }
 
+  const getCart = () => {
+    const apiURl = 'CartItem/get-cartitems-by-customerId/'
+    get(apiURl + handlestorage.getGuid()).then((response) => {
+      setCart(response?.data?.productWithQuantity)
+    })
+  }
+
+
   const getProductByCategrory = (id: any) => {
     setisLoading(true)
     const getURL = `Product/get-by-category-id/${id}`;
@@ -137,44 +150,62 @@ export default function Home() {
           return { ...apiProduct, imageURL: localProduct.image };
         }
       });
-      setProductCategory(updatedProductss?.slice(0,4));
+      setProductCategory(updatedProductss?.slice(0, 4));
       setisLoading(false)
     }).catch((err) => {
       setisLoading(false)
     })
   };
 
-
+  const handleStorage = new TokenStorage
   const CategoryDataa = (id: any) => {
     getProductByCategrory(id)
   }
 
-const productPage = () => {
-  router.push('/products')
-}
+  const productPage = () => {
+    router.push('/products')
+  }
   const handleAddtoCart = (e: Event, data: object) => {
     e.stopPropagation();
-    let payload = [{
-      customerId: 1,
-      productId: 1,
-      quantity: 3
-    }]
-    console.log(payload, "payloadpayload")
-    const apiUrl = 'CartItem/create';
-    post(apiUrl, payload).then((response) => {
-      console.log(response.data, "datadatadata")
+    let payload = {
+      customerId: handleStorage.getGuid(),
+      productId: data.id,
+      quantity: 1,
+    }
+    const apiUrl = 'CartItem/AddToCart';
+    post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
+      if (response.code === 200) {
+        snackBar.successMessage(response.message)
+        getCart()
+      }
     })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-    // enqueueSnackbar('Product added to cart successfully', {
-    //     variant: 'success',
-    //     anchorOrigin: {
-    //         vertical: 'top',
-    //         horizontal: 'center',
-    //     },
-    //     autoHideDuration: 2000
-    // });
+  }
+  const handleGetWishlistItem = () => {
+    const apiUrl = 'WishList/get-wishlistItems-by-customerId/'
+    get(apiUrl + handleStorage.getGuid()).then((response) => {
+      setWishList(response?.data?.product)
+    }).catch((error) => {
+      snackBar.errorMessage(error.message)
+    })
+}
+  const handleWishList = (e: Event, data: object) => {
+    e.stopPropagation();
+    let payload = {
+      customerId: handleStorage.getGuid(),
+      productId: data.id
+    }
+    const apiUrl = 'WishList/add-to-wishlist';
+    post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
+      if(response.code === 200){
+        snackBar.successMessage(response.message)
+        handleGetWishlistItem()
+      }
+    }).catch((error) => {
+      snackBar.errorMessage(error.message)
+    })
   }
 
   return (
@@ -187,27 +218,16 @@ const productPage = () => {
           <TabSlider isloading={isloading} tabCategory={category} CategoryData={CategoryDataa} />
         </div>
         <div className="py-12">
-          <ViewProducts isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
+          <ViewProducts cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
           <div className='flex justify-center my-4'>
-          <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
+            <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
           </div>
         </div>
       </div>
       <MegaOffer />
-      <FeaturedProductComponent featuredProducts={productCategory} />
+      <FeaturedProductComponent featuredProducts={productCategory} cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} handleAddtoCart={handleAddtoCart} />
       <DownloadApplication />
       <CustomerReview review={reviews} />
-      {/* <div className="grid gap-4 grid-cols-3">
-            {productsData.map((item, index) => {
-                return (
-                    <div className={`${index > 2 ? 'mt-20' : 'mt-12'}`}>
-                        <Products data={item} tabs={categories}/>
-                    </div>
-                )
-            })}
-        </div> */}
-
-
     </div>
   )
 }

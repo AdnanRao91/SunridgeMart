@@ -1,7 +1,7 @@
 import { productsData } from "../../../data"
 import ProductCard from "../../ProductCard"
 import ProductCardSkeleton from "../../ProductCardSkeleton"
-const Listing = ({ products, isloading, handleAddtoCart }) => {
+const Listing = ({ products, handleAddtoCart, isloading, cart, handleAddToWishList, wishlist }) => {
     
     const renderData = () => {
         if (isloading) {
@@ -15,8 +15,8 @@ const Listing = ({ products, isloading, handleAddtoCart }) => {
         } else {
             return products?.map((item, index) => {
                 return (
-                    <div className={`${index > 3 ? 'mt-20' : 'mt-0'}`}>
-                        <ProductCard handleAddtoCart={handleAddtoCart} data={item} />
+                    <div className={`${index > 3 ? 'mt-20' : 'mt-20'} lg:w-1/4 md:w-1/2 sm:w-full xs:w-full`}>
+                        <ProductCard handleAddtoCart={handleAddtoCart} data={item} handleAddToWishList={handleAddToWishList} wishlist={wishlist} cart={cart}/>
                     </div>
                 );
             })
@@ -25,7 +25,7 @@ const Listing = ({ products, isloading, handleAddtoCart }) => {
 
 
     return (
-        <div className="grid gap-4 lg:grid-cols-4 sm:grid-cols-2 mt-24">
+        <div className="flex-wrap flex gap-4 justify-center">
             {renderData()}
         </div>
     )
