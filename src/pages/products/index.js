@@ -13,7 +13,7 @@ import { TokenStorage } from '../../utils/index';
 import { SnackbarUtility } from '../../utils/index'
 
 export default function Products() {
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState([]); 
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
