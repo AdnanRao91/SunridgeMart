@@ -55,7 +55,7 @@ export default function Header() {
                                     <Link href="/" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer rounded f-18 proxima-regular" aria-current="page">Home</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">about</Link>
+                                    <Link href="/about-us" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">about</Link>
                                 </li>
                                 <li>
                                     <Link href="/products" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">shop now</Link>
@@ -64,7 +64,7 @@ export default function Header() {
                                     <Link href="contact-us" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">contact us</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">donate a ration box</Link>
+                                    <Link href="/products" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">donate a ration box</Link>
                                 </li>
                             </ul>
                         </div>

@@ -6,6 +6,7 @@ import { productDetailData } from "../../data"
 import { Avatar, Divider, Rating } from "@mui/material"
 import { get } from "@/api-services/index"
 import { useRouter } from 'next/router';
+import { endPoints } from "../../constants"
 
 const ProductDetail = () => {
     const [discountedPrice, setDiscountedPrice] = useState(0);
@@ -43,7 +44,7 @@ const ProductDetail = () => {
 
     const getProductDetail = async () => {
         try {
-            const url = `Product/get-by-id/${id}`;
+            const url = `${endPoints.getProductDetail}/${id}`;
             let response = await get(url)
             setProductDetails(response.data)
             calculateDiscountedPrice(response.data)

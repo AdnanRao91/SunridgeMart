@@ -3,19 +3,15 @@ import { useEffect, useState } from 'react';
 import Image from "next/image"
 import TimeCount from "../timeCount"
 import { get } from "@/api-services/index"
+import { endPoints } from "@/constants";
 
 
 export default function Exculsive() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      // Define the URL you want to fetch data from
-      const apiUrl = 'Brand/get-all'; // Replace with your API endpoint
-
-      // Call the get function to fetch data
-      get(apiUrl)
+      get(endPoints.getAllBrands)
         .then((response) => {
-            console.log(response,"responseresponse")
           setData(response);
         })
         .catch((error) => {

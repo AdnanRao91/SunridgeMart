@@ -71,8 +71,17 @@ class SnackbarUtility {
   }
 }
 
+function objectToFormData(params) {
+  const formData = new FormData();
+  for (const key in params) {
+    formData.append(key, params[key]);
+  }
+  return formData;
+}
+
 
 export {
   SnackbarUtility,
-  TokenStorage
+  TokenStorage,
+  objectToFormData
 }

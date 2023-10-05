@@ -11,72 +11,75 @@ import OrderSummary from '../../components/OrderSummary';
 
 const steps = ['CheckOut Order Detail', 'Order Summary', 'Payment Method'];
 const stepContent = [
-    [<BillingDetails />],
-    [<OrderSummary />],
-    [<PaymentMethod />],
-    'Thanks for Shopping'
-    // Add more step content here
-  ];
+  [<BillingDetails />],
+  [<OrderSummary />],
+  [<PaymentMethod />],
+  'Thanks for Shopping'
+  // Add more step content here
+];
 const CheckOut = () => {
-    // const stepContent = [
-    //     {
-    //         component:<BillingDetails />,
-    //         component:<OrderSummary />,
-    //         component:<PaymentMethod />
-    
-    //     }
-        
-    //     // Add more step content here
-    //   ];
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
-  
-    const isStepOptional = (step) => {
-      return step === 1;
-    };
-  
-    const isStepSkipped = (step) => {
-      return skipped.has(step);
-    };
-  
-    const handleNext = () => {
-      let newSkipped = skipped;
-      if (isStepSkipped(activeStep)) {
-        newSkipped = new Set(newSkipped.values());
-        newSkipped.delete(activeStep);
-      }
-  
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      setSkipped(newSkipped);
-    };
-  
-    const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-  
-    const handleSkip = () => {
-      if (!isStepOptional(activeStep)) {
-        // You probably want to guard against something like this,
-        // it should never occur unless someone's actively trying to break something.
-        throw new Error("You can't skip a step that isn't optional.");
-      }
-  
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      setSkipped((prevSkipped) => {
-        const newSkipped = new Set(prevSkipped.values());
-        newSkipped.add(activeStep);
-        return newSkipped;
-      });
-    };
-  
-    const handleReset = () => {
-      setActiveStep(0);
-    };
-  
-    return (
-        <div className='top-spacing px-20 pt-12'>
+  // const stepContent = [
+  //     {
+  //         component:<BillingDetails />,
+  //         component:<OrderSummary />,
+  //         component:<PaymentMethod />
+
+  //     }
+
+  //     // Add more step content here
+  //   ];
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+
+  const isStepOptional = (step) => {
+    return step === 1;
+  };
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleSkip = () => {
+    if (!isStepOptional(activeStep)) {
+      // You probably want to guard against something like this,
+      // it should never occur unless someone's actively trying to break something.
+      throw new Error("You can't skip a step that isn't optional.");
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
+      const newSkipped = new Set(prevSkipped.values());
+      newSkipped.add(activeStep);
+      return newSkipped;
+    });
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  return (
+    <div className='top-spacing px-20 pt-12'>
       <Box sx={{ width: '100%' }}>
-        <Stepper activeStep={activeStep}>
+        <Stepper sx={{
+          width: "80%",
+          margin: "0 auto"
+        }} activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
@@ -106,7 +109,7 @@ const CheckOut = () => {
             </Box>
           </React.Fragment>
         ) : (
-            <React.Fragment>
+          <React.Fragment>
             {stepContent[activeStep].map((component, index) => (
               <div key={index}>
                 {component}
@@ -127,16 +130,16 @@ const CheckOut = () => {
                   Skip
                 </Button>
               )}
-      
+
               <Button onClick={handleNext} className='bg-orange-500 hover:bg-orange-700 text-white rounded-lg'>
                 {activeStep === stepContent.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
           </React.Fragment>
         )}
- 
+
       </Box>
-      </div>
-    );
+    </div>
+  );
 }
 export default CheckOut

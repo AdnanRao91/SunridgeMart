@@ -5,8 +5,7 @@ export async function post(url, payload) {
     const response = await apiInstance.post(`${url}`, payload);
     return response.data;
   } catch (error) {
-    console.error('Error:', error);
-    throw error;
+    return error
   }
 }
 
@@ -15,7 +14,7 @@ export async function get(url) {
     const response = await apiInstance.get(`${url}`, {});
     return response.data;
   } catch (error) {
-    console.error('Error:', error);
+    return error
     // throw error;
   }
 }
@@ -25,8 +24,7 @@ export async function patch(url, payload) {
     const response = await apiInstance.put(`${url}`, payload);
     return response.data;
   } catch (error) {
-    console.error('Error:', error);
-    throw error;
+    return error
   }
 }
 
@@ -35,7 +33,6 @@ export async function deleteRequest(url, payload) {
     const response = await apiInstance.delete(`${url}/${payload}`);
     return response.data;
   } catch (error) {
-    console.error('Error:', error);
-    throw error;
+    return error
   }
 }

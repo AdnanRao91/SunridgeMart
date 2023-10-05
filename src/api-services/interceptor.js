@@ -40,8 +40,10 @@ apiInstance.interceptors.response.use(
         // Handle token expiration
         token.clearStorage();
         window.location.href = 'login'
-        return;
+       
       } 
+      return error.response
+      
       // else if (status === 401 || status === 400) {
       //   // Handle unauthorized or bad request
       //   token.clearStorage();

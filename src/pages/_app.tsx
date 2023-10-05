@@ -7,6 +7,7 @@ import { SnackbarProvider } from 'notistack'
 import login from '../pages/login'
 import { TokenStorage } from "@/utils"
 import { post } from "@/api-services"
+import { endPoints } from "@/constants"
 export default function App({ Component, pageProps }: AppProps) {
   const providerRef = useRef();
   const handleStorage = new TokenStorage
@@ -14,8 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     let guid = handleStorage.getGuid()
     if (!guid) {
-      const apiUrl = 'Customer/RegisterCustomer'
-      post(apiUrl, {}).then((response) => {
+      post(endPoints.registerCustomer, {}).then((response) => {
         handleStorage.saveGuid(response?.data.customerId)
       }).catch((error) => {
         console.log(error, "catch some error")

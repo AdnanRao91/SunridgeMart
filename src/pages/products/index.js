@@ -7,6 +7,7 @@ import { get, post } from "../../api-services/index"
 import { TablePagination } from "@mui/material"
 import { getBreadcrumbs } from "../../utils"
 import { useRouter } from "next/router"
+import { endPoints } from "../../constants"
 
 
 export default function Products() {
@@ -54,8 +55,7 @@ export default function Products() {
   }, []);
 
   const getAllCategories = () => {
-    const apiUrl = 'Category/get-all';
-    get(apiUrl).then((response) => {
+    get(endPoints.getAllCategories).then((response) => {
       setCategory(response.data)
     })
       .catch((error) => {
@@ -64,8 +64,7 @@ export default function Products() {
   }
 
   const getAllBrands = () => {
-    const apiUrl = 'Brand/get-all';
-    get(apiUrl).then((response) => {
+    get(endPoints.getAllBrands).then((response) => {
       setBrands(response.data)
     })
       .catch((error) => {
@@ -76,8 +75,7 @@ export default function Products() {
 
   const getProducts = (params) => {
     setisLoading(true)
-    const getURL = `Product/get-all`;
-    post(getURL, params || {}).then((response) => {
+    post(endPoints.getAllProducts, params || {}).then((response) => {
       const updatedProducts = response.data.products.map((apiProduct) => {
         const localProduct = productsData.find((localProd) => localProd.name === apiProduct.category);
         if (localProduct) {
@@ -121,8 +119,7 @@ export default function Products() {
       quantity: 1
     }]
     console.log(payload, "payloadpayload")
-    const apiUrl = 'CartItem/create';
-    post(apiUrl, payload).then((response) => {
+    post(endPoints.addToCart, payload).then((response) => {
       console.log(response.data, "datadatadata")
     })
       .catch((error) => {

@@ -1,23 +1,22 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { endPoints } from '../../constants';
 
 const PasswordResetConfirmation = () => {
     const router = useRouter()
     let { email } = router.query || {}
-    console.log(email,"emailemailemail")
     const [newPassword, setNewPassword] = useState('');
     const [otp, setOtp] = useState('');
 
     const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
 
     const handlePasswordReset = (e) => {
-        const apiUrl = 'Account/reset-password'
         const payload = {
             email,
             otp,
             newPassword
         }
-        post(apiUrl, payload).then((response) => {
+        post(endPoints.resetPassword, payload).then((response) => {
             showSnackbar.successMessage(response.message)
             setPasswordResetSuccess(!passwordResetSuccess)
             setTimeout(() => {

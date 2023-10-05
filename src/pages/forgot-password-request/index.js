@@ -3,6 +3,7 @@ import Layout from '../../components/Layout';
 import { post } from '../../api-services'
 import { SnackbarUtility } from '../../utils';
 import { useRouter } from 'next/router';
+import { endPoints } from '../../constants';
 const ForgotPasswordRequest = () => {
     const router = useRouter()
     const [email, setEmail] = useState('');
@@ -11,13 +12,11 @@ const ForgotPasswordRequest = () => {
     const showSnackbar = new SnackbarUtility
 
     const handleForgotPassword = () => {
-        const apiUrl = 'Account/forgot-password'
         const payload = {
             email,
             phoneNumber: phone
         }
-        post(apiUrl, payload).then((response) => {
-            console.log(response,"responseresponse")
+        post(endPoints.forgotPassword, payload).then((response) => {
             showSnackbar.successMessage(response.message)
             setEmailSent(!emailSent)
             setTimeout(() => {

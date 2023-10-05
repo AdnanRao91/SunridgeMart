@@ -7,24 +7,34 @@ import { post } from "../../api-services"
 import { endPoints } from '../../constants';
 import { SnackbarUtility, TokenStorage } from '../../utils';
 import { useRouter } from 'next/router';
+import LoadingButton from "@/components/LoadingButton"
 import withAuth from "@/HOC"
 
 const Login = () => {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const handleToken = new TokenStorage
     const showSnackbar = new SnackbarUtility
     const handleLogin = async (values) => {
         try {
+            setIsLoading(true)
             let payload = {
                 email: values.email,
                 password: values.password
             }
             let response = await post(endPoints.login, payload)
-            // handleToken.saveToken(response.data.token)
-            showSnackbar.successMessage(response.message)
-            router.push('/')
+            if (response.code == 200) {
+                handleToken.saveToken(response.data.token)
+                showSnackbar.successMessage(response.message)
+                setIsLoading(false)
+                router.push('/')
+            } else {
+                setIsLoading(false)
+                showSnackbar.errorMessage(response.message)
+            }
         } catch (error) {
+            setIsLoading(false)
             console.log(error, "errorerror")
         }
     };
@@ -102,9 +112,10 @@ const Login = () => {
                                 </label>
                                 <Link href="/forgot-password-request" className="text-blue-500 hover:underline">Forgot Password?</Link>
                             </div>
-                            <button onClick={handleSubmit} className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 transition">
+                            <LoadingButton isLoading={isLoading} title="Login" handleSubmit={handleSubmit}/>
+                            {/* <button onClick={handleSubmit} className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 transition">
                                 Login
-                            </button>
+                            </button> */}
                             <p className="text-center mt-4">
                                 Don't have an account?{' '}
                                 <Link href="/register" className="text-blue-500 hover:underline">

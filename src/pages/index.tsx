@@ -13,6 +13,8 @@ import ContactFooter from '@/components/ContactFooter'
 import React, { useEffect, useState } from 'react';
 import { get, post } from "@/api-services/index";
 import { useRouter } from 'next/router';
+import { endPoints } from '@/constants'
+import { SnackbarUtility, TokenStorage } from '@/utils'
 
 const categories = [
   {
@@ -101,6 +103,8 @@ export default function Home() {
   const [productFeatures, setProductFeatures] = useState([])
   const [isloading, setisLoading] = useState(false)
   const router = useRouter();
+  const handleStorage = new TokenStorage
+  const showSnackbar = new SnackbarUtility
 
   useEffect(() => {
     getAllCategories()
@@ -109,8 +113,7 @@ export default function Home() {
   const getAllCategories = async () => {
     setisLoading(true)
     try {
-      const apiUrl = 'Category/get-all';
-      let response = await get(apiUrl)
+      let response = await get(endPoints.getAllCategories)
       const updatedProducts: any = categories.map(localProduct => {
         const apiProduct = response.data.find((apiProduct: any) => apiProduct.name == localProduct.name);
         if (apiProduct) {
@@ -128,7 +131,7 @@ export default function Home() {
 
   const getProductByCategrory = (id: any) => {
     setisLoading(true)
-    const getURL = `Product/get-by-category-id/${id}`;
+    const getURL = `${endPoints.getProductByCatId}/${id}`;
     get(getURL).then((response) => {
       const updatedProductss = response.data.products.map((apiProduct: any) => {
         const localProduct = products.find((localProd: any) => localProd.name === apiProduct.category);
@@ -137,7 +140,7 @@ export default function Home() {
           return { ...apiProduct, imageURL: localProduct.image };
         }
       });
-      setProductCategory(updatedProductss?.slice(0,4));
+      setProductCategory(updatedProductss?.slice(0, 4));
       setisLoading(false)
     }).catch((err) => {
       setisLoading(false)
@@ -149,32 +152,26 @@ export default function Home() {
     getProductByCategrory(id)
   }
 
-const productPage = () => {
-  router.push('/products')
-}
+  const productPage = () => {
+    router.push('/products')
+  }
   const handleAddtoCart = (e: Event, data: object) => {
     e.stopPropagation();
-    let payload = [{
-      customerId: 1,
-      productId: 1,
+    let payload = {
+      customerId: handleStorage.getGuid(),
+      productId: data.id,
       quantity: 3
-    }]
-    console.log(payload, "payloadpayload")
-    const apiUrl = 'CartItem/create';
-    post(apiUrl, payload).then((response) => {
-      console.log(response.data, "datadatadata")
+    }
+    post(`${endPoints.addToCart}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
+      if(response.code == 200){
+        showSnackbar.successMessage(response.message)
+      }else{
+        showSnackbar.errorMessage(response.message)
+      }
     })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-    // enqueueSnackbar('Product added to cart successfully', {
-    //     variant: 'success',
-    //     anchorOrigin: {
-    //         vertical: 'top',
-    //         horizontal: 'center',
-    //     },
-    //     autoHideDuration: 2000
-    // });
   }
 
   return (
@@ -189,7 +186,7 @@ const productPage = () => {
         <div className="py-12">
           <ViewProducts isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
           <div className='flex justify-center my-4'>
-          <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
+            <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
           </div>
         </div>
       </div>
