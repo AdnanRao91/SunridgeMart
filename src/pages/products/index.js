@@ -9,6 +9,8 @@ import { getBreadcrumbs } from "../../utils"
 import { useRouter } from "next/router"
 import { endPoints } from "../../constants"
 
+import { TokenStorage } from '../../utils/index';
+import { SnackbarUtility } from '../../utils/index'
 
 export default function Products() {
   const [category, setCategory] = useState([]);
@@ -18,6 +20,10 @@ export default function Products() {
   const [limit, setLimit] = useState(10);
   const [payload, setPayload] = useState({})
   const [isloading, setisLoading] = useState(false)
+  const [cart, setCart] = useState([])
+  const [wishList, setWishList] = useState([])
+  const snackBar = new SnackbarUtility
+  const handleStorage = new TokenStorage
   // const breadcrumbs = getBreadcrumbs(router.pathname);
 
   const productsData = [
@@ -52,6 +58,8 @@ export default function Products() {
     getAllCategories()
     getAllBrands()
     getProducts()
+    getCart()
+    handleGetWishlistItem()
   }, []);
 
   const getAllCategories = () => {
@@ -109,30 +117,56 @@ export default function Products() {
     }
     getProducts(params)
   }
+//add to cart and wish list
 
+  const getCart = () => {
+    const apiURl = 'CartItem/get-cartitems-by-customerId/'
+    get(apiURl + handleStorage.getGuid()).then((response) => {
+      setCart(response?.data?.productWithQuantity)
+    })
+  }
   const handleAddtoCart = (e, data) => {
     e.stopPropagation();
-    let userId = "d07792cb-44d9-42a9-9578-165f122cf8e9"
-    let payload = [{
-      customerId: userId,
-      productId: data?.id,
-      quantity: 1
-    }]
-    console.log(payload, "payloadpayload")
-    post(endPoints.addToCart, payload).then((response) => {
-      console.log(response.data, "datadatadata")
+    let payload = {
+      customerId: handleStorage.getGuid(),
+      productId: data.id,
+      quantity: 1,
+    }
+    const apiUrl = 'CartItem/AddToCart';
+    post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
+      if (response.code === 200) {
+        snackBar.successMessage(response.message)
+        getCart()
+      }
     })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-    // enqueueSnackbar('Product added to cart successfully', {
-    //     variant: 'success',
-    //     anchorOrigin: {
-    //         vertical: 'top',
-    //         horizontal: 'center',
-    //     },
-    //     autoHideDuration: 2000
-    // });
+  }
+
+  const handleGetWishlistItem = () => {
+    const apiUrl = 'WishList/get-wishlistItems-by-customerId/'
+    get(apiUrl + handleStorage.getGuid()).then((response) => {
+      setWishList(response?.data?.product)
+    }).catch((error) => {
+      snackBar.errorMessage(error.message)
+    })
+}
+  const handleWishList = (e, data) => {
+    e.stopPropagation();
+    let payload = {
+      customerId: handleStorage.getGuid(),
+      productId: data.id
+    }
+    const apiUrl = 'WishList/add-to-wishlist';
+    post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
+      if(response.code === 200){
+        snackBar.successMessage(response.message)
+        handleGetWishlistItem()
+      }
+    }).catch((error) => {
+      snackBar.errorMessage(error.message)
+    })
   }
 
 
@@ -161,10 +195,10 @@ export default function Products() {
             />
 
 
-            <Listing handleAddtoCart={handleAddtoCart} isloading={isloading} products={products} />
+            <Listing cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={products} />
             
             {
-              products?.length > 0 ?
+              products?.length < 0 ?
                 <div>
                   <h3 className="text-center">No Products Found</h3>
                 </div>

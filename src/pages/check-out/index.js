@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import BillingDetails from '../../components/BillingDetails';
 import PaymentMethod from '../../components/PaymentMethod';
 import OrderSummary from '../../components/OrderSummary';
+import withAuth from "../../HOC";
 
 const steps = ['CheckOut Order Detail', 'Order Summary', 'Payment Method'];
 const stepContent = [
@@ -142,4 +143,4 @@ const CheckOut = () => {
     </div>
   );
 }
-export default CheckOut
+export default withAuth(CheckOut)

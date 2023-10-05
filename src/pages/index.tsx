@@ -9,7 +9,6 @@ import MegaOffer from '../components/MegaOffer'
 import FeaturedProductComponent from "../components/FeaturedProductComponent"
 import DownloadApplication from '../components/DownloadApplication'
 import CustomerReview from '../components/CustomerReview'
-import ContactFooter from '@/components/ContactFooter'
 import React, { useEffect, useState } from 'react';
 import { get, post } from "@/api-services/index";
 import { useRouter } from 'next/router';
@@ -100,7 +99,8 @@ const reviews = [
 export default function Home() {
   const [category, setcategory] = useState([]);
   const [productCategory, setProductCategory] = useState([]);
-  const [productFeatures, setProductFeatures] = useState([])
+  const [cart, setCart] = useState([])
+  const [wishList, setWishList] = useState([])
   const [isloading, setisLoading] = useState(false)
   const router = useRouter();
   const handleStorage = new TokenStorage
@@ -108,6 +108,8 @@ export default function Home() {
 
   useEffect(() => {
     getAllCategories()
+    getCart()
+    handleGetWishlistItem()
   }, []);
 
   const getAllCategories = async () => {
@@ -129,6 +131,14 @@ export default function Home() {
     }
   }
 
+  const getCart = () => {
+    const apiURl = 'CartItem/get-cartitems-by-customerId/'
+    get(apiURl + handleStorage.getGuid()).then((response) => {
+      setCart(response?.data?.productWithQuantity)
+    })
+  }
+
+
   const getProductByCategrory = (id: any) => {
     setisLoading(true)
     const getURL = `${endPoints.getProductByCatId}/${id}`;
@@ -147,7 +157,6 @@ export default function Home() {
     })
   };
 
-
   const CategoryDataa = (id: any) => {
     getProductByCategrory(id)
   }
@@ -160,11 +169,12 @@ export default function Home() {
     let payload = {
       customerId: handleStorage.getGuid(),
       productId: data.id,
-      quantity: 3
+      quantity: 1
     }
     post(`${endPoints.addToCart}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
       if(response.code == 200){
         showSnackbar.successMessage(response.message)
+        getCart()
       }else{
         showSnackbar.errorMessage(response.message)
       }
@@ -172,6 +182,30 @@ export default function Home() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+  }
+  const handleGetWishlistItem = () => {
+    const apiUrl = 'WishList/get-wishlistItems-by-customerId/'
+    get(apiUrl + handleStorage.getGuid()).then((response) => {
+      setWishList(response?.data?.product)
+    }).catch((error) => {
+      showSnackbar.errorMessage(error.message)
+    })
+}
+  const handleWishList = (e: Event, data: object) => {
+    e.stopPropagation();
+    let payload = {
+      customerId: handleStorage.getGuid(),
+      productId: data.id
+    }
+    const apiUrl = 'WishList/add-to-wishlist';
+    post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
+      if(response.code === 200){
+        showSnackbar.successMessage(response.message)
+        handleGetWishlistItem()
+      }
+    }).catch((error) => {
+      showSnackbar.errorMessage(error.message)
+    })
   }
 
   return (
@@ -184,27 +218,16 @@ export default function Home() {
           <TabSlider isloading={isloading} tabCategory={category} CategoryData={CategoryDataa} />
         </div>
         <div className="py-12">
-          <ViewProducts isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
+          <ViewProducts cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
           <div className='flex justify-center my-4'>
             <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
           </div>
         </div>
       </div>
       <MegaOffer />
-      <FeaturedProductComponent featuredProducts={productCategory} />
+      <FeaturedProductComponent featuredProducts={productCategory} cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} handleAddtoCart={handleAddtoCart} />
       <DownloadApplication />
       <CustomerReview review={reviews} />
-      {/* <div className="grid gap-4 grid-cols-3">
-            {productsData.map((item, index) => {
-                return (
-                    <div className={`${index > 2 ? 'mt-20' : 'mt-12'}`}>
-                        <Products data={item} tabs={categories}/>
-                    </div>
-                )
-            })}
-        </div> */}
-
-
     </div>
   )
 }

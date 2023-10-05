@@ -3,9 +3,109 @@ import { useState, useEffect } from 'react';
 import { Divider } from '@mui/material';
 import withAuth from '../../HOC';
 import { Add, Remove } from '@mui/icons-material';
-
+import { useRouter } from 'next/router';
+import { get } from '../../api-services/index'
+import { TokenStorage } from '../../utils/index'
 
 function CartPage({ children }) {
+  const handlestorage = new TokenStorage
+  const [cart, setCart] = useState()
+  const [totalPrices, setTotalPrices] = useState(0)
+  const [tax, setTax] = useState(null)
+  const [taxAmount, setTaxAmount] = useState([])
+  const [totalPriceWithTax, setTotalPriceWithTax] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0);
+
+
+  useEffect(() => {
+    handleCart();
+
+  }, [])
+
+  const handleCart = () => {
+    const apiURl = 'CartItem/get-cartitems-by-customerId/'
+    get(apiURl + handlestorage.getGuid()).then((response) => {
+      setCart(response?.data?.productWithQuantity)
+      calculateOrderTotal(response?.data?.productWithQuantity)
+      handleTax(response?.data?.productWithQuantity);
+    })
+  }
+
+
+  const handleTax = (productData) => {
+    const apiURl = 'Tax/get-all';
+    get(apiURl)
+      .then((response) => {
+        setTax(response?.data);
+        calculateTax(response?.data, productData)
+      })
+      .catch((error) => {
+        console.error('Error fetching tax data:', error);
+      });
+  }
+  const calculateOrderTotal = (data) => {
+    const totalPricesTemp = data?.reduce((total, product) => {
+      const subTotal = product.product.price * product.quantity;
+      const totalPrice = total + subTotal;
+      return totalPrice;
+    }, 0);
+    setTotalPrices(totalPricesTemp)
+    return totalPricesTemp
+  }
+
+  const calculateTax = (taxData, productData) => {
+    if (taxData && productData !== null) {
+      const taxRate = taxData[0].taxPercent;
+      const subTotal = calculateOrderTotal(productData)
+      const taxAmount = (subTotal * taxRate) / 100;
+      setTaxAmount(taxAmount)
+      const totalPriceWithTax = subTotal + taxAmount;
+      setTotalPriceWithTax(totalPriceWithTax)
+    } else {
+      console.log('Tax data or total price is not available yet.');
+    }
+  }
+
+  const handleMinus = (data) => {
+    if (data.quantity > 1) {
+      let temp = [...cart]
+      temp.forEach((item, index) => {
+        if (item.product.id == data.product.id) {
+          temp[index].quantity -= 1
+          temp[index].totalPrice = temp[index].quantity * temp[index]?.product?.price;
+          setTotalPrice(temp[index].totalPrice)
+        }
+      })
+      setCart(temp)
+      calculateOrderTotal(temp)
+      handleTax(temp);
+    } else {
+      alert("Quantity cannot go below 1")
+    }
+  };
+  const handlePlus = (data) => {
+    if (data.quantity < 10) {
+      let temp = [...cart];
+      temp.forEach((item, index) => {
+        if (item.product.id === data.product.id) {
+          temp[index].quantity += 1;
+          temp[index].totalPrice = temp[index].quantity * temp[index]?.product?.price;
+          setTotalPrice(temp[index].totalPrice)
+        }
+      });
+      setCart(temp);
+      calculateOrderTotal(temp)
+      handleTax(temp);
+    } else {
+      alert("you have already select 10 items");
+    }
+  };
+
+  const router = useRouter();
+  const handleCheckOut = () => {
+    router.push('/check-out')
+  }
+
 
   return (
     <div className='top-spacing mx-7'>
@@ -51,46 +151,55 @@ function CartPage({ children }) {
                   </div>
                 </div>
                 <Divider />
-                <div className='card-product py-3'>
-                  <div className='grid grid-cols-8 items-center'>
-                    <div className='col-span-1 flex justify-center'>
-                      <div className='f-18 nova-bold black-text uppercase'>
-                        <img src="/assets/home/Atta-Fortified.png" width={65} />
-                      </div>
-                    </div>
-                    <div className='col-span-2'>
-                      <div className='f-16 black-text uppercase'>
-                        Fotified Atta
-                      </div>
-                    </div>
-                    <div className='col-span-1'>
-                      <div className='f-186 black-text uppercase'>
-                        450
-                      </div>
-                    </div>
-                    <div style={{ margin: "0 auto" }} className='col-span-1 flex gap-2 border-2 border-orange-500 rounded-xl w-24 items-center justify-center mt-1'>
-                      <button><Remove /></button>
-                      <h3 className="josefin-sans-regular f-16">2</h3>
-                      <button><Add /></button>
-                    </div>
-                    <div className='col-span-1'>
-                      <div className='f-186 black-text uppercase'>
-                        1800
-                      </div>
-                    </div>
-                    <div className='col-span-1'>
-                      <div className='f-18 nova-bold black-text uppercase'>
-                        <button className="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
-                      </div>
-                    </div>
-                  </div>
-                  <Divider />
-                </div>
+                {
+                  cart?.map((data, index) => {
+                    return (
+                      <>
+                        <div className='card-product py-3'>
+                          <div className='grid grid-cols-8 items-center' key={data?.product?.id}>
+                            <div className='col-span-1 flex justify-center'>
+                              <div className='f-18 nova-bold black-text uppercase'>
+                                <img src={data?.product?.imageURL[0]} width={65} />
+                              </div>
+                            </div>
+                            <div className='col-span-2'>
+                              <div className='f-16 black-text uppercase'>
+                                {data?.product?.name}
+                              </div>
+                            </div>
+                            <div className='col-span-1'>
+                              <div className='f-186 black-text uppercase'>
+                                {data?.product?.price}
+                              </div>
+                            </div>
+                            <div style={{ margin: "0 auto" }} className='col-span-1 flex gap-2 border-2 border-orange-500 rounded-xl w-24 items-center justify-center mt-1'>
+                              <button onClick={() => handleMinus(data)}><Remove /></button>
+                              <h3 className="josefin-sans-regular f-16">{data?.quantity}</h3>
+                              <button onClick={() => handlePlus(data)}><Add /></button>
+                            </div>
+                            <div className='col-span-1'>
+                              <div className='f-186 black-text uppercase'>
+                                {data?.totalPrice ? data?.totalPrice : data.product.price * data.quantity}
+                              </div>
+                            </div>
+                            <div className='col-span-1'>
+                              <div className='f-18 nova-bold black-text uppercase'>
+                                <button className="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
+                              </div>
+                            </div>
+                          </div>
+                          <Divider />
+                        </div>
+                      </>
+                    )
+
+                  })
+                }
               </div>
               <div className='col-span-3'>
                 <div className='total-price'>
                   <div className='f-18 nova-bold black-text uppercase text-left'>
-                    Summary
+                    Order Summary
                   </div>
                   <Divider />
                   <div className='flex justify-between my-4'>
@@ -98,7 +207,7 @@ function CartPage({ children }) {
                       order total
                     </div>
                     <div className='f-18 nova-bold black-text uppercase'>
-                      200.00
+                      {totalPrices}
                     </div>
                   </div>
                   <Divider />
@@ -107,7 +216,7 @@ function CartPage({ children }) {
                       Tax
                     </div>
                     <div className='f-18 nova-bold black-text uppercase'>
-                      20.00
+                      {taxAmount}
                     </div>
                   </div>
                   <Divider />
@@ -116,11 +225,11 @@ function CartPage({ children }) {
                       Total
                     </div>
                     <div className='f-18 nova-bold black-text uppercase'>
-                      220.00
+                      {totalPriceWithTax}
                     </div>
                   </div>
                   <div className='btn-processed'>
-                    <button className='f-18 nova-bold bg-orange-500 hover:bg-orange-600 transition text-white w-full py-2 capitalize'>processed to checkout</button>
+                    <button className='f-18 nova-bold bg-orange-500 hover:bg-orange-600 transition text-white w-full py-2 capitalize' onClick={handleCheckOut}>processed to checkout</button>
                   </div>
                   <div className='btn-processed my-4'>
                     <button className='f-18 nova-bold bg-green-600 hover:bg-green-700 text-white w-full py-2 capitalize'>continue to shopping</button>

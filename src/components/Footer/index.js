@@ -48,7 +48,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div className='col-span-1'>
-                            <div className='f-24 nova-bold black-text'>QUICK LINKS</div>
+                            <div className='f-24 nova-bold black-text'>Follow Us</div>
                             <ul className='list-footer'>
                                 <li>
                                     <div className="flex items-center">

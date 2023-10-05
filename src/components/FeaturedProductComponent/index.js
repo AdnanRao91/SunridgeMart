@@ -15,7 +15,7 @@ const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
     ssr: false, // Disable server-side rendering
 });
 
-export default function FeaturedProductcomponent({featuredProducts}) {
+export default function FeaturedProductcomponent({featuredProducts, handleAddtoCart, cart, handleAddToWishList, wishlist}) {
     const options = {
         items: 3,
         nav: true,
@@ -60,7 +60,7 @@ export default function FeaturedProductcomponent({featuredProducts}) {
                         {featuredProducts.map((item, index) => {
                             return (
                                 <div key={item.id} className={`${'mt-24'}`}>
-                                    <ProductCard data={item} />
+                                    <ProductCard handleAddToWishList={handleAddToWishList} wishlist={wishlist} handleAddtoCart={handleAddtoCart} data={item} cart={cart} />
                                 </div>
                             )
                         })}
