@@ -98,8 +98,8 @@
 .black-text {
   color: #333333;
 }
-.bg-black{
- background-color: #333333;
+.bg-black {
+  background-color: #333333;
 }
 .bg-grey {
   background-color: #f1f4f7;
@@ -110,11 +110,11 @@
 .br-light-grey {
   background-color: #f1f1f1;
 }
-.text-white{
+.text-white {
   color: white;
 }
 
-.top-spacing{
+.top-spacing {
   /* position: relative;
   top: 115px; */
   margin-top: 120px;
@@ -123,16 +123,16 @@
 .text-color-orange {
   color: #f36f28;
 }
-.bg-orange{
+.bg-orange {
   background-color: #f36f28;
 }
-.bg-green{
+.bg-green {
   background-color: #20ac4c;
 }
-.login-form{
-    border: 1px solid #666666;
-    padding: 3rem;
-    border-radius: 15px;
+.login-form {
+  border: 1px solid #666666;
+  padding: 3rem;
+  border-radius: 15px;
 }
 .bg-light-orange {
   background-color: #f5905a;
@@ -539,16 +539,31 @@ ul.list-footer li {
   border: 1px solid #333333;
   border-radius: 8px;
 }
-.notification{
+.notification {
   border: 1px solid #f36f28;
-    border-radius: 25px;
-    font-size: 12px;
-    padding: 1px 6px;
-    position: absolute;
-    top: 38px;
-    background-color: #f36f28;
-    color: white;
-    right: 18px;
+  border-radius: 25px;
+  font-size: 12px;
+  padding: 1px 6px;
+  position: absolute;
+  top: 38px;
+  background-color: #f36f28;
+  color: white;
+  right: 18px;
+}
+.number-quantity {
+  align-items: center;
+  font-family: "proxima-nova-regular";
+  border-radius: 32px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  background: #f36f28;
+  color: #f1f4f7;
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 25px;
+  font-size: 14px;
 }
 span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
   display: flex;

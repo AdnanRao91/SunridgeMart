@@ -1,14 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { get } from "../../api-services/index";
+import { TokenStorage } from "../../utils";
 export default function Header() {
+    const [quantity, setTotalQuantity] = useState(0)
     const [scrollPosition, setScrollPosition] = useState(0);
+    const handleStorage = new TokenStorage
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
 
     useEffect(() => {
+        handleCart()
         window.addEventListener("scroll", handleScroll);
 
         return () => {
@@ -16,6 +21,20 @@ export default function Header() {
         };
     }, []);
 
+    const handleCart = () => {
+        const apiURl = 'CartItem/get-cartitems-by-customerId/';
+
+        get(apiURl + handleStorage.getGuid()).then((response) => {
+            const cartItems = response?.data?.productWithQuantity || [];
+
+            // Calculate total quantity
+            const totalQuantity = cartItems.reduce((acc, item) => {
+                return acc + item.quantity;
+            }, 0);
+            // Set the total quantity in your state or wherever you need it
+            setTotalQuantity(totalQuantity);
+        });
+    };
 
     return (
         <div>
@@ -40,8 +59,18 @@ export default function Header() {
                             <Link href="/login" className="mx-8">
                                 <Image src="/assets/home/user.png" width={30} height={30} alt="heart" />
                             </Link>
-                            <Link href="/cart-page" className="">
+                            <Link href="/cart-page" className="relative">
                                 <Image src="/assets/home/bag.png" width={30} height={30} alt="heart" />
+                                {
+                                    quantity ? (
+                                        <div className="number-quantity">
+                                            {quantity}
+                                        </div>
+                                    ) :
+                                        (
+                                            <div></div>
+                                        )
+                                }
                             </Link>
                             <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
