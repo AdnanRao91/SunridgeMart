@@ -18,93 +18,67 @@ function WishList({ user }) {
         })
     }
     return (
-<div className='top-spacing mx-4 md:mx-7'>
-    <div className='f-30 josefin-sans-bold black-text flex justify-center'>
+        <div className='top-spacing mx-7'>
+        <div className='f-24 josefin-sans-bold black-text flex justify-center'>
         My Wishlist
-    </div>
-    <div className='text-center my-8'>
-
-        <div>
-            <div className='card-product'>
-                <div className='lg:grid md:grid hidden grid-cols-7'>
-                    <div className='col-span-1'>
-                        <div className='f-18 nova-bold black-text uppercase'>
-                            Image
-                        </div>
-                    </div>
-                    <div className='col-span-2'>
-                        <div className='f-18 nova-bold black-text uppercase'>
-                            Product Name
-                        </div>
-                    </div>
-                    <div className='col-span-1'>
-                        <div className='f-18 nova-bold black-text uppercase'>
-                            Price
-                        </div>
-                    </div>
-                    <div className='col-span-1'>
-                        <div className='f-18 nova-bold black-text uppercase'>
-                            Stock Status
-                        </div>
-                    </div>
-                    <div className='col-span-1'>
-                        <div className='f-18 nova-bold black-text uppercase'>
-                            Add To Cart
-                        </div>
-                    </div>
-                    <div className='col-span-1'>
-                        <div className='f-18 nova-bold black-text uppercase'>
-                            Remove
-                        </div>
-                    </div>
-                </div>
-                
-                {/* ... */}
-            </div>
         </div>
-        {
-        wishlist?.map((item, index) => {
-            return (
-              <>
-                <div key={item?.id} className='card-product py-3'>
-                    <div className='grid grid-cols-1 md:grid-cols-7 items-center'>
-                        <div className='col-span-1 md:col-span-1 flex justify-center'>
-                            <div className='text-xl md:text-2xl font-bold uppercase'>
-                                <Image src={item.imageURL} width={65} height="" alt=""/>
-                            </div>
+            <div className='card-product'>
+            <div className='grid lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-1 gap-2'>
+            <div className='col-span-12'>
+            <table className='table-auto w-full text-center'>
+                <thead>
+                  <tr className='lg:h-12 md:h-12 border-b border-gray-200'>
+                    <th className='f-18 nova-bold black-text uppercase'>Remove</th>
+                    <th className='f-18 nova-bold black-text uppercase'>Image</th>
+                    <th className='f-18 nova-bold black-text uppercase'>Product Name</th>
+                    <th className='f-18 nova-bold black-text uppercase'>Price</th>
+                    <th className='f-18 nova-bold black-text uppercase'>Stock Status</th>
+                    <th className='f-18 nova-bold black-text uppercase'>Add To Cart</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {wishlist?.map((item, index) => (
+                    <tr key={item?.id} className='lg:h-12 md:h-12 border-b border-gray-200'>
+                            <td>
+                        <div class='f-18 nova-bold black-text uppercase'>
+                          <button class="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
                         </div>
-                        <div className='col-span-2 md:col-span-2'>
-                            <div className='f-16 black-text uppercase'>
-                                {item.name}
-                            </div>
+                      </td>
+                      <td>
+                        <div className='flex justify-center'>
+                        <Image src={item.imageURL} width={65} height="" alt=""/>
                         </div>
-                        <div className='col-span-1 md:col-span-1'>
-                            <div className='f-16 black-text uppercase'>
-                                {item.price}
-                            </div>
+                      </td>
+                      <td>
+                      <div className='f-16 nova-bold black-text uppercase table-heading-responsive'>Product Name:</div>
+                        <div className='f-16 black-text uppercase'>
+                        {item.name}
                         </div>
-                        <div className='col-span-1 md:col-span-1'>
-                            <div className='f-16 black-text uppercase'>
-                                {item.quantity > 0 ? "In Stock" : "Out of stock"}
-                            </div>
+                      </td>
+                      <td>
+                      <div className='f-16 nova-bold black-text uppercase table-heading-responsive me:4'>Price:</div>
+                      {item.price}
+                      </td>
+                      <td>
+                      <div className='f-16 nova-bold black-text uppercase table-heading-responsive me:4'>Stock Status:</div>
+                      {item.quantity > 0 ? "In Stock" : "Out of stock"}
+                      </td>
+                      <td>
+                        <div class='f-16 black-text uppercase'>
+                        <button className="f-16 text-white proxima-regular bg-green px-2 py-1">Add To Cart</button>
                         </div>
-                        <div className='col-span-1 md:col-span-1'>
-                            <button className="f-16 text-white proxima-regular bg-green px-2 py-1">Add To Cart</button>
-                        </div>
-                        <div className='col-span-1 md:col-span-1'>
-                            <div className='f-18 nova-bold black-text uppercase'>
-                                <button className="text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
-                            </div>
-                        </div>
-                    </div>
-                    <Divider />
-                    {/* ... */}
-                </div>
-              </>
-            );
-        })}
-    </div>
-</div>
+                      </td>
+                    </tr>
+                  ))}
+                  
+                </tbody>
+              </table>
+            </div>
+            
+            </div>
+          </div>
+        </div>
+
 
     )
 }

@@ -569,6 +569,9 @@ span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
   display: flex;
   flex-direction: column;
 }
+.table-heading-responsive{
+  display: none;
+}
 @media screen and (max-width: 991px) {
   .contact-us-form {
     left: 0;
@@ -627,6 +630,38 @@ span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
   .icon-cart-header {
     width: 27px;
   }
+  .cart_product_heading{
+    display: none;
+  }
+  .table-heading-responsive{
+    display: block;
+    margin-right: 0.5rem;
+  }
+  table {
+    width: 100%;
+    position: relative;
+  }
+  table thead {
+    display: none; /* Hide the table header on smaller screens */
+  }
+  table tbody tr {
+    display: block;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+  }
+  table tbody td {
+    display: flex;
+    text-align: left;
+  }
+  table tbody td:first-child {
+    margin-bottom: 0; /* Remove the margin for the last column */
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+    right: 20px;
+  }
+
 }
 @media screen and (max-width: 600px) {
   .f-65 {
