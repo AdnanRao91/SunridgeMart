@@ -24,5 +24,12 @@ export const endPoints = {
     getAllCategories: "Category/get-all",
 
     //Cart
-    addToCart: "CartItem/AddToCart"
+    addToCart: "CartItem/AddToCart",
+    updateCart: "CartItem/update",
+    deleteCart: "CartItem/delete",
+    getCart: "CartItem/get-cartitems-by-customerId",
+
+    //Wishlist
+    deleteWishlist: "WishList/delete",
+    getWishlist: "WishList/get-wishlistItems-by-customerId"
 }

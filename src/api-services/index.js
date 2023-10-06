@@ -30,7 +30,7 @@ export async function patch(url, payload) {
 
 export async function deleteRequest(url, payload) {
   try {
-    const response = await apiInstance.delete(`${url}/${payload}`);
+    const response = await apiInstance.delete(`${url}`, { data: payload });
     return response.data;
   } catch (error) {
     return error

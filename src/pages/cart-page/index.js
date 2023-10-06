@@ -4,104 +4,84 @@ import { Divider } from '@mui/material';
 import withAuth from '../../HOC';
 import { Add, Remove } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-import { get } from '../../api-services/index'
-import { TokenStorage } from '../../utils/index'
+import { deleteRequest, get, patch } from '../../api-services/index'
+import { SnackbarUtility, TokenStorage } from '../../utils/index'
+import { endPoints } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleGetCart } from "../../store/slices/Cart"
 
 function CartPage({ children }) {
+  const dispatch = useDispatch()
+  const router = useRouter();
   const handlestorage = new TokenStorage
-  const [cart, setCart] = useState()
-  const [totalPrices, setTotalPrices] = useState(0)
-  const [tax, setTax] = useState(null)
-  const [taxAmount, setTaxAmount] = useState([])
-  const [totalPriceWithTax, setTotalPriceWithTax] = useState([])
-  const [totalPrice, setTotalPrice] = useState(0);
+  const showSnackbar = new SnackbarUtility
+  const cartData = useSelector((state) => state?.Cart?.cartItems);
+  const subTotal = useSelector((state) => state?.Cart?.subTotal);
+  const taxAmount = useSelector((state) => state?.Cart?.taxAmount);
+  const totalPriceWithTax = useSelector((state) => state?.Cart?.totalPrice);
 
 
   useEffect(() => {
-    handleCart();
+    dispatch(handleGetCart(handlestorage.getGuid()))
+  }, [cartData?.length])
 
-  }, [])
-
-  const handleCart = () => {
-    const apiURl = 'CartItem/get-cartitems-by-customerId/'
-    get(apiURl + handlestorage.getGuid()).then((response) => {
-      setCart(response?.data?.productWithQuantity)
-      calculateOrderTotal(response?.data?.productWithQuantity)
-      handleTax(response?.data?.productWithQuantity);
-    })
-  }
-
-
-  const handleTax = (productData) => {
-    const apiURl = 'Tax/get-all';
-    get(apiURl)
-      .then((response) => {
-        setTax(response?.data);
-        calculateTax(response?.data, productData)
-      })
-      .catch((error) => {
-        console.error('Error fetching tax data:', error);
-      });
-  }
-  const calculateOrderTotal = (data) => {
-    const totalPricesTemp = data?.reduce((total, product) => {
-      const subTotal = product.product.price * product.quantity;
-      const totalPrice = total + subTotal;
-      return totalPrice;
-    }, 0);
-    setTotalPrices(totalPricesTemp)
-    return totalPricesTemp
-  }
-
-  const calculateTax = (taxData, productData) => {
-    if (taxData && productData !== null) {
-      const taxRate = taxData[0].taxPercent;
-      const subTotal = calculateOrderTotal(productData)
-      const taxAmount = (subTotal * taxRate) / 100;
-      setTaxAmount(taxAmount)
-      const totalPriceWithTax = subTotal + taxAmount;
-      setTotalPriceWithTax(totalPriceWithTax)
-    } else {
-      console.log('Tax data or total price is not available yet.');
-    }
-  }
-
-  const handleMinus = (data) => {
+  const handleMinus = async (data) => {
     if (data.quantity > 1) {
-      let temp = [...cart]
-      temp.forEach((item, index) => {
-        if (item.product.id == data.product.id) {
-          temp[index].quantity -= 1
-          temp[index].totalPrice = temp[index].quantity * temp[index]?.product?.price;
-          setTotalPrice(temp[index].totalPrice)
+      try {
+        let payload = {
+          id: 0,
+          customerId: handlestorage.getGuid(),
+          productId: data.product.id,
+          quantity: data.quantity - 1
         }
-      })
-      setCart(temp)
-      calculateOrderTotal(temp)
-      handleTax(temp);
+        let response = await patch(`${endPoints.updateCart}?customerId=${handlestorage.getGuid()}`, payload)
+        dispatch(handleGetCart(handlestorage.getGuid()))
+      } catch (error) {
+        console.log(error, "errorerror")
+      }
     } else {
-      alert("Quantity cannot go below 1")
-    }
-  };
-  const handlePlus = (data) => {
-    if (data.quantity < 10) {
-      let temp = [...cart];
-      temp.forEach((item, index) => {
-        if (item.product.id === data.product.id) {
-          temp[index].quantity += 1;
-          temp[index].totalPrice = temp[index].quantity * temp[index]?.product?.price;
-          setTotalPrice(temp[index].totalPrice)
-        }
-      });
-      setCart(temp);
-      calculateOrderTotal(temp)
-      handleTax(temp);
-    } else {
-      alert("you have already select 10 items");
+      showSnackbar.errorMessage('Quantity cannot go below 1')
     }
   };
 
-  const router = useRouter();
+
+
+
+  const handlePlus = async (data) => {
+    if (data.quantity < 10) {
+      try {
+        let payload = {
+          id: 0,
+          customerId: handlestorage.getGuid(),
+          productId: data.product.id,
+          quantity: data.quantity + 1
+        }
+        let response = await patch(`${endPoints.updateCart}?customerId=${handlestorage.getGuid()}`, payload)
+        dispatch(handleGetCart(handlestorage.getGuid()))
+      } catch (error) {
+        console.log(error, "errorerror")
+      }
+    } else {
+      showSnackbar.errorMessage('you have already select 10 items')
+    }
+  };
+
+
+  const handleRemove = async (data) => {
+    try {
+      let payload = {
+        id: 0,
+        customerId: handlestorage.getGuid(),
+        productId: data.product.id,
+        quantity: 0
+      }
+      let response = await deleteRequest(`${endPoints.deleteCart}?customerId=${handlestorage.getGuid()}`, payload)
+      dispatch(handleGetCart(handlestorage.getGuid()))
+    } catch (error) {
+      console.log(error, "errorerror")
+    }
+  };
+
   const handleCheckOut = () => {
     router.push('/check-out')
   }
@@ -152,7 +132,7 @@ function CartPage({ children }) {
                 </div>
                 <Divider />
                 {
-                  cart?.map((data, index) => {
+                  cartData?.map((data, index) => {
                     return (
                       <>
                         <div className='card-product py-3'>
@@ -184,7 +164,7 @@ function CartPage({ children }) {
                             </div>
                             <div className='col-span-1'>
                               <div className='f-18 nova-bold black-text uppercase'>
-                                <button className="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
+                                <button onClick={() => handleRemove(data)} className="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
                               </div>
                             </div>
                           </div>
@@ -207,7 +187,7 @@ function CartPage({ children }) {
                       order total
                     </div>
                     <div className='f-18 nova-bold black-text uppercase'>
-                      {totalPrices}
+                      {subTotal}
                     </div>
                   </div>
                   <Divider />
@@ -244,4 +224,4 @@ function CartPage({ children }) {
   )
 }
 
-export default withAuth(CartPage) 
+export default CartPage

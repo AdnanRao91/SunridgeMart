@@ -3,8 +3,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { get } from "../../api-services/index";
 import { TokenStorage } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { handleGetCart } from "@/store/slices/Cart";
+import { handleGetWishlist } from "@/store/slices/Wishlist"
 export default function Header() {
-    const [quantity, setTotalQuantity] = useState(0)
+    const dispatch = useDispatch()
+    const cart = useSelector((state) => state?.Cart?.cartItems);
+    const wishlist = useSelector((state) => state?.Wishlist?.wishlistItems);
+
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleStorage = new TokenStorage
     const handleScroll = () => {
@@ -13,7 +19,8 @@ export default function Header() {
     };
 
     useEffect(() => {
-        handleCart()
+        dispatch(handleGetCart(handleStorage.getGuid()))
+        dispatch(handleGetWishlist(handleStorage.getGuid()))
         window.addEventListener("scroll", handleScroll);
 
         return () => {
@@ -21,20 +28,6 @@ export default function Header() {
         };
     }, []);
 
-    const handleCart = () => {
-        const apiURl = 'CartItem/get-cartitems-by-customerId/';
-
-        get(apiURl + handleStorage.getGuid()).then((response) => {
-            const cartItems = response?.data?.productWithQuantity || [];
-
-            // Calculate total quantity
-            const totalQuantity = cartItems.reduce((acc, item) => {
-                return acc + item.quantity;
-            }, 0);
-            // Set the total quantity in your state or wherever you need it
-            setTotalQuantity(totalQuantity);
-        });
-    };
 
     return (
         <div>
@@ -53,8 +46,16 @@ export default function Header() {
                             <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
                         </Link>
                         <div className="flex items-center lg:order-2">
-                            <Link href="/wish-list" className="">
+                            <Link href="/wish-list" className="relative">
                                 <Image src="/assets/home/heart.png" width={30} height={30} alt="heart" />
+                                {
+                                    wishlist?.length > 0 ?
+                                        <div className="number-quantity">
+                                            {wishlist?.length}
+                                        </div>
+                                        :
+                                        ""
+                                }
                             </Link>
                             <Link href="/login" className="mx-8">
                                 <Image src="/assets/home/user.png" width={30} height={30} alt="heart" />
@@ -62,9 +63,9 @@ export default function Header() {
                             <Link href="/cart-page" className="relative">
                                 <Image src="/assets/home/bag.png" width={30} height={30} alt="heart" />
                                 {
-                                    quantity ? (
+                                    cart?.length > 0 ? (
                                         <div className="number-quantity">
-                                            {quantity}
+                                            {cart?.length}
                                         </div>
                                     ) :
                                         (

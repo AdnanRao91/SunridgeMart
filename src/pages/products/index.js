@@ -11,8 +11,14 @@ import { endPoints } from "../../constants"
 
 import { TokenStorage } from '../../utils/index';
 import { SnackbarUtility } from '../../utils/index'
+import { useDispatch, useSelector } from "react-redux"
+import { handleGetCart } from "../../store/slices/Cart"
+import { handleGetWishlist } from "../../store/slices/Wishlist"
 
 export default function Products() {
+  const dispatch = useDispatch()
+  const cartData = useSelector((state) => state?.Cart?.cartItems);
+  const wishList = useSelector((state) => state?.Wishlist?.wishlistItems);
   const [category, setCategory] = useState([]); 
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);
@@ -20,8 +26,6 @@ export default function Products() {
   const [limit, setLimit] = useState(10);
   const [payload, setPayload] = useState({})
   const [isloading, setisLoading] = useState(false)
-  const [cart, setCart] = useState([])
-  const [wishList, setWishList] = useState([])
   const snackBar = new SnackbarUtility
   const handleStorage = new TokenStorage
   // const breadcrumbs = getBreadcrumbs(router.pathname);
@@ -58,8 +62,8 @@ export default function Products() {
     getAllCategories()
     getAllBrands()
     getProducts()
-    getCart()
-    handleGetWishlistItem()
+    dispatch(handleGetCart(handleStorage.getGuid()))
+    dispatch(handleGetWishlist(handleStorage.getGuid()))
   }, []);
 
   const getAllCategories = () => {
@@ -117,14 +121,7 @@ export default function Products() {
     }
     getProducts(params)
   }
-//add to cart and wish list
 
-  const getCart = () => {
-    const apiURl = 'CartItem/get-cartitems-by-customerId/'
-    get(apiURl + handleStorage.getGuid()).then((response) => {
-      setCart(response?.data?.productWithQuantity)
-    })
-  }
   const handleAddtoCart = (e, data) => {
     e.stopPropagation();
     let payload = {
@@ -136,7 +133,7 @@ export default function Products() {
     post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
       if (response.code === 200) {
         snackBar.successMessage(response.message)
-        getCart()
+        dispatch(handleGetCart(handleStorage.getGuid()))
       }
     })
       .catch((error) => {
@@ -144,14 +141,6 @@ export default function Products() {
       });
   }
 
-  const handleGetWishlistItem = () => {
-    const apiUrl = 'WishList/get-wishlistItems-by-customerId/'
-    get(apiUrl + handleStorage.getGuid()).then((response) => {
-      setWishList(response?.data?.product)
-    }).catch((error) => {
-      snackBar.errorMessage(error.message)
-    })
-}
   const handleWishList = (e, data) => {
     e.stopPropagation();
     let payload = {
@@ -162,7 +151,7 @@ export default function Products() {
     post(`${apiUrl}?customerId=${handleStorage.getGuid()}`, payload).then((response) => {
       if(response.code === 200){
         snackBar.successMessage(response.message)
-        handleGetWishlistItem()
+        dispatch(handleGetWishlist(handleStorage.getGuid()))
       }
     }).catch((error) => {
       snackBar.errorMessage(error.message)
@@ -195,7 +184,7 @@ export default function Products() {
             />
 
 
-            <Listing cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={products} />
+            <Listing cart={cartData} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={products} />
             
             {
               products?.length < 0 ?

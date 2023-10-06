@@ -1,3 +1,4 @@
+import { FavoriteBorderOutlined, ShoppingBagOutlined } from '@mui/icons-material';
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -68,11 +69,13 @@ const ProductCard = ({ data, handleAddtoCart, cart, handleAddToWishList, wishlis
                     {/* <h3 className='text-light-black josefin-sans-regular f-18 line-through'>{originalPrice} </h3> */}
                 </div>
                 <div className='flex justify-center gap-3 items-center mt-2 icon-product-card'>
-                    <button disabled={isDisabledWishlist} onClick={(e) => handleAddToWishList(e,data)} className='icon-container'>
-                        <Image src="/assets/home/heart.png" width={20} height={20} />
+                    <button disabled={isDisabledWishlist} onClick={(e) => handleAddToWishList(e, data)} className={`icon-container ${isDisabledWishlist ? 'bg-orange-500' : ''}`}>
+                        {/* <Image src="/assets/home/heart.png" width={20} height={20} /> */}
+                        <FavoriteBorderOutlined className={`${isDisabledWishlist ? 'text-white' : 'text-orange-500'}`} />
                     </button>
-                    <button disabled={isDisabled} onClick={(e) => handleAddtoCart(e, data)} className='icon-container'>
-                        <Image src="/assets/home/bag.png" width={20} height={20} />
+                    <button disabled={isDisabled} onClick={(e) => handleAddtoCart(e, data)} className={`icon-container ${isDisabled ? 'bg-orange-500' : ''}`}>
+                        {/* <Image src="/assets/home/bag.png" width={20} height={20} /> */}
+                        <ShoppingBagOutlined className={`${isDisabled ? 'text-white' : 'text-orange-500'}`} />
                     </button>
                 </div>
             </div>
