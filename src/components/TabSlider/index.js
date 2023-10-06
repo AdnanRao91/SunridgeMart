@@ -112,10 +112,9 @@ export default function TabSlider({ tabCategory, CategoryData, isloading }) {
                 </div>
 
             </div>
-            <div className="tab grid gap-4">
-                <Slider {...settings}>
-                    {renderData()}
-                </Slider>
+            <div className="tab flex lg:justify-center md:justify-center sm:justify-center overflow-x-auto gap-4">
+            {renderData()}
+
             </div>
         </>
     )

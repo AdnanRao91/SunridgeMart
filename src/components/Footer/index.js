@@ -1,6 +1,7 @@
 import ContactFooter from '@/components/ContactFooter';
 import { Divider } from "@mui/material"
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Footer() {
     const router = useRouter()
@@ -21,30 +22,60 @@ export default function Footer() {
                         <div className='col-span-1'>
                             <div className='f-24 nova-bold black-text'>QUICK LINKS</div>
                             <ul className='list-footer'>
-                                <li>About</li>
-                                <li>Contact US</li>
-                                <li>Product</li>
-                                <li>Faqs</li>
-                                <li>Exchange Policy</li>
-                                <li>Terms & Conditions</li>
-                                <li>Privacy Policy</li>
+                                <li>
+                                    <Link href="/about-us">
+                                    About
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/contact-us">Contact US</Link>
+                                </li>
+                                <li>
+                                    <Link href="/products">Product</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Faqs</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Exchange Policy</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Terms & Conditions</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Privacy Policy</Link>
+                                </li>
                             </ul>
                         </div>
                         <div className='col-span-1'>
                             <div className='f-24 nova-bold black-text'>INFORMATION</div>
                             <ul className='list-footer'>
-                                <li>My Wishlist</li>
-                                <li>My Cart </li>
-                                <li>Check Out</li>
-                                <li>Order History</li>
+                                <li>
+                                   <Link href="/wish-list">My Wishlist</Link>
+                                </li>
+                                <li>
+                                   <Link href="/cart-page">My Cart</Link>
+                                </li>
+                                <li>
+                                    <Link href="/check-out">Check Out</Link>
+                                </li>
+                                <li>
+                                    <Link href="#">Order History</Link>
+                                </li>
                             </ul>
                         </div>
                         <div className='col-span-1'>
                             <div className='f-24 nova-bold black-text'>MY ACCOUNT</div>
                             <ul className='list-footer'>
-                                <li>MY ACCOUNT</li>
-                                <li>Sign In</li>
-                                <li>Sign Up</li>
+                                <li>
+                                    <Link href="#">MY ACCOUNT</Link>
+                                </li>
+                                <li>
+                                    <Link href="/login">Sign In</Link>
+                                </li>
+                                <li>
+                                    <Link href="/register">Sign Up</Link>
+                                </li>
                             </ul>
                         </div>
                         <div className='col-span-1'>
