@@ -145,7 +145,6 @@ function CartPage({ children }) {
                     </td>
                   </tr>
                 ))}
-
               </tbody>
             </table>
           </div>
