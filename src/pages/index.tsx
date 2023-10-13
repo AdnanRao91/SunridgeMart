@@ -10,7 +10,7 @@ import FeaturedProductComponent from "../components/FeaturedProductComponent"
 import DownloadApplication from '../components/DownloadApplication'
 import CustomerReview from '../components/CustomerReview'
 import React, { useEffect, useState } from 'react';
-import { get, post } from "@/api-services/index";
+import { deleteRequest, get, post } from "@/api-services/index";
 import { useRouter } from 'next/router';
 import { endPoints } from '@/constants'
 import { SnackbarUtility, TokenStorage } from '@/utils'
@@ -182,6 +182,23 @@ export default function Home() {
       });
   }
 
+  const handleRemoveCart = async (e: Event, data: object) => {
+    e.stopPropagation();
+    try {
+      let payload = {
+        id: 0,
+        customerId: handleStorage.getGuid(),
+        productId: data.id,
+        quantity: 0
+      }
+      let response = await deleteRequest(`${endPoints.deleteCart}?customerId=${handleStorage.getGuid()}`, payload)
+      dispatch(handleGetCart(handleStorage.getGuid()))
+    } catch (error) {
+      console.log(error, "errorerror")
+    }
+  };
+
+
 
   const handleWishList = (e: Event, data: object) => {
     e.stopPropagation();
@@ -200,6 +217,21 @@ export default function Home() {
     })
   }
 
+  const handleRemoveWishList = async (e: Event, data: object) => {
+    e.stopPropagation();
+    try {
+        let payload = {
+            id: 0,
+            customerId: handleStorage.getGuid(),
+            productId: data.id,
+        }
+        let response = await deleteRequest(`${endPoints.deleteWishlist}?customerId=${handleStorage.getGuid()}`, payload)
+        dispatch(handleGetWishlist(handleStorage.getGuid()))
+    } catch (error) {
+        console.log(error, "errorerror")
+    }
+};
+
   return (
 
     <div>
@@ -210,14 +242,14 @@ export default function Home() {
           <TabSlider isloading={isloading} tabCategory={category} CategoryData={CategoryDataa} />
         </div>
         <div className="py-12">
-          <ViewProducts cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
+          <ViewProducts handleRemoveWishList={handleRemoveWishList} handleRemoveCart={handleRemoveCart} cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
           <div className='flex justify-center my-4'>
             <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>
           </div>
         </div>
       </div>
       <MegaOffer />
-      <FeaturedProductComponent featuredProducts={productCategory} cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} handleAddtoCart={handleAddtoCart} />
+      <FeaturedProductComponent handleRemoveWishList={handleRemoveWishList} featuredProducts={productCategory} cart={cart} wishlist={wishList} handleRemoveCart={handleRemoveCart} handleAddToWishList={handleWishList} handleAddtoCart={handleAddtoCart} />
       <DownloadApplication />
       <CustomerReview review={reviews} />
     </div>

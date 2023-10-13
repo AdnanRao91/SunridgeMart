@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
 
-const ProductCard = ({ data, handleAddtoCart, cart, handleAddToWishList, wishlist }) => {
+const ProductCard = ({ data, handleAddtoCart, cart, handleAddToWishList, wishlist, handleRemoveCart, handleRemoveWishList }) => {
     const [originalPrice, setOriginalPrice] = useState([]);
     const [discountPercentage, setDiscountPercentage] = useState([]);
     const [discountedPrice, setDiscountedPrice] = useState([]);
@@ -19,17 +19,30 @@ const ProductCard = ({ data, handleAddtoCart, cart, handleAddToWishList, wishlis
         const calculatedDiscountedPrice = originalPrice - discountAmount;
         setDiscountedPrice(calculatedDiscountedPrice.toFixed(2));
     };
+
     useEffect(() => {
         calculateDiscountedPrice();
     }, [originalPrice, discountPercentage]);
+
     useEffect(() => {
-        // Whenever new data is received, update the state variables.
         setDiscountPercentage(data?.discount || 0);
         setOriginalPrice(data?.price || 0);
     }, [data]);
-    const handleAddtoWishlist = (e) => {
-        e.stopPropagation();
 
+    const handleWishList = (e, data) => {
+        if (isDisabledWishlist) {
+            handleRemoveWishList(e, data)
+        } else {
+            handleAddToWishList(e, data)
+        }
+    }
+
+    const handleCart = (e, data) => {
+        if (isDisabled) {
+            handleRemoveCart(e, data)
+        } else {
+            handleAddtoCart(e, data)
+        }
     }
 
     return (
@@ -69,11 +82,11 @@ const ProductCard = ({ data, handleAddtoCart, cart, handleAddToWishList, wishlis
                     {/* <h3 className='text-light-black josefin-sans-regular f-18 line-through'>{originalPrice} </h3> */}
                 </div>
                 <div className='flex justify-center gap-3 items-center mt-2 icon-product-card'>
-                    <button disabled={isDisabledWishlist} onClick={(e) => handleAddToWishList(e, data)} className={`icon-container ${isDisabledWishlist ? 'bg-orange-500' : ''}`}>
+                    <button onClick={(e) => handleWishList(e, data)} className={`icon-container ${isDisabledWishlist ? 'bg-orange-500' : ''}`}>
                         {/* <Image src="/assets/home/heart.png" width={20} height={20} /> */}
                         <FavoriteBorderOutlined className={`${isDisabledWishlist ? 'text-white' : 'text-orange-500'}`} />
                     </button>
-                    <button disabled={isDisabled} onClick={(e) => handleAddtoCart(e, data)} className={`icon-container ${isDisabled ? 'bg-orange-500' : ''}`}>
+                    <button onClick={(e) => handleCart(e, data)} className={`icon-container ${isDisabled ? 'bg-orange-500' : ''}`}>
                         {/* <Image src="/assets/home/bag.png" width={20} height={20} /> */}
                         <ShoppingBagOutlined className={`${isDisabled ? 'text-white' : 'text-orange-500'}`} />
                     </button>

@@ -1,7 +1,8 @@
+'use client'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Formik } from 'formik';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { LoginFormSchema } from '../../utils/Validations';
 import { post } from "../../api-services"
 import { endPoints } from '../../constants';
@@ -12,10 +13,26 @@ import withAuth from "@/HOC"
 
 const Login = () => {
     const router = useRouter()
+    let isCheckout = router.query.isCheckout || false
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const handleToken = new TokenStorage
     const showSnackbar = new SnackbarUtility
+
+    useLayoutEffect(() => {
+        if (handleToken.getToken()) {
+            router.push('/')
+        }
+    }, [])
+
+    const handleNavigate = () => {
+        if (isCheckout) {
+            router.push('/check-out')
+        } else {
+            router.push('/')
+        }
+    }
+
     const handleLogin = async (values) => {
         try {
             setIsLoading(true)
@@ -28,7 +45,7 @@ const Login = () => {
                 handleToken.saveToken(response.data.token)
                 showSnackbar.successMessage(response.message)
                 setIsLoading(false)
-                router.push('/')
+                handleNavigate()
             } else {
                 setIsLoading(false)
                 showSnackbar.errorMessage(response.message)
@@ -112,7 +129,7 @@ const Login = () => {
                                 </label>
                                 <Link href="/forgot-password-request" className="text-blue-500 hover:underline">Forgot Password?</Link>
                             </div>
-                            <LoadingButton isLoading={isLoading} title="Login" handleSubmit={handleSubmit}/>
+                            <LoadingButton isLoading={isLoading} title="Login" handleSubmit={handleSubmit} />
                             {/* <button onClick={handleSubmit} className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 transition">
                                 Login
                             </button> */}
@@ -130,4 +147,4 @@ const Login = () => {
     );
 };
 
-export default withAuth(Login) 
+export default Login

@@ -9,8 +9,10 @@ import BillingDetails from '../../components/BillingDetails';
 import PaymentMethod from '../../components/PaymentMethod';
 import OrderSummary from '../../components/OrderSummary';
 import withAuth from "../../HOC";
+import { useSelector } from 'react-redux';
+import { Divider } from '@mui/material';
 
-const steps = ['CheckOut Order Detail', 'Order Summary', 'Payment Method'];
+const steps = ['Billing details', 'Order Summary', 'Payment Method'];
 const stepContent = [
   [<BillingDetails />],
   [<OrderSummary />],
@@ -19,6 +21,15 @@ const stepContent = [
   // Add more step content here
 ];
 const CheckOut = () => {
+
+
+  const cartData = useSelector((state) => state?.Cart?.cartItems);
+  const subTotal = useSelector((state) => state?.Cart?.subTotal);
+  const taxAmount = useSelector((state) => state?.Cart?.taxAmount);
+  const totalPriceWithTax = useSelector((state) => state?.Cart?.totalPrice);
+
+  console.log(cartData,"cartDatacartDatacartData")
+
   // const stepContent = [
   //     {
   //         component:<BillingDetails />,
@@ -74,9 +85,10 @@ const CheckOut = () => {
     setActiveStep(0);
   };
 
+
   return (
     <div className='top-spacing px-20 pt-12'>
-      <Box sx={{ width: '100%' }}>
+      {/* <Box sx={{ width: '100%' }}>
         <Stepper sx={{
           width: "80%",
           margin: "0 auto"
@@ -139,8 +151,52 @@ const CheckOut = () => {
           </React.Fragment>
         )}
 
-      </Box>
+      </Box> */}
+      <div className="lg:flex lg:space-x-4">
+        <div className="lg:w-8/12">
+          <div className="bg-white p-4 shadow-lg">
+
+          </div>
+        </div>
+
+        <div className="lg:w-4/12">
+          <div className="bg-white p-4 shadow-lg">
+            <div className='total-price'>
+              <div className='f-18 nova-bold black-text uppercase text-left h-12 flex align-center'>
+                Order Summary
+              </div>
+              <Divider />
+              <div className='flex justify-between h-12'>
+                <div className='f-18 nova-bold black-text proxima-regular capitalize'>
+                  order total:
+                </div>
+                <div className='f-18 nova-bold black-text uppercase'>
+                  {subTotal ? subTotal : 0}
+                </div>
+              </div>
+              <Divider />
+              <div className='flex justify-between h-12'>
+                <div className='f-18 nova-bold black-text proxima-regular capitalize'>
+                  Tax:
+                </div>
+                <div className='f-18 nova-bold black-text uppercase'>
+                  {taxAmount ? taxAmount : 0}
+                </div>
+              </div>
+              <Divider />
+              <div className='flex justify-between h-12'>
+                <div className='f-18 nova-bold black-text proxima-regular capitalize'>
+                  Total:
+                </div>
+                <div className='f-18 nova-bold black-text uppercase'>
+                  {totalPriceWithTax ? totalPriceWithTax : 0}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-export default withAuth(CheckOut)
+export default CheckOut

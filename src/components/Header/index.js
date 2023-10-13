@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { get } from "../../api-services/index";
 import { TokenStorage } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetCart } from "@/store/slices/Cart";
@@ -40,8 +39,8 @@ export default function Header() {
                 background: scrollPosition > 40 ? "#fff" : "transparent",
                 boxShadow: scrollPosition > 40 ? "0 0 17.8px 0.2px #ababab" : 'none'
             }}>
-                <nav class="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-                    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <nav className="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+                    <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                         <Link href="/" className="flex items-center">
                             <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
                         </Link>
