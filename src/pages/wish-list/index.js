@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { useRouter } from 'next/router';
-import { Divider } from "@mui/material";
 import { deleteRequest, get, post } from '../../api-services/index'
 import { SnackbarUtility, TokenStorage } from '../../utils/index';
 import Image from "next/image";
@@ -8,6 +7,7 @@ import { endPoints } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetWishlist } from "../../store/slices/Wishlist";
 import { handleGetCart } from "../../store/slices/Cart";
+
 function WishList({ user }) {
     const dispatch = useDispatch()
     const router = useRouter();
@@ -80,7 +80,7 @@ function WishList({ user }) {
                                     return (
                                         <tr key={item?.id} className='lg:h-12 md:h-12 border-b border-gray-200'>
                                             <td>
-                                                <div class='f-18 nova-bold black-text uppercase'>
+                                                <div className='f-18 nova-bold black-text uppercase'>
                                                     <button onClick={() => handleRemove(item)} class="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
                                                 </div>
                                             </td>
@@ -104,7 +104,7 @@ function WishList({ user }) {
                                                 {item.quantity > 0 ? "In Stock" : "Out of stock"}
                                             </td>
                                             <td>
-                                                <div class='f-16 black-text uppercase'>
+                                                <div className='f-16 black-text uppercase'>
                                                     <button disabled={isDisabled} onClick={(e) => handleAddtoCart(e, item)} className={`${isDisabled ? "text-white bg-green" : "border-gray-400 text-black"} f-16  proxima-regular border  rounded-e-sm px-2 py-1`}>Add To Cart</button>
                                                 </div>
                                             </td>

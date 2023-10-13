@@ -3,7 +3,7 @@ import SideFilter from "../../components/ProductsComponents/SideFilter"
 import Listing from "../../components/ProductsComponents/Listing"
 import CustomBreadcrumbs from "../../components/CustomBreadcrumbs"
 import { useState, useEffect } from "react"
-import { get, post } from "../../api-services/index"
+import { deleteRequest, get, post } from "../../api-services/index"
 import { TablePagination } from "@mui/material"
 import { getBreadcrumbs } from "../../utils"
 import { useRouter } from "next/router"
@@ -141,6 +141,22 @@ export default function Products() {
       });
   }
 
+  const handleRemoveCart = async (e, data) => {
+    e.stopPropagation();
+    try {
+      let payload = {
+        id: 0,
+        customerId: handleStorage.getGuid(),
+        productId: data.id,
+        quantity: 0
+      }
+      let response = await deleteRequest(`${endPoints.deleteCart}?customerId=${handleStorage.getGuid()}`, payload)
+      dispatch(handleGetCart(handleStorage.getGuid()))
+    } catch (error) {
+      console.log(error, "errorerror")
+    }
+  };
+
   const handleWishList = (e, data) => {
     e.stopPropagation();
     let payload = {
@@ -157,6 +173,21 @@ export default function Products() {
       snackBar.errorMessage(error.message)
     })
   }
+
+  const handleRemoveWishList = async (e, data) => {
+    e.stopPropagation();
+    try {
+        let payload = {
+            id: 0,
+            customerId: handleStorage.getGuid(),
+            productId: data.id,
+        }
+        let response = await deleteRequest(`${endPoints.deleteWishlist}?customerId=${handleStorage.getGuid()}`, payload)
+        dispatch(handleGetWishlist(handleStorage.getGuid()))
+    } catch (error) {
+        console.log(error, "errorerror")
+    }
+};
 
 
   return (
@@ -182,10 +213,7 @@ export default function Products() {
               onRowsPerPageChange={handleChangeLimit}
               rowsPerPageOptions={[5, 10, 15, 20]}
             />
-
-
-            <Listing cart={cartData} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={products} />
-            
+            <Listing handleRemoveWishList={handleRemoveWishList} cart={cartData} wishlist={wishList} handleRemoveCart={handleRemoveCart} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={products} />
             {
               products?.length < 0 ?
                 <div>

@@ -13,6 +13,7 @@ import LoadingButton from "../../components/LoadingButton";
 
 const Register = () => {
     const router = useRouter()
+    let isCheckout = router.query.isCheckout || false
     const showSnackbar = new SnackbarUtility
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -38,7 +39,7 @@ const Register = () => {
                 showSnackbar.successMessage(response?.message)
                 setTimeout(() => {
                     setIsLoading(false)
-                    router.push('/login')
+                    router.push({ pathname: '/login', query: { isCheckout } })
                 }, 2000);
             } else {
                 showSnackbar.errorMessage((response && response?.message) ? response?.message : "Something went wrong")
@@ -217,7 +218,7 @@ const Register = () => {
                 </Formik>
                 <p className="text-center mt-4">
                     Already have an account?{' '}
-                    <Link href="/login" className="text-blue-500 hover:underline">
+                    <Link href={{ pathname: '/login', query: { isCheckout } }} className="text-blue-500 hover:underline">
                         Login
                     </Link>
                 </p>

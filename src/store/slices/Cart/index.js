@@ -43,8 +43,8 @@ export function handleGetCart(id) {
         get(`${endPoints.getCart}/${id}`).then(async (response) => {
             if (response?.code == 200) {
                 let data = response?.data?.productWithQuantity
-                let res = await handleTax(data)
                 dispatch(getCartSuccess(data))
+                let res = await handleTax(data)
                 dispatch(getTaxData(res))
             }
             else {
@@ -59,27 +59,33 @@ export function handleGetCart(id) {
 }
 
 const calculateOrderTotal = (data) => {
-    const totalPricesTemp = data?.reduce((total, product) => {
-        const subTotal = product.product.price * product.quantity;
-        const totalPrice = total + subTotal;
-        return totalPrice;
-    }, 0);
-    return totalPricesTemp
+    if (data?.length > 0) {
+        const totalPricesTemp = data?.reduce((total, product) => {
+            const subTotal = product.product.price * product.quantity;
+            const totalPrice = total + subTotal;
+            return totalPrice;
+        }, 0);
+        return totalPricesTemp
+    }
+    return 0
 }
 
 const handleTax = async (productData) => {
-    const apiURl = 'Tax/get-all';
-    return get(apiURl)
-        .then((response) => {
-            return calculateTax(response?.data, productData)
-        })
-        .catch((error) => {
-            console.error('Error fetching tax data:', error);
-        });
+    if (productData?.length > 0) {
+        const apiURl = 'Tax/get-all';
+        return get(apiURl)
+            .then((response) => {
+                return calculateTax(response?.data, productData)
+            })
+            .catch((error) => {
+                console.error('Error fetching tax data:', error);
+            });
+    }
+    return 0
 }
 
 const calculateTax = (taxData, productData) => {
-    if (taxData && productData?.length) {
+    if (taxData && productData?.length > 0) {
         const taxRate = taxData[0].taxPercent;
         const subTotal = calculateOrderTotal(productData)
         const taxAmount = (subTotal * taxRate) / 100;
@@ -89,6 +95,9 @@ const calculateTax = (taxData, productData) => {
             totalPriceWithTax
         }
     } else {
-        console.log('Tax data or total price is not available yet.');
+        return {
+            taxAmount: 0,
+            totalPriceWithTax: 0
+        }
     }
 }
