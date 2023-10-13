@@ -2,8 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { applyMiddleware, combineReducers } from 'redux';
 import Cart from "./slices/Cart"
 import Wishlist from "./slices/Wishlist"
-
-
 import thunk from "redux-thunk";
 
 const reducer = combineReducers({

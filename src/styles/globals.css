@@ -66,7 +66,9 @@
 .f-16 {
   font-size: 16px;
 }
-
+.remove-product{
+  font-size: 14px;
+}
 .f-18 {
   font-size: 18px;
 }
@@ -471,6 +473,8 @@ img.tab-image {
   border: 1px solid #1fac4c;
   border-radius: 4px;
   padding: 0.5rem;
+  height: 38px;
+  width: 38px;
 }
 .contact-us-form {
   position: relative;
@@ -581,12 +585,33 @@ span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
     top: 48px;
     left: 18%;
   }
+  .banner-header{
+    height: 50vh;
+  }
+  .exclusive-image img{
+    height: 250px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 900px){
+  .col-exclusive{
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 20px;
+  }
+  .exclusive-image{
+    display: flex;
+    justify-content: center;
+  }
+
 }
 @media screen and (max-width: 767px) {
   .exculsive-deals {
     position: absolute;
     top: 10px;
     left: 1%;
+  }
+  .colum-reverse-exculsive{
+    flex-direction: row-reverse !important;
   }
   .slick-list {
     text-align: center;
@@ -654,7 +679,7 @@ span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
     display: flex;
     text-align: left;
   }
-  table tbody td:first-child {
+ .wishlistRemove table tbody td:first-child {
     margin-bottom: 0; /* Remove the margin for the last column */
     display: flex;
     flex-direction: row-reverse;
@@ -664,6 +689,9 @@ span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
 
 }
 @media screen and (max-width: 600px) {
+  .remove-product{
+    font-size: 12px;
+  }
   .f-65 {
     font-size: 28px;
   }
@@ -696,4 +724,28 @@ span.MuiStepLabel-root.MuiStepLabel-horizontal.css-ascpo7-MuiStepLabel-root {
   .exculsive-deals {
     font-size: 30px;
   }
+  img.icon-menu-wishlist{
+    width: 25px;
+    height: 25px;
+  }
+  .number-quantity{
+    height: 20px;
+    width: 20px;
+    top: -9px;
+    right: -9px;
+  }
+
+  .wishlistRemove table tbody td:first-child {
+  top: 5px;
+  }
+  .logo-sunridge-image{
+    width: 100px !important;
+  }
+  .exculsive-deals {
+    left: 12%;
+  }
+  .banner-header{
+    height: 75vh;
+  }
+  
 }

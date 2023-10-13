@@ -42,7 +42,7 @@ export default function FeaturedProductcomponent({featuredProducts, handleAddtoC
 
     return (
         <div style={{ position: "relative" }}>
-            <div className="exculsive-section product-category-bg-img  mt-12 px-20">
+            <div className="exculsive-section product-category-bg-img mt-12 px-20">
                 <div className="grid">
                     <div className="col-span-6 background-exculsive">
                         <div className="text-center relative lg:mb-0  md:mb-0 sm:mb-8 xs:mb-8">

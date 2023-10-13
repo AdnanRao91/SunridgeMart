@@ -205,11 +205,11 @@ export default function Home() {
     <div>
       <Banner />
       <Exculsive />
-      <div className="px-20 product-img-background">
-        <div className="">
+      <div className="product-img-background">
+        <div className="lg:px-20 lg:mt-16 xs:mt-16 sm:mt-16 sm:px-10 xs:px-7 md:mt-16 md:px-10">
           <TabSlider isloading={isloading} tabCategory={category} CategoryData={CategoryDataa} />
         </div>
-        <div className="py-12">
+        <div className="py-12 px-20">
           <ViewProducts cart={cart} wishlist={wishList} handleAddToWishList={handleWishList} isloading={isloading} handleAddtoCart={handleAddtoCart} products={productCategory} />
           <div className='flex justify-center my-4'>
             <button onClick={productPage} className='f-16 nova-bold text-white bg-orange rounded-lg px-4 py-2'>Show More</button>

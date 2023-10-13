@@ -9,8 +9,7 @@ import { endPoints } from '../../constants';
 import ImageUpload from '../../components/ImageUpload';
 import { useRouter } from 'next/router';
 import { SnackbarUtility, objectToFormData } from '../../utils';
-import LoadingButton from "../../components/LoadingButton"
-
+import LoadingButton from "../../components/LoadingButton";
 
 const Register = () => {
     const router = useRouter()
@@ -212,9 +211,6 @@ const Register = () => {
                             </div>
                             <div className="col-span-2">
                                 <LoadingButton isLoading={isLoading} handleSubmit={handleSubmit} title="Sign Up" />
-                                {/* <button onClick={handleSubmit} className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 transition">
-                                    Sign Up
-                                </button> */}
                             </div>
                         </>
                     )}

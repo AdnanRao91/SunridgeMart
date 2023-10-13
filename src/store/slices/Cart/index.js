@@ -36,10 +36,7 @@ const cartSlice = createSlice({
 })
 
 export const { getCart, getCartSuccess, getCartFailure, getTaxData } = cartSlice.actions
-
 export default cartSlice.reducer
-
-
 export function handleGetCart(id) {
     return async dispatch => {
         dispatch(getCart())
@@ -60,7 +57,6 @@ export function handleGetCart(id) {
     }
 
 }
-
 
 const calculateOrderTotal = (data) => {
     const totalPricesTemp = data?.reduce((total, product) => {

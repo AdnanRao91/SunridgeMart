@@ -43,11 +43,11 @@ export default function Header() {
                 <nav class="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                         <Link href="/" className="flex items-center">
-                            <Image src="/assets/home/logo.png" width={164} height={139} alt="Sunridge Logo" />
+                            <Image src="/assets/home/logo.png" width={164} height={139} className="logo-sunridge-image" alt="Sunridge Logo" />
                         </Link>
                         <div className="flex items-center lg:order-2">
                             <Link href="/wish-list" className="relative">
-                                <Image src="/assets/home/heart.png" width={30} height={30} alt="heart" />
+                                <Image src="/assets/home/heart.png" width={30} height={30} className="icon-menu-wishlist" alt="heart" />
                                 {
                                     wishlist?.length > 0 ?
                                         <div className="number-quantity">
@@ -58,10 +58,10 @@ export default function Header() {
                                 }
                             </Link>
                             <Link href="/login" className="mx-8">
-                                <Image src="/assets/home/user.png" width={30} height={30} alt="heart" />
+                                <Image src="/assets/home/user.png" width={30} height={30} className="icon-menu-wishlist" alt="heart" />
                             </Link>
                             <Link href="/cart-page" className="relative">
-                                <Image src="/assets/home/bag.png" width={30} height={30} alt="heart" />
+                                <Image src="/assets/home/bag.png" width={30} height={30} className="icon-menu-wishlist" alt="heart" />
                                 {
                                     cart?.length > 0 ? (
                                         <div className="number-quantity">
@@ -80,21 +80,21 @@ export default function Header() {
                             </button>
                         </div>
                         <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-4 lg:mt-0">
+                            <ul className="navbar-menu flex flex-col mt-4 font-medium lg:flex-row lg:space-x-4 lg:mt-0">
                                 <li>
-                                    <Link href="/" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer rounded f-18 proxima-regular" aria-current="page">Home</Link>
+                                    <Link href="/" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer rounded f-18 proxima-regular nav-link" aria-current="page">Home</Link>
                                 </li>
                                 <li>
-                                    <Link href="/about-us" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">about</Link>
+                                    <Link href="/about-us" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular nav-link">about</Link>
                                 </li>
                                 <li>
-                                    <Link href="/products" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">shop now</Link>
+                                    <Link href="/products" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular nav-link">shop now</Link>
                                 </li>
                                 <li>
-                                    <Link href="contact-us" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">contact us</Link>
+                                    <Link href="contact-us" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular nav-link">contact us</Link>
                                 </li>
                                 <li>
-                                    <Link href="/products" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular">donate a ration box</Link>
+                                    <Link href="/products" className="block py-2 pr-4 pl-3 black-text uppercase cursor-pointer f-18 proxima-regular nav-link">donate a ration box</Link>
                                 </li>
                             </ul>
                         </div>

@@ -44,9 +44,6 @@ function CartPage({ children }) {
     }
   };
 
-
-
-
   const handlePlus = async (data) => {
     if (data.quantity < 10) {
       try {
@@ -66,7 +63,6 @@ function CartPage({ children }) {
     }
   };
 
-
   const handleRemove = async (data) => {
     try {
       let payload = {
@@ -85,7 +81,6 @@ function CartPage({ children }) {
   const handleCheckOut = () => {
     router.push('/check-out')
   }
-
 
   return (
     <div className='top-spacing mx-7'>
@@ -110,8 +105,8 @@ function CartPage({ children }) {
                 {cartData?.map((data, index) => (
                   <tr key={data?.product?.id} className='lg:h-12 md:h-12 border-b border-gray-200'>
                     <td>
-                      <div class='f-18 nova-bold black-text uppercase'>
-                        <button onClick={() => handleRemove(data)} class="f-14 text-white bg-orange px-[0.6rem] py-1 rounded-full">X</button>
+                      <div class='f-18 nova-bold black-text uppercase wishlistRemove'>
+                        <button onClick={() => handleRemove(data)} class="remove-product text-white bg-orange lg:px-[0.6rem] md:px-[0.6rem] sm:px-[0.6rem] xs:px-[0.5rem] lg:py-1 md:py-1 sm:py-1 xs:pt-[0.3rem] xs:pb-[0.2rem] rounded-full">X</button>
                       </div>
                     </td>
                     <td>
@@ -148,7 +143,7 @@ function CartPage({ children }) {
               </tbody>
             </table>
           </div>
-          <div className='col-span-3'>
+          <div className='lg:col-span-3 md:col-span-3 sm:col-span-3 xs:col-span-12'>
             <div className='total-price'>
               <div className='f-18 nova-bold black-text uppercase text-left h-12 flex align-center'>
                 Order Summary

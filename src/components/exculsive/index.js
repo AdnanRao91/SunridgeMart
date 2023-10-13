@@ -19,7 +19,7 @@ export default function Exculsive() {
         });
     }, []);
     return (
-        <div className="exculsive-img-background px-20 lg:mt-44 xs:mt-16 sm:mt-16 md:mt-16">
+        <div className="exculsive-img-background lg:px-20 lg:mt-44 xs:mt-16 sm:mt-16 sm:px-10 xs:px-4 md:mt-16 md:px-10">
             <div className="exculsive-section my-12">
                 <div className="lg:grid">
                     <div className="col-span-6 background-exculsive">
@@ -35,9 +35,9 @@ export default function Exculsive() {
                 </div>
 
             </div>
-            <div className="flex grid lg:grid-cols-6 md:grid-cols-6  gap-2">
-                <div className="col-span-2">
-                    <div className="flex justify-between">
+            <div className="flex grid lg:grid-cols-6 md:grid-cols-6 gap-2">
+                <div className="col-span-2 col-exclusive">
+                    <div className="flex justify-between colum-reverse-exculsive">
                         <div className="nova-bold f-16 w-10/12">
                             ENERGY-PACKED CARBS
                             <p className="proxima-regular f-16">Our Premium Basmati Rice is a potent source of carbohydrates, providing a quick and sustained energy boost for active lifestyles.
@@ -49,7 +49,7 @@ export default function Exculsive() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-between my-8">
+                    <div className="flex justify-between colum-reverse-exculsive lg:my-8 md:my-8 sm:my-0 xs:my-8">
                         <div className="nova-bold f-16 w-10/12">
                             VERSATILE INGREDIENT
                             <p className="proxima-regular f-16">
@@ -63,10 +63,10 @@ export default function Exculsive() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 exclusive-image">
                     <img src="/assets/home/banaspati-rice.png" />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 col-exclusive">
                     <div className="flex justify-between">
                         <div>
                             <div className="box-exculsive p-2">
@@ -80,7 +80,7 @@ export default function Exculsive() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex justify-between my-8">
+                    <div className="flex justify-between lg:my-8 md:my-8 sm:mt-0 sm:mb-8 xs:my-8">
                         <div>
                             <div className="box-exculsive p-2">
                                 <img src="/assets/home/wallet-1.png" alt="heart" />

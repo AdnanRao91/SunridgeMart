@@ -14,7 +14,7 @@ export default function ContactFooter() {
         <>
         <div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:pt-20 sm:pt-0 xs:pt-20">
             <div className="col-span-1 contact-us-form">
-                <div className="contact-us bg-grey lg:p-4 sm:px-20 sm:mx-0 xs:px-4 lg:my-20 sm:my-12">
+                <div className="contact-us bg-grey lg:p-4 sm:px-10 sm:mx-0 xs:px-7 lg:my-20 sm:my-12 md:px-10">
                     <div className="contact-heading uppercase black-text f-50 nova-bold">
                         GET IN TOUCH
                     </div>
@@ -27,23 +27,23 @@ export default function ContactFooter() {
                     <div className="flex">
                     <input type="email" name="email" class="px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 block w-3/4 inputField" placeholder="Enter your Email" />
                     <button className="bg-light-orange btn-sign-up">
-                        <img src="/assets/home/send.png" />
+                        <img src="/assets/home/send.png"  />
                     </button>
                     </div>
                     <div className="py-12">
-                        <div className="flex">
+                        <div className="flex items-center">
                             <img src="/assets/home/map.png" className="image-contact me-4"/>
                             <div className="f-14 text-light-black proxima-regular">
                             Shop # 6, 7 & 8, Tai Roshan Residency P.E.C.H.S. Block 2, Allama Iqbal Road, Karachi, Pakistan
                             </div>
                         </div>
-                        <div className="flex my-4">
+                        <div className="flex my-4 items-center">
                             <img src="/assets/home/mail.png" className="image-contact me-4"/>
                             <div className="f-14 text-light-black proxima-regular">
                             info@sunridgefoods.com
                             </div>
                         </div>
-                        <div className="flex">
+                        <div className="flex items-center">
                             <img src="/assets/home/phone-call.png" className="image-contact me-4"/>
                             <div className="f-14 text-light-black proxima-regular">
                             0800 Unity(86489)
